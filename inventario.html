@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="banner">Cafeteria Cesde</div>
+        <img src="Images/banner.webp" alt="Header Image">
+        <div class="eslogan">Donde el conocimiento se mezcla con buen café.</div>
+        <div class="logo"><img src="Images/cafe cesde logo.jpg" alt="Logo image"></div>
+    </header>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="mer.html">MER</a>
+        <a href="logica.html">Logica</a>
+        <a href="soporte.html">Soporte</a>
+    </nav> 
+   <main>
+        <form id="inventario-form" action="#" method="POST">
+            <h2>📦 Gestión de Inventario</h2>          
+            <fieldset>
+                <legend>📊 Configuración del Inventario</legend>              
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="tipo_inventario">Tipo de inventario:</label>
+                        <select id="tipo_inventario" name="tipo_inventario" required>
+                            <option value="">--Seleccionar frecuencia--</option>
+                            <option value="diario">📅 Inventario Diario</option>
+                            <option value="semanal">📆 Inventario Semanal</option>
+                            <option value="quincenal">🗓️ Inventario Quincenal</option>
+                            <option value="mensual">📋 Inventario Mensual</option>
+                            <option value="especial">🔍 Inventario Especial</option>
+                        </select>
+                    </div>                   
+                    <div class="input-group">
+                        <label for="fecha_inventario">Fecha del inventario:</label>
+                        <input type="date" id="fecha_inventario" name="fecha_inventario" required>
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="responsable">Responsable del inventario:</label>
+                        <input type="text" id="responsable" name="responsable" 
+                               placeholder="Nombre del empleado responsable" required>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="categoria-inventario">
+                <legend>🥐 Inventario de Pastelería</legend>
+                <br>
+                <h4>🧂 Pastelería Salada</h4>
+                <div class="tabla-inventario">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Producto</th>
+                                <th>Stock Actual</th>
+                                <th>Stock Mínimo</th>
+                                <th>Próximo Pedido</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>[14]</td>
+                                <td>Croissant (Mantequilla)</td>
+                                <td><input type="number" name="stock_14" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_14" min="0" value="12"></td>
+                                <td><input type="number" name="pedido_14" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[15]</td>
+                                <td>Croissant (Integral)</td>
+                                <td><input type="number" name="stock_15" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_15" min="0" value="8"></td>
+                                <td><input type="number" name="pedido_15" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[16]</td>
+                                <td>Croissant (Avena)</td>
+                                <td><input type="number" name="stock_16" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_16" min="0" value="8"></td>
+                                <td><input type="number" name="pedido_16" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[17]</td>
+                                <td>Croissant (Queso)</td>
+                                <td><input type="number" name="stock_17" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_17" min="0" value="8"></td>
+                                <td><input type="number" name="pedido_17" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[18]</td>
+                                <td>Pastel de Pollo</td>
+                                <td><input type="number" name="stock_18" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_18" min="0" value="8"></td>
+                                <td><input type="number" name="pedido_18" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[19]</td>
+                                <td>Pastel de Carne</td>
+                                <td><input type="number" name="stock_19" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_19" min="0" value="8"></td>
+                                <td><input type="number" name="pedido_19" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[20]</td>
+                                <td>Pastel de Jamón y Queso</td>
+                                <td><input type="number" name="stock_20" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_20" min="0" value="8"></td>
+                                <td><input type="number" name="pedido_20" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[21]</td>
+                                <td>Pastel Ranchero</td>
+                                <td><input type="number" name="stock_21" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_21" min="0" value="8"></td>
+                                <td><input type="number" name="pedido_21" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[22]</td>
+                                <td>Palito de Queso</td>
+                                <td><input type="number" name="stock_22" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_22" min="0" value="8"></td>
+                                <td><input type="number" name="pedido_22" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[23]</td>
+                                <td>Pan de Queso</td>
+                                <td><input type="number" name="stock_23" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_23" min="0" value="8"></td>
+                                <td><input type="number" name="pedido_23" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                             <tr>
+                                <td>[24]</td>
+                                <td>Papa con carne</td>
+                                <td><input type="number" name="stock_24" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_24" min="0" value="8"></td>
+                                <td><input type="number" name="pedido_24" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[25]</td>
+                                <td>Empanada (Pollo)</td>
+                                <td><input type="number" name="stock_25" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_25" min="0" value="20"></td>
+                                <td><input type="number" name="pedido_25" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[26]</td>
+                                <td>Empanada (Carne)</td>
+                                <td><input type="number" name="stock_26" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_26" min="0" value="20"></td>
+                                <td><input type="number" name="pedido_26" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[27]</td>
+                                <td>Empanada (Queso)</td>
+                                <td><input type="number" name="stock_27" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_27" min="0" value="15"></td>
+                                <td><input type="number" name="pedido_27" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[28]</td>
+                                <td>Empanada (Papa)</td>
+                                <td><input type="number" name="stock_28" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_28" min="0" value="15"></td>
+                                <td><input type="number" name="pedido_28" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h4>🍯 Pastelería Dulce</h4>
+                <br>
+                <div class="tabla-inventario">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Producto</th>
+                                <th>Stock Actual</th>
+                                <th>Stock Mínimo</th>
+                                <th>Próximo Pedido</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>[29]</td>
+                                <td>Croissant (Chocolate)</td>
+                                <td><input type="number" name="stock_29" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_29" min="0" value="12"></td>
+                                <td><input type="number" name="pedido_29" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[30]</td>
+                                <td>Muffin (Arándano)</td>
+                                <td><input type="number" name="stock_30" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_30" min="0" value="10"></td>
+                                <td><input type="number" name="pedido_30" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[31]</td>
+                                <td>Muffin (Yogurt)</td>
+                                <td><input type="number" name="stock_31" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_31" min="0" value="10"></td>
+                                <td><input type="number" name="pedido_31" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[32]</td>
+                                <td>Muffin (Chocolate)</td>
+                                <td><input type="number" name="stock_32" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_32" min="0" value="10"></td>
+                                <td><input type="number" name="pedido_32" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[33]</td>
+                                <td>Porción de Pastel (Chocolate)</td>
+                                <td><input type="number" name="stock_33" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_33" min="0" value="6"></td>
+                                <td><input type="number" name="pedido_33" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[34]</td>
+                                <td>Porción de Pastel (Fresa)</td>
+                                <td><input type="number" name="stock_34" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_34" min="0" value="6"></td>
+                                <td><input type="number" name="pedido_34" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[35]</td>
+                                <td>Porción de Pastel (Naranja)</td>
+                                <td><input type="number" name="stock_35" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_35" min="0" value="6"></td>
+                                <td><input type="number" name="pedido_35" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[36]</td>
+                                <td>Porción de Pastel (Banano)</td>
+                                <td><input type="number" name="stock_36" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_36" min="0" value="6"></td>
+                                <td><input type="number" name="pedido_36" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[37]</td>
+                                <td>Porción de Pastel (Caramelo)</td>
+                                <td><input type="number" name="stock_37" min="0" placeholder="0"></td>
+                                <td><input type="number" name="minimo_37" min="0" value="6"></td>
+                                <td><input type="number" name="pedido_37" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+            <fieldset class="categoria-inventario">
+                <legend>🥛 Materias Primas e Insumos</legend>
+                
+                <div class="tabla-inventario">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Insumo</th>
+                                <th>Stock Actual</th>
+                                <th>Unidad</th>
+                                <th>Stock Mínimo</th>
+                                <th>Próximo Pedido</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>[5]</td>
+                                <td>Café en grano</td>
+                                <td><input type="number" name="stock_5" min="0" step="0.1" placeholder="0.0"></td>
+                                <td>kg</td>
+                                <td><input type="number" name="minimo_5" min="0" step="0.1" value="5.0"></td>
+                                <td><input type="number" name="pedido_5" min="0" step="0.1" placeholder="0.0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[6]</td>
+                                <td>Chocolate en polvo</td>
+                                <td><input type="number" name="stock_6" min="0" step="0.1" placeholder="0.0"></td>
+                                <td>kg</td>
+                                <td><input type="number" name="minimo_6" min="0" step="0.1" value="5.0"></td>
+                                <td><input type="number" name="pedido_6" min="0" step="0.1" placeholder="0.0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[7]</td>
+                                <td>Salsa de chocolate</td>
+                                <td><input type="number" name="stock_7" min="0" step="0.1" placeholder="0.0"></td>
+                                <td>ml</td>
+                                <td><input type="number" name="minimo_7" min="0" step="0.1" value="5.0"></td>
+                                <td><input type="number" name="pedido_7" min="0" step="0.1" placeholder="0.0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[8]</td>
+                                <td>Te chai</td>
+                                <td><input type="number" name="stock_8" min="0" step="0.1" placeholder="0.0"></td>
+                                <td>kg</td>
+                                <td><input type="number" name="minimo_8" min="0" step="0.1" value="5.0"></td>
+                                <td><input type="number" name="pedido_8" min="0" step="0.1" placeholder="0.0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[9]</td>
+                                <td>Te matcha</td>
+                                <td><input type="number" name="stock_9" min="0" step="0.1" placeholder="0.0"></td>
+                                <td>kg</td>
+                                <td><input type="number" name="minimo_9" min="0" step="0.1" value="5.0"></td>
+                                <td><input type="number" name="pedido_9" min="0" step="0.1" placeholder="0.0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[10]</td>
+                                <td>Te taro</td>
+                                <td><input type="number" name="stock_10" min="0" step="0.1" placeholder="0.0"></td>
+                                <td>kg</td>
+                                <td><input type="number" name="minimo_10" min="0" step="0.1" value="5.0"></td>
+                                <td><input type="number" name="pedido_10" min="0" step="0.1" placeholder="0.0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>                            
+                            <tr>
+                                <td>[13]</td>
+                                <td>Endulzante</td>
+                                <td><input type="number" name="stock_13" min="0" step="0.1" placeholder="0.0"></td>
+                                <td>kg</td>
+                                <td><input type="number" name="minimo_13" min="0" step="0.1" value="5.0"></td>
+                                <td><input type="number" name="pedido_13" min="0" step="0.1" placeholder="0.0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>                            
+                            <tr>
+                                <td>[43]</td>
+                                <td>Limones</td>
+                                <td><input type="number" name="stock_43" min="0" step="0.1" placeholder="0.0"></td>
+                                <td>kg</td>
+                                <td><input type="number" name="minimo_43" min="0" step="0.1" value="5.0"></td>
+                                <td><input type="number" name="pedido_43" min="0" step="0.1" placeholder="0.0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[44]</td>
+                                <td>Fresas</td>
+                                <td><input type="number" name="stock_44" min="0" step="0.1" placeholder="0.0"></td>
+                                <td>kg</td>
+                                <td><input type="number" name="minimo_44" min="0" step="0.1" value="5.0"></td>
+                                <td><input type="number" name="pedido_44" min="0" step="0.1" placeholder="0.0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[45]</td>
+                                <td>Gaseosa pet 400</td>
+                                <td><input type="number" name="stock_45" min="0" step="0.1" placeholder="0.0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_45" min="0" step="0.1" value="5.0"></td>
+                                <td><input type="number" name="pedido_45" min="0" step="0.1" placeholder="0.0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[46]</td>
+                                <td>Helado de vainilla</td>
+                                <td><input type="number" name="stock_46" min="0" step="0.1" placeholder="0.0"></td>
+                                <td>L</td>
+                                <td><input type="number" name="minimo_46" min="0" step="0.1" value="5.0"></td>
+                                <td><input type="number" name="pedido_46" min="0" step="0.1" placeholder="0.0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[11]</td>
+                                <td>Leche deslactosada</td>
+                                <td><input type="number" name="stock_11" min="0" step="0.5" placeholder="0.0"></td>
+                                <td>L</td>
+                                <td><input type="number" name="minimo_11" min="0" step="0.5" value="10.0"></td>
+                                <td><input type="number" name="pedido_11" min="0" step="0.5" placeholder="0.0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[12]</td>
+                                <td>Azúcar</td>
+                                <td><input type="number" name="stock_12" min="0" step="0.1" placeholder="0.0"></td>
+                                <td>kg</td>
+                                <td><input type="number" name="minimo_12" min="0" step="0.1" value="3.0"></td>
+                                <td><input type="number" name="pedido_12" min="0" step="0.1" placeholder="0.0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[1]</td>
+                                <td>Vasos 4oz</td>
+                                <td><input type="number" name="stock_1" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_1" min="0" value="100"></td>
+                                <td><input type="number" name="pedido_1" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[2]</td>
+                                <td>Vasos 10oz</td>
+                                <td><input type="number" name="stock_2" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_2" min="0" value="150"></td>
+                                <td><input type="number" name="pedido_2" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[3]</td>
+                                <td>Vasos 16oz</td>
+                                <td><input type="number" name="stock_3" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_3" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_3" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[4]</td>
+                                <td>Vaso domo 16oz</td>
+                                <td><input type="number" name="stock_4" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_4" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_4" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[58]</td>
+                                <td>Tapas para vasos</td>
+                                <td><input type="number" name="stock_58" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_58" min="0" value="200"></td>
+                                <td><input type="number" name="pedido_58" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[38]</td>
+                                <td>Sándwich de Pollo</td>
+                                <td><input type="number" name="stock_38" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_38" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_38" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[39]</td>
+                                <td>Wrap de Queso y Jamón</td>
+                                <td><input type="number" name="stock_39" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_39" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_39" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[40]</td>
+                                <td>Desayuno Sencillo</td>
+                                <td><input type="number" name="stock_40" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_40" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_40" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[41]</td>
+                                <td>Desayuno Americano</td>
+                                <td><input type="number" name="stock_41" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_41" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_41" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[42]</td>
+                                <td>Desayuno Ranchero</td>
+                                <td><input type="number" name="stock_42" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_42" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_42" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[47]</td>
+                                <td>Rosquillas</td>
+                                <td><input type="number" name="stock_47" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_47" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_47" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[48]</td>
+                                <td>Papas Margarita</td>
+                                <td><input type="number" name="stock_48" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_48" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_48" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[49]</td>
+                                <td>Galletas Integrales</td>
+                                <td><input type="number" name="stock_49" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_49" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_49" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[50]</td>
+                                <td>Barra de Granola</td>
+                                <td><input type="number" name="stock_50" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_50" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_50" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[51]</td>
+                                <td>Mix de Frutos Secos</td>
+                                <td><input type="number" name="stock_51" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_51" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_51" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[52]</td>
+                                <td>Platos</td>
+                                <td><input type="number" name="stock_52" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_52" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_52" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[53]</td>
+                                <td>Cuchillos</td>
+                                <td><input type="number" name="stock_53" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_53" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_53" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[54]</td>
+                                <td>Tenedores</td>
+                                <td><input type="number" name="stock_54" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_54" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_54" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[55]</td>
+                                <td>Cucharas</td>
+                                <td><input type="number" name="stock_55" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_55" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_55" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[56]</td>
+                                <td>Pitillos</td>
+                                <td><input type="number" name="stock_56" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_56" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_56" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                            <tr>
+                                <td>[57]</td>
+                                <td>Servilletas</td>
+                                <td><input type="number" name="stock_57" min="0" placeholder="0"></td>
+                                <td>und</td>
+                                <td><input type="number" name="minimo_57" min="0" value="500"></td>
+                                <td><input type="number" name="pedido_57" min="0" placeholder="0"></td>
+                                <td class="estado-stock">➖</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+
+            <fieldset class="resumen-inventario">
+                <legend>📊 Resumen del Inventario</legend>
+                
+                <div class="alertas-inventario">
+                    <div class="alerta-critica">
+                        <h4>🔴 Stock Crítico (Agotado)</h4>
+                        <ul id="stock-critico">
+                            <li>No hay productos en estado crítico</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="alerta-bajo">
+                        <h4>🟡 Stock Bajo</h4>
+                        <ul id="stock-bajo">
+                            <li>No hay productos con stock bajo</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="alerta-optimo">
+                        <h4>🟢 Stock Óptimo</h4>
+                        <ul id="stock-optimo">
+                            <li>No hay productos con stock óptimo</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="estadisticas-inventario">
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-productos">0</span>
+                        <span class="stat-label">Productos Registrados</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="productos-criticos">0</span>
+                        <span class="stat-label">En Estado Crítico</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="productos-bajo">0</span>
+                        <span class="stat-label">Stock Bajo</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="valor-inventario">$0</span>
+                        <span class="stat-label">Valor Total Inventario</span>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">💾 Guardar Inventario</button>
+                <button type="button" class="btn-secondary">📄 Generar Reporte</button>
+                <button type="button" class="btn-export">📊 Exportar a Excel</button>
+                <a href="index.html" class="btn-link">🏠 Volver al Inicio</a>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <p>Hecho por Equipo Cesde 2025-1</p>
+        <p>Soporte: 3008694578</p>
+        <p>Email: equipocesde25@gmail.com</p>
+        <div class="redes">
+            <div class="redes">
+                <a href="#"><img src="Images/whatsapp.png" alt="Whatsapp icon"></a>
+                <a href="#"><img src="Images/tik-tok.png" alt="Tiktok icon"></a>
+                <a href="#"><img src="Images/facebook.png" alt="Facebook icon"></a>
+                <a href="#"><img src="Images/signo-de-twitter.png" alt="Twitter icon"></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compra</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="banner">Cafeteria Cesde</div>
+        <img src="Images/banner.webp" alt="Header Image">
+        <div class="eslogan">Donde el conocimiento se mezcla con buen café.</div>
+        <div class="logo"><img src="Images/cafe cesde logo.jpg" alt="Logo image"></div>
+    </header>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="mer.html">MER</a>
+        <a href="logica.html">Logica</a>
+        <a href="soporte.html">Soporte</a>
+    </nav> 
+    <main>
+        <form id="compra-form" action="factura.html" method="GET">
+            <h2>🛒 Registrar Compra</h2>
+            <fieldset>
+                <legend>☕ Café</legend>
+                <h4>🔥 Caliente</h4>
+                <div class="subcategoria-productos">
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Cafe_Espresso_Caliente">
+                            <span class="producto-info">
+                                <strong>[52] Café Espresso</strong> - $3.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Cafe_Espresso_Caliente" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Cafe_Latte_Caliente">
+                            <span class="producto-info">
+                                <strong>[53] Café Latte</strong> - $4.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Cafe_Latte_Caliente" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Cafe_Moka_Caliente">
+                            <span class="producto-info">
+                                <strong>[54] Café Moka</strong> - $5.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Cafe_Moka_Caliente" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Cafe_Americano_Caliente">
+                            <span class="producto-info">
+                                <strong>[55] Café Americano</strong> - $3.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Cafe_Americano_Caliente" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Cappuccino_Caliente">
+                            <span class="producto-info">
+                                <strong>[56] Cappuccino</strong> - $4.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Cappuccino_Caliente" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                </div>
+                <h4>🧊 Frío</h4>
+                <div class="subcategoria-productos">
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Frappe">
+                            <span class="producto-info">
+                                <strong>[57] Frappe</strong> - $6.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Frappe" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Cafe_Latte_Frio">
+                            <span class="producto-info">
+                                <strong>[58] Café Latte</strong> - $5.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Cafe_Latte_Frio" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Cafe_Americano_Frio">
+                            <span class="producto-info">
+                                <strong>[59] Café Americano</strong> - $4.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Cafe_Americano_Frio" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Cappuccino_Frio">
+                            <span class="producto-info">
+                                <strong>[60] Cappuccino</strong> - $5.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Cappuccino_Frio" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Cold_Brew">
+                            <span class="producto-info">
+                                <strong>[61] Cold Brew</strong> - $5.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Cold_Brew" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>🥐 Pastelería</legend>
+                <h4>🧂 Salada</h4>
+                <div class="subcategoria-productos">
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Croissant_Mantequilla">
+                            <span class="producto-info">
+                                <strong>[14] Croissant de Mantequilla</strong> - $3.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Croissant_Mantequilla" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Croissant_Integral">
+                            <span class="producto-info">
+                                <strong>[15] Croissant Integral</strong> - $4.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Croissant_Integral" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Croissant_Avena">
+                            <span class="producto-info">
+                                <strong>[16] Croissant de Avena</strong> - $4.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Croissant_Avena" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Croissant_Queso">
+                            <span class="producto-info">
+                                <strong>[17] Croissant de Queso</strong> - $4.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Croissant_Queso" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Pastel_Pollo">
+                            <span class="producto-info">
+                                <strong>[18] Pastel de Pollo</strong> - $6.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Pastel_Pollo" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Pastel_Carne">
+                            <span class="producto-info">
+                                <strong>[19] Pastel de Carne</strong> - $6.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Pastel_Carne" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Pastel_Jamon_Queso">
+                            <span class="producto-info">
+                                <strong>[20] Pastel de Jamón y Queso</strong> - $6.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Pastel_Jamon_Queso" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Pastel_Ranchero">
+                            <span class="producto-info">
+                                <strong>[21] Pastel Ranchero</strong> - $6.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Pastel_Ranchero" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Palito_Queso">
+                            <span class="producto-info">
+                                <strong>[22] Palito de Queso</strong> - $3.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Palito_Queso" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Pan_Queso">
+                            <span class="producto-info">
+                                <strong>[23] Pan de Queso</strong> - $2.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Pan_Queso" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Papa_Carne">
+                            <span class="producto-info">
+                                <strong>[24] Papa con Carne</strong> - $7.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Papa_Carne" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Empanada_Pollo">
+                            <span class="producto-info">
+                                <strong>[25] Empanada de Pollo</strong> - $3.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Empanada_Pollo" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Empanada_Carne">
+                            <span class="producto-info">
+                                <strong>[26] Empanada de Carne</strong> - $3.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Empanada_Carne" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Empanada_Queso">
+                            <span class="producto-info">
+                                <strong>[27] Empanada de Queso</strong> - $3.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Empanada_Queso" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Empanada_Papa">
+                            <span class="producto-info">
+                                <strong>[28] Empanada de Papa</strong> - $3.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Empanada_Papa" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                </div>
+                <h4>🍯 Dulce</h4>
+                <div class="subcategoria-productos">
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Croissant_Chocolate">
+                            <span class="producto-info">
+                                <strong>[29] Croissant de Chocolate</strong> - $4.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Croissant_Chocolate" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Muffin_Arandano">
+                            <span class="producto-info">
+                                <strong>[30] Muffin con Arándanos</strong> - $4.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Muffin_Arandano" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Muffin_Yogurt">
+                            <span class="producto-info">
+                                <strong>[31] Muffin con Yogurt</strong> - $4.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Muffin_Yogurt" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Muffin_Chocolate">
+                            <span class="producto-info">
+                                <strong>[32] Muffin de Chocolate</strong> - $4.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Muffin_Chocolate" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Pastel_Chocolate">
+                            <span class="producto-info">
+                                <strong>[33] Porción Pastel de Chocolate</strong> - $5.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Pastel_Chocolate" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Pastel_Fresa">
+                            <span class="producto-info">
+                                <strong>[34] Porción Pastel de Fresa</strong> - $5.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Pastel_Fresa" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Pastel_Naranja">
+                            <span class="producto-info">
+                                <strong>[35] Porción Pastel de Naranja</strong> - $5.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Pastel_Naranja" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Pastel_Banano">
+                            <span class="producto-info">
+                                <strong>[36] Porción Pastel de Banano</strong> - $5.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Pastel_Banano" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Pastel_Caramelo">
+                            <span class="producto-info">
+                                <strong>[37] Porción Pastel de Caramelo</strong> - $5.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Pastel_Caramelo" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>🍳 Desayunos</legend>               
+                <div class="producto-group">
+                    <label class="producto-label">
+                        <input type="checkbox" name="producto[]" value="Sandwich_Pollo">
+                        <span class="producto-info">
+                            <strong>[38] Sándwich de Pollo</strong> - $7.000
+                        </span>
+                    </label>
+                    <label class="cantidad-label">
+                        Cantidad: <input type="number" name="cantidad_Sandwich_Pollo" min="0" max="10" value="0">
+                    </label>
+                </div>
+                <div class="producto-group">
+                    <label class="producto-label">
+                        <input type="checkbox" name="producto[]" value="Wrap_Queso_Jamon">
+                        <span class="producto-info">
+                            <strong>[39] Wrap de Queso y Jamón</strong> - $6.500
+                        </span>
+                    </label>
+                    <label class="cantidad-label">
+                        Cantidad: <input type="number" name="cantidad_Wrap_Queso_Jamon" min="0" max="10" value="0">
+                    </label>
+                </div>
+                <div class="producto-group">
+                    <label class="producto-label">
+                        <input type="checkbox" name="producto[]" value="Desayuno_Sencillo">
+                        <span class="producto-info">
+                            <strong>[40] Desayuno Sencillo</strong> - $8.000
+                        </span>
+                    </label>
+                    <label class="cantidad-label">
+                        Cantidad: <input type="number" name="cantidad_Desayuno_Sencillo" min="0" max="10" value="0">
+                    </label>
+                </div>
+                <div class="producto-group">
+                    <label class="producto-label">
+                        <input type="checkbox" name="producto[]" value="Desayuno_Americano">
+                        <span class="producto-info">
+                            <strong>[41] Desayuno Americano</strong> - $10.000
+                        </span>
+                    </label>
+                    <label class="cantidad-label">
+                        Cantidad: <input type="number" name="cantidad_Desayuno_Americano" min="0" max="10" value="0">
+                    </label>
+                </div>
+                <div class="producto-group">
+                    <label class="producto-label">
+                        <input type="checkbox" name="producto[]" value="Desayuno_Ranchero">
+                        <span class="producto-info">
+                            <strong>[42] Desayuno Ranchero</strong> - $9.500
+                        </span>
+                    </label>
+                    <label class="cantidad-label">
+                        Cantidad: <input type="number" name="cantidad_Desayuno_Ranchero" min="0" max="10" value="0">
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>🥤 Bebidas</legend>               
+                <h4>🧊 Frías</h4>
+                <div class="subcategoria-productos">
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Te_Matcha_Frio">
+                            <span class="producto-info">
+                                <strong>[62] Té Matcha</strong> - $5.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Te_Matcha_Frio" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Chocolate_Frio">
+                            <span class="producto-info">
+                                <strong>[63] Chocolate</strong> - $4.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Chocolate_Frio" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Te_Chai_Frio">
+                            <span class="producto-info">
+                                <strong>[64] Té Chai</strong> - $5.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Te_Chai_Frio" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Te_Taro_Frio">
+                            <span class="producto-info">
+                                <strong>[65] Té Taro</strong> - $5.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Te_Taro_Frio" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Smoothie">
+                            <span class="producto-info">
+                                <strong>[66] Smoothie</strong> - $7.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Smoothie" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Leche_Fria">
+                            <span class="producto-info">
+                                <strong>[11] Leche</strong> - $2.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Leche_Fria" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Malteada">
+                            <span class="producto-info">
+                                <strong>[67] Malteada</strong> - $6.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Malteada" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Limonada">
+                            <span class="producto-info">
+                                <strong>[68] Limonada</strong> - $3.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Limonada" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Agua">
+                            <span class="producto-info">
+                                <strong>[69] Agua</strong> - $2.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Agua" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Gaseosa_PET">
+                            <span class="producto-info">
+                                <strong>[45] Gaseosa Pet 400</strong> - $3.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Gaseosa_PET" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                </div>
+                <h4>🔥 Calientes</h4>
+                <div class="subcategoria-productos">
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Te_Matcha_Caliente">
+                            <span class="producto-info">
+                                <strong>[70] Té Matcha</strong> - $5.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Te_Matcha_Caliente" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Chocolate_Caliente">
+                            <span class="producto-info">
+                                <strong>[71] Chocolate</strong> - $4.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Chocolate_Caliente" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Te_Chai_Caliente">
+                            <span class="producto-info">
+                                <strong>[72] Té Chai</strong> - $5.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Te_Chai_Caliente" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Te_Taro_Caliente">
+                            <span class="producto-info">
+                                <strong>[73] Té Taro</strong> - $5.000
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Te_Taro_Caliente" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                    <div class="producto-group">
+                        <label class="producto-label">
+                            <input type="checkbox" name="producto[]" value="Leche_Caliente">
+                            <span class="producto-info">
+                                <strong>[74] Leche</strong> - $2.500
+                            </span>
+                        </label>
+                        <label class="cantidad-label">
+                            Cantidad: <input type="number" name="cantidad_Leche_Caliente" min="0" max="10" value="0">
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>🍿 Snacks</legend>               
+                <div class="producto-group">
+                    <label class="producto-label">
+                        <input type="checkbox" name="producto[]" value="Rosquillas">
+                        <span class="producto-info">
+                            <strong>[47] Rosquillas</strong> - $2.000
+                        </span>
+                    </label>
+                    <label class="cantidad-label">
+                        Cantidad: <input type="number" name="cantidad_Rosquillas" min="0" max="10" value="0">
+                    </label>
+                </div>
+                <div class="producto-group">
+                    <label class="producto-label">
+                        <input type="checkbox" name="producto[]" value="Papas_Margarita">
+                        <span class="producto-info">
+                            <strong>[48] Papas Margarita</strong> - $3.000
+                        </span>
+                    </label>
+                    <label class="cantidad-label">
+                        Cantidad: <input type="number" name="cantidad_Papas_Margarita" min="0" max="10" value="0">
+                    </label>
+                </div>
+                <div class="producto-group">
+                    <label class="producto-label">
+                        <input type="checkbox" name="producto[]" value="Galletas_Integrales">
+                        <span class="producto-info">
+                            <strong>[49] Galletas Integrales</strong> - $2.500
+                        </span>
+                    </label>
+                    <label class="cantidad-label">
+                        Cantidad: <input type="number" name="cantidad_Galletas_Integrales" min="0" max="10" value="0">
+                    </label>
+                </div>
+                <div class="producto-group">
+                    <label class="producto-label">
+                        <input type="checkbox" name="producto[]" value="Barra_Granola">
+                        <span class="producto-info">
+                            <strong>[50] Barra de Granola</strong> - $3.000
+                        </span>
+                    </label>
+                    <label class="cantidad-label">
+                        Cantidad: <input type="number" name="cantidad_Barra_Granola" min="0" max="10" value="0">
+                    </label>
+                </div>
+                <div class="producto-group">
+                    <label class="producto-label">
+                        <input type="checkbox" name="producto[]" value="Mix_Frutos_Secos">
+                        <span class="producto-info">
+                            <strong>[51] Mix de Frutos Secos</strong> - $4.000
+                        </span>
+                    </label>
+                    <label class="cantidad-label">
+                        Cantidad: <input type="number" name="cantidad_Mix_Frutos_Secos" min="0" max="10" value="0">
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>💳 Información de Pago</legend>              
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="metodo_pago">Método de pago:</label>
+                        <select name="metodo_pago" id="metodo_pago" required>
+                            <option value="">--Seleccionar método--</option>
+                            <option value="Efectivo">💵 Efectivo</option>
+                            <option value="Tarjeta_Debito">💳 Tarjeta de Débito</option>
+                            <option value="Tarjeta_Credito">💳 Tarjeta de Crédito</option>
+                            <option value="Transferencia">🏦 Transferencia</option>
+                            <option value="QR">📱 Código QR</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="descuento">Aplicar descuento:</label>
+                        <select name="descuento" id="descuento">
+                            <option value="">Sin descuento</option>
+                            <option value="estudiante">🎓 Descuento Estudiante (10%)</option>
+                            <option value="profesor">👨‍🏫 Descuento Profesor (15%)</option>
+                            <option value="empleado">👥 Descuento Empleado (20%)</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>📝 Datos de la Transacción</legend>              
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="id_cliente">ID Cliente:</label>
+                        <input type="text" name="id_cliente" id="id_cliente" 
+                               placeholder="Ej: CLI001" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="id_vendedor">ID Vendedor:</label>
+                        <input type="text" name="id_vendedor" id="id_vendedor" 
+                               placeholder="Ej: VEN001" required>
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="fecha_compra">Fecha:</label>
+                        <input type="date" name="fecha_compra" id="fecha_compra" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="numero_compra">Número de Compra:</label>
+                        <input type="text" name="numero_compra" id="numero_compra" 
+                               placeholder="Se generará automáticamente" readonly>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="observaciones">Observaciones (opcional):</label>
+                    <textarea name="observaciones" id="observaciones" rows="3" 
+                              placeholder="Notas especiales sobre el pedido..."></textarea>
+                </div>
+            </fieldset>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">🛒 Procesar Compra</button>
+                <button type="reset" class="btn-secondary">🔄 Limpiar Formulario</button>
+                <a href="productos.html" class="btn-link">📋 Ver Menú Completo</a>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <p>Hecho por Equipo Cesde 2025-1</p>
+        <p>Soporte: 3008694578</p>
+        <p>Email: equipocesde25@gmail.com</p>
+        <div class="redes">
+            <div class="redes">
+                <a href="#"><img src="Images/whatsapp.png" alt="Whatsapp icon"></a>
+                <a href="#"><img src="Images/tik-tok.png" alt="Tiktok icon"></a>
+                <a href="#"><img src="Images/facebook.png" alt="Facebook icon"></a>
+                <a href="#"><img src="Images/signo-de-twitter.png" alt="Twitter icon"></a>
+            </div>
+        </div>
+    </footer>
+    </body>
+</html>
+

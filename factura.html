@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="banner">Cafeteria Cesde</div>
+        <img src="Images/banner.webp" alt="Header Image">
+        <div class="eslogan">Donde el conocimiento se mezcla con buen café.</div>
+        <div class="logo"><img src="Images/cafe cesde logo.jpg" alt="Logo image"></div>
+    </header>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="mer.html">MER</a>
+        <a href="logica.html">Logica</a>
+        <a href="soporte.html">Soporte</a>
+    </nav> 
+    <main>
+        <div class="factura-container">
+            <div class="factura">
+                <div class="factura-header">
+                    <div class="empresa-info">
+                        <h1>🧾 FACTURA DE VENTA</h1>
+                        <h2>Cafetería Cesde</h2>
+                        <p class="eslogan-factura">"Donde el conocimiento se mezcla con buen café"</p>
+                    </div>
+                    <div class="logo-factura">
+                        <img src="Images/cafe cesde logo.jpg" alt="Logo Cafetería Cesde">
+                    </div>
+                </div>
+                <div class="empresa-detalles">
+                    <div class="empresa-datos">
+                        <h3>📍 Información de la Empresa</h3>
+                        <p><strong>NIT:</strong> 900.123.456-7</p>
+                        <p><strong>Dirección:</strong> Calle 50 #46-36, Medellín, Antioquia</p>
+                        <p><strong>Teléfono:</strong> (604) 444-5555</p>
+                        <p><strong>Email:</strong> equipocesde25@gmail.com</p>
+                        <p><strong>Régimen:</strong> Responsable del IVA</p>
+                    </div>
+                    <div class="resolucion-dian">
+                        <h3>📋 Resolución DIAN</h3>
+                        <p><strong>No. Resolución:</strong> 18764003716532</p>
+                        <p><strong>Fecha:</strong> 15/01/2025</p>
+                        <p><strong>Rango Autorizado:</strong></p>
+                        <p>Desde: FAC-00001</p>
+                        <p>Hasta: FAC-99999</p>
+                        <p><strong>Vigencia:</strong> 24 meses</p>
+                    </div>
+                </div>
+                <div class="factura-info">
+                    <div class="info-izquierda">
+                        <h3>📄 Datos de la Factura</h3>
+                        <p><strong>No. Factura:</strong> FAC-00123</p>
+                        <p><strong>No. Compra:</strong> COMP-00456</p>
+                        <p><strong>Fecha de Expedición:</strong> 06/03/2025</p>
+                        <p><strong>Hora:</strong> 10:30 AM</p>
+                        <p><strong>Forma de Pago:</strong> Efectivo</p>
+                    </div>
+                    <div class="info-derecha">
+                        <h3>👤 Datos del Cliente</h3>
+                        <p><strong>ID Cliente:</strong> CLI-001</p>
+                        <p><strong>Nombre:</strong> Pepita Pérez García</p>
+                        <p><strong>Tipo:</strong> Estudiante</p>
+                        <p><strong>Descuento Aplicado:</strong> 10%</p>
+                        <p><strong>Atendido por:</strong> Pepito García (VEN-001)</p>
+                    </div>
+                </div>
+                <div class="productos-detalle">
+                    <h3>🛒 Detalle de Productos</h3>
+                    <table class="tabla-productos">
+                        <thead>
+                            <tr>
+                                <th>Cant.</th>
+                                <th>Descripción</th>
+                                <th>Valor Unit.</th>
+                                <th>Descuento</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2</td>
+                                <td>
+                                    <strong>Café Americano (Caliente)</strong><br>
+                                    <small>Espresso con agua caliente, 8oz</small>
+                                </td>
+                                <td>$3.500</td>
+                                <td>$700</td>
+                                <td>$6.300</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <strong>Latte Frío</strong><br>
+                                    <small>Con leche vaporizada, 12oz</small>
+                                </td>
+                                <td>$5.000</td>
+                                <td>$500</td>
+                                <td>$4.500</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>
+                                    <strong>Empanada de Pollo</strong><br>
+                                    <small>Rellena de pollo desmechado</small>
+                                </td>
+                                <td>$3.000</td>
+                                <td>$900</td>
+                                <td>$8.100</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <strong>Porción de Pastel (Chocolate)</strong><br>
+                                    <small>Bizcocho húmedo con crema</small>
+                                </td>
+                                <td>$5.500</td>
+                                <td>$550</td>
+                                <td>$4.950</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="factura-totales">
+                    <div class="totales-detalle">
+                        <div class="total-fila">
+                            <span>Subtotal (antes de descuento):</span>
+                            <span>$26.500</span>
+                        </div>
+                        <div class="total-fila descuento">
+                            <span>Descuento Estudiante (10%):</span>
+                            <span>-$2.650</span>
+                        </div>
+                        <div class="total-fila">
+                            <span>Base Gravable:</span>
+                            <span>$23.850</span>
+                        </div>
+                        <div class="total-fila">
+                            <span>IVA (19%):</span>
+                            <span>$4.532</span>
+                        </div>
+                        <div class="total-fila">
+                            <span>Valor del IVA Descontado:</span>
+                            <span>$4.078</span>
+                        </div>
+                        <div class="total-fila total-final">
+                            <span><strong>TOTAL A PAGAR:</strong></span>
+                            <span><strong>$27.928</strong></span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="pago-detalle">
+                        <h4>💰 Detalle del Pago</h4>
+                        <p><strong>Valor Recibido:</strong> $30.000</p>
+                        <p><strong>Cambio:</strong> $2.072</p>
+                        <p><strong>Método:</strong> Efectivo</p>
+                    </div>
+                </div>
+                <br>
+                <div class="factura-observaciones">
+                    <h4>📝 Observaciones</h4>
+                    <p>Descuento estudiantil aplicado con presentación de carnet.</p>
+                </div>
+                    <br>
+                    <div class="contacto-info">
+                        <p><strong>Para reclamos, sugerencias o felicitaciones:</strong></p>
+                        <p>📧 Email: equipocesde25@gmail.com</p>
+                        <p>📞 Teléfono: 3008694578</p>
+                        <p>💬 WhatsApp: 3008694578</p>
+                        <p>🌐 Síguenos en redes sociales @CafeteriaCesde</p>
+                    </div>
+                    <br>
+                    <div class="politicas">
+                        <h4>📋 Políticas del Establecimiento</h4>
+                            <p>◾ Los reclamos se reciben hasta 24 horas después de la compra</p>
+                            <p>◾ Cambios y devoluciones solo por productos defectuosos</p>
+                            <p>◾ Conserve esta factura como soporte de compra</p>
+                            <p>◾ Descuentos no acumulables con otras promociones</p>
+                    </div>
+                    <br>
+                <div class="representacion-grafica">
+                    <p>***** REPRESENTACIÓN GRÁFICA DE FACTURA ELECTRÓNICA *****</p>
+                 </div>
+                </div>
+            <div class="acciones-factura">
+                <button type="button" class="btn-imprimir">
+                    🖨️ Imprimir 
+                </button>
+                <button type="button" class="btn-email">
+                    📧 Enviar: Email
+                </button>
+                <button type="button" class="btn-whatsapp">
+                    💬 Enviar: WhatsApp
+                </button>
+                <a href="compra.html" class="btn-link">📄 Nueva Venta</a>
+                <a href="index.html" class="btn-link">🏠 Volver al Inicio</a>
+
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>Hecho por Equipo Cesde 2025-1</p>
+        <p>Soporte: 3008694578</p>
+        <p>Email: equipocesde25@gmail.com</p>
+        <div class="redes">
+            <div class="redes">
+                <a href="#"><img src="Images/whatsapp.png" alt="Whatsapp icon"></a>
+                <a href="#"><img src="Images/tik-tok.png" alt="Tiktok icon"></a>
+                <a href="#"><img src="Images/facebook.png" alt="Facebook icon"></a>
+                <a href="#"><img src="Images/signo-de-twitter.png" alt="Twitter icon"></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
