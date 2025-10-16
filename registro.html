@@ -1,320 +1,565 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Registro de Clientes - Cafetería Cesde</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/registro-responsive.css">
+    <link rel="stylesheet" href="css/modal-detalle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <div class="banner">Cafeteria Cesde</div>
-        <img src="Images/banner.webp" alt="Header Image">
-        <div class="eslogan">Donde el conocimiento se mezcla con buen café.</div>
-        <div class="logo"><img src="Images/cafe cesde logo.jpg" alt="Logo image"></div>
-    </header>
-    <nav>
-        <a href="index.html">Inicio</a>
-        <a href="mer.html">MER</a>
-        <a href="logica.html">Logica</a>
-        <a href="soporte.html">Soporte</a>
-    </nav> 
-    <main>
-        <form id="registro-clientes" action="#" method="POST">
-            <h2>👤 Registro de Nuevos Clientes</h2>  
-            <fieldset>
-                <legend>📋 Información Personal</legend>
-                
-                <div class="input-group">
-                    <label for="id_cliente">ID del Cliente:</label>
-                    <input type="text" id="id_cliente" name="id_cliente" 
-                           placeholder="Se generará automáticamente (Ej: CLI001)" readonly>
-                </div>
-                
-                <div class="input-row">
-                    <div class="input-group">
-                        <label for="nombres">Nombres:</label>
-                        <input type="text" id="nombres" name="nombres" 
-                               placeholder="Nombres completos" required>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="apellidos">Apellidos:</label>
-                        <input type="text" id="apellidos" name="apellidos" 
-                               placeholder="Apellidos completos" required>
-                    </div>
-                </div>
-                
-                <div class="input-row">
-                    <div class="input-group">
-                        <label for="tipo_documento">Tipo de Documento:</label>
-                        <select id="tipo_documento" name="tipo_documento" required>
-                            <option value="">--Seleccionar--</option>
-                            <option value="CC">Cédula de Ciudadanía</option>
-                            <option value="TI">Tarjeta de Identidad</option>
-                            <option value="CE">Cédula de Extranjería</option>
-                            <option value="PP">Pasaporte</option>
-                        </select>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="numero_documento">Número de Documento:</label>
-                        <input type="text" id="numero_documento" name="numero_documento" 
-                               placeholder="Sin puntos ni espacios" required>
-                    </div>
-                </div>
-                
-                <div class="input-row">
-                    <div class="input-group">
-                        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="genero">Género:</label>
-                        <select id="genero" name="genero" required>
-                            <option value="">--Seleccionar--</option>
-                            <option value="M">Masculino</option>
-                            <option value="F">Femenino</option>
-                            <option value="O">Otro</option>
-                            <option value="N">Prefiero no decir</option>
-                        </select>
-                    </div>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>📞 Información de Contacto</legend>
-                
-                <div class="input-row">
-                    <div class="input-group">
-                        <label for="telefono_principal">Teléfono Principal:</label>
-                        <input type="tel" id="telefono_principal" name="telefono_principal" 
-                               placeholder="Ej: 3001234567" required>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="telefono_secundario">Teléfono Secundario (opcional):</label>
-                        <input type="tel" id="telefono_secundario" name="telefono_secundario" 
-                               placeholder="Ej: 6012345678">
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <label for="correo_electronico">Correo Electrónico:</label>
-                    <input type="email" id="correo_electronico" name="correo_electronico" 
-                           placeholder="ejemplo@email.com" required>
-                </div>
-                
-                <div class="input-row">
-                    <div class="input-group">
-                        <label for="ciudad">Ciudad:</label>
-                        <input type="text" id="ciudad" name="ciudad" 
-                               placeholder="Ciudad de residencia" required>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="barrio">Barrio:</label>
-                        <input type="text" id="barrio" name="barrio" 
-                               placeholder="Barrio o sector">
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <label for="direccion_completa">Dirección Completa:</label>
-                    <textarea id="direccion_completa" name="direccion_completa" rows="2" 
-                              placeholder="Calle, carrera, número, apartamento..."></textarea>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>🎓 Información Académica</legend>
-                
-                <div class="input-group">
-                    <label for="rol_institucion">Rol en la Institución:</label>
-                    <select id="rol_institucion" name="rol_institucion" required>
-                        <option value="">--Seleccionar rol--</option>
-                        <option value="estudiante">🎓 Estudiante</option>
-                        <option value="profesor">👨‍🏫 Profesor</option>
-                        <option value="administrativo">🏢 Empleado</option>
-                    </select>
-                </div>
-                
-                <div class="campos-condicionales" id="campos-estudiante">
-                    <div class="input-row">
-                        <div class="input-group">
-                            <label for="programa_academico">Programa Académico:</label>
-                            <select id="programa_academico" name="programa_academico">
-                                <option value="">--Seleccionar programa--</option>
-                                <option value="desarrollo_software">Tecnología en Desarrollo de Software</option>
-                                <option value="gestion_empresarial">Tecnología en Gestión Empresarial</option>
-                                <option value="contabilidad">Tecnología en Contabilidad y Finanzas</option>
-                                <option value="mercadeo">Tecnología en Mercadeo Digital</option>
-                                <option value="diseno_grafico">Tecnología en Diseño Gráfico</option>
-                                <option value="redes">Tecnología en Redes y Telecomunicaciones</option>
-                            </select>
-                        </div>
-                        
-                        <div class="input-group">
-                            <label for="semestre_actual">Semestre Actual:</label>
-                            <select id="semestre_actual" name="semestre_actual">
-                                <option value="">--Seleccionar--</option>
-                                <option value="1">1° Semestre</option>
-                                <option value="2">2° Semestre</option>
-                                <option value="3">3° Semestre</option>
-                                <option value="4">4° Semestre</option>
-                                <option value="5">5° Semestre</option>
-                                <option value="6">6° Semestre</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="input-row">
-                        <div class="input-group">
-                            <label for="jornada">Jornada:</label>
-                            <select id="jornada" name="jornada">
-                                <option value="">--Seleccionar--</option>
-                                <option value="diurna">🌅 Diurna</option>
-                                <option value="nocturna">🌙 Nocturna</option>
-                                <option value="sabatina">📅 Sabatina</option>
-                            </select>
-                        </div>
-                        
-                        <div class="input-group">
-                            <label for="numero_estudiante">Número de Estudiante:</label>
-                            <input type="text" id="numero_estudiante" name="numero_estudiante" 
-                                   placeholder="Código estudiantil">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="campos-condicionales" id="campos-profesor">
-                    <div class="input-row">
-                        <div class="input-group">
-                            <label for="departamento">Escuela o Departamento:</label>
-                            <select id="departamento" name="departamento">
-                                <option value="">--Seleccionar--</option>
-                                <option value="administracion">Departamento de Administración</option>
-                                <option value="sistemas">Escuela de Industrias Creativas</option>
-                                <option value="tecnologias">Escuela de Nuevas tecnologias</option>
-                                <option value="agro">Escuela del Agro</option>
-                                <option value="gastronomia">Escuela de Gastronomia y Turismo</option>
-                                <option value="salud">Escuela de Salud y Cuidado</option>
-                                <option value="empresarial">Escuela de Desarrollo Empresarial</option>
-
-                            </select>
-                        </div>
-                        
-                        <div class="input-group">
-                            <label for="tipo_vinculacion">Tipo de Vinculación:</label>
-                            <select id="tipo_vinculacion" name="tipo_vinculacion">
-                                <option value="">--Seleccionar--</option>
-                                <option value="tiempo_completo">Tiempo Completo</option>
-                                <option value="medio_tiempo">Medio Tiempo</option>
-                                <option value="catedra">Cátedra</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>💳 Configuración de Beneficios</legend>
-                
-                <div class="checkbox-group">
-                    <h4>Descuentos Aplicables:</h4>
-                    
-                    <label class="checkbox-item">
-                        <input type="checkbox" name="descuentos[]" value="estudiante">
-                        <span class="checkmark"></span>
-                        🎓 Descuento Estudiante (10%) - Válido con carnet estudiantil
-                    </label>
-                    
-                    <label class="checkbox-item">
-                        <input type="checkbox" name="descuentos[]" value="profesor">
-                        <span class="checkmark"></span>
-                        👨‍🏫 Descuento Profesor (15%) - Válido para docentes activos
-                    </label>
-                    
-                    <label class="checkbox-item">
-                        <input type="checkbox" name="descuentos[]" value="empleado">
-                        <span class="checkmark"></span>
-                        👥 Descuento Empleado (20%) - Válido para personal administrativo
-                    </label>
-                    
-                </div>
-                
-                <div class="checkbox-group">
-                    <h4>Notificaciones:</h4>
-                    
-                    <label class="checkbox-item">
-                        <input type="checkbox" name="notificaciones[]" value="promociones" checked>
-                        <span class="checkmark"></span>
-                        📧 Recibir promociones y ofertas especiales
-                    </label>
-                    
-                    <label class="checkbox-item">
-                        <input type="checkbox" name="notificaciones[]" value="nuevos_productos" checked>
-                        <span class="checkmark"></span>
-                        🍰 Notificar sobre nuevos productos del menú
-                    </label>
-                    
-                    <label class="checkbox-item">
-                        <input type="checkbox" name="notificaciones[]" value="eventos">
-                        <span class="checkmark"></span>
-                        🎉 Invitaciones a eventos especiales de la cafetería
-                    </label>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>📝 Términos y Condiciones</legend>
-                
-                <div class="terminos-container">
-                    <div class="terminos-texto">
-                        <h4>Política de Tratamiento de Datos Personales</h4>
-                        <p>Al registrarse, usted autoriza a Cafetería Cesde para:</p>
-                            <p>▪ Recopilar y almacenar sus datos personales de forma segura</p>
-                            <p>▪ Utilizar su información para mejorar nuestros servicios</p>
-                            <p>▪ Enviar promociones y ofertas especiales (opcional)</p>
-                            <p>▪ Contactarlo para encuestas de satisfacción</p>
-                        <p><strong>Sus derechos:</strong> Puede solicitar actualización, corrección o eliminación de sus datos en cualquier momento contactando al email: equipocesde25@gmail.com</p>
-                    </div>
-                    
-                    <label class="checkbox-item terminos-check">
-                        <input type="checkbox" name="acepta_terminos" required>
-                        <span class="checkmark"></span>
-                        He leído y acepto los términos y condiciones del tratamiento de datos personales
-                    </label>
-                    
-                    <label class="checkbox-item">
-                        <input type="checkbox" name="acepta_comunicaciones">
-                        <span class="checkmark"></span>
-                        Autorizo el envío de comunicaciones comerciales (opcional)
-                    </label>
-                </div>
-            </fieldset>
-
-            <div class="form-actions">
-                <button type="submit" class="btn-primary">✅ Registrar Cliente</button>
-                <button type="reset" class="btn-secondary">🔄 Limpiar Formulario</button>
-                <a href="index.html" class="btn-link">🏠 Volver al Inicio</a>
+    <!-- Header con navegación -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-logo">
+                <img src="Images/cafe cesde logo.jpg" alt="Cafetería Cesde" class="logo-img">
+                <span class="logo-text">Cafe Cesde</span>
             </div>
-        </form>
+            
+            <div class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">🏠 Inicio</a></li>
+                    <li><a href="empleados.html" class="nav-link">👨‍💼 Empleados</a></li>
+                    <li><a href="notificaciones.html" class="nav-link">🔔 Notificaciones</a></li>
+                    <li><a href="soporte.html" class="nav-link">🆘 Soporte</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header de la página -->
+        <section class="page-header">
+            <h1>
+                <span class="title-icon">📝</span>
+                Registro de Clientes
+            </h1>
+            <p>Únete a nuestra comunidad y disfruta de beneficios exclusivos</p>
+        </section>
+
+        <div class="container">
+        <!-- Panel de Búsqueda de Clientes -->
+        <section class="panel-busqueda">
+            <div class="busqueda-header">
+                <h3>🔍 Buscar Cliente Existente</h3>
+                <button id="btn-toggle-busqueda" class="btn btn-secondary">
+                    👁️ Mostrar/Ocultar Búsqueda
+                </button>
+            </div>
+            <div id="busqueda-container" class="busqueda-container" style="display: none;">
+                <div class="busqueda-formulario">
+                    <div class="input-group">
+                        <input type="text" id="buscar-cliente" placeholder="Buscar por nombre, documento o email...">
+                        <button id="btn-buscar" class="btn btn-primary">🔍 Buscar</button>
+                    </div>
+                </div>
+                <div id="resultados-busqueda" class="resultados-busqueda">
+                    <!-- Los resultados aparecerán aquí -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Panel de estadísticas -->
+        <section class="stats-panel">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="total-clientes">0</span>
+                            <span class="stat-label">Total Clientes</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎓</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="clientes-estudiantes">0</span>
+                            <span class="stat-label">Estudiantes</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👨‍🏫</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="clientes-profesores">0</span>
+                            <span class="stat-label">Profesores</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏢</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="clientes-empleados">0</span>
+                            <span class="stat-label">Empleados</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formulario de registro -->
+        <section class="registro-section">
+            <div class="container">
+                <form id="registro-clientes" class="registro-form" novalidate>
+                    <div class="form-header">
+                        <h2 class="form-title">
+                            <span class="form-icon">👤</span>
+                            Registro de Nuevos Clientes
+                        </h2>
+                        <p class="form-description">Complete el formulario para obtener su cuenta de cliente</p>
+                    </div>
+
+                    <!-- Información Personal -->
+                    <fieldset class="form-section">
+                        <legend class="section-legend">
+                            <span class="legend-icon">📋</span>
+                            Información Personal
+                        </legend>
+                        
+                        <div class="input-group full-width">
+                            <label for="id_cliente" class="input-label">ID del Cliente:</label>
+                            <input type="text" id="id_cliente" name="id_cliente" 
+                                   class="input-field" placeholder="Se generará automáticamente (Ej: CLI001)" readonly>
+                            <small class="input-help">Este ID se generará automáticamente al completar el registro</small>
+                        </div>
+                        
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="nombres" class="input-label required">Nombres:</label>
+                                <input type="text" id="nombres" name="nombres" 
+                                       class="input-field" placeholder="Nombres completos" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="apellidos" class="input-label required">Apellidos:</label>
+                                <input type="text" id="apellidos" name="apellidos" 
+                                       class="input-field" placeholder="Apellidos completos" required>
+                            </div>
+                        </div>
+                        
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="tipo_documento" class="input-label required">Tipo de Documento:</label>
+                                <select id="tipo_documento" name="tipo_documento" class="input-field" required>
+                                    <option value="">--Seleccionar--</option>
+                                    <option value="CC">Cédula de Ciudadanía</option>
+                                    <option value="TI">Tarjeta de Identidad</option>
+                                    <option value="CE">Cédula de Extranjería</option>
+                                    <option value="PP">Pasaporte</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="numero_documento" class="input-label required">Número de Documento:</label>
+                                <input type="text" id="numero_documento" name="numero_documento" 
+                                       class="input-field" placeholder="Sin puntos ni espacios" required>
+                            </div>
+                        </div>
+                        
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="fecha_nacimiento" class="input-label required">Fecha de Nacimiento:</label>
+                                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" 
+                                       class="input-field" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="genero" class="input-label required">Género:</label>
+                                <select id="genero" name="genero" class="input-field" required>
+                                    <option value="">--Seleccionar--</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                    <option value="O">Otro</option>
+                                    <option value="N">Prefiero no decir</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Información de Contacto -->
+                    <fieldset class="form-section">
+                        <legend class="section-legend">
+                            <span class="legend-icon">📞</span>
+                            Información de Contacto
+                        </legend>
+                        
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="telefono_principal" class="input-label required">Teléfono Principal:</label>
+                                <input type="tel" id="telefono_principal" name="telefono_principal" 
+                                       class="input-field" placeholder="Ej: 3001234567" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="telefono_secundario" class="input-label">Teléfono Secundario (opcional):</label>
+                                <input type="tel" id="telefono_secundario" name="telefono_secundario" 
+                                       class="input-field" placeholder="Ej: 6012345678">
+                            </div>
+                        </div>
+                        
+                        <div class="input-group full-width">
+                            <label for="correo_electronico" class="input-label required">Correo Electrónico:</label>
+                            <input type="email" id="correo_electronico" name="correo_electronico" 
+                                   class="input-field" placeholder="ejemplo@email.com" required>
+                            <small class="input-help">Utilizaremos este correo para enviar confirmaciones</small>
+                        </div>
+                        
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="ciudad" class="input-label required">Ciudad:</label>
+                                <input type="text" id="ciudad" name="ciudad" 
+                                       class="input-field" placeholder="Ciudad de residencia" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="barrio" class="input-label">Barrio:</label>
+                                <input type="text" id="barrio" name="barrio" 
+                                       class="input-field" placeholder="Barrio o sector">
+                            </div>
+                        </div>
+                        
+                        <div class="input-group full-width">
+                            <label for="direccion_completa" class="input-label">Dirección Completa:</label>
+                            <textarea id="direccion_completa" name="direccion_completa" rows="3" 
+                                      class="input-field" placeholder="Calle, carrera, número, apartamento..."></textarea>
+                        </div>
+                    </fieldset>
+
+                    <!-- Información Académica -->
+                    <fieldset class="form-section">
+                        <legend class="section-legend">
+                            <span class="legend-icon">🎓</span>
+                            Información Académica
+                        </legend>
+                        
+                        <div class="input-group full-width">
+                            <label for="rol_institucion" class="input-label required">Rol en la Institución:</label>
+                            <select id="rol_institucion" name="rol_institucion" class="input-field" required>
+                                <option value="">--Seleccionar rol--</option>
+                                <option value="estudiante">🎓 Estudiante</option>
+                                <option value="profesor">👨‍🏫 Profesor</option>
+                                <option value="administrativo">🏢 Empleado</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Campos para estudiantes -->
+                        <div class="campos-condicionales" id="campos-estudiante" style="display: none;">
+                            <div class="conditional-header">
+                                <h4>📚 Información de Estudiante</h4>
+                            </div>
+                            
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="programa_academico" class="input-label">Programa Académico:</label>
+                                    <select id="programa_academico" name="programa_academico" class="input-field">
+                                        <option value="">--Seleccionar programa--</option>
+                                        <option value="desarrollo_software">Tecnología en Desarrollo de Software</option>
+                                        <option value="gestion_empresarial">Tecnología en Gestión Empresarial</option>
+                                        <option value="contabilidad">Tecnología en Contabilidad y Finanzas</option>
+                                        <option value="mercadeo">Tecnología en Mercadeo Digital</option>
+                                        <option value="diseno_grafico">Tecnología en Diseño Gráfico</option>
+                                        <option value="redes">Tecnología en Redes y Telecomunicaciones</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="input-group">
+                                    <label for="semestre_actual" class="input-label">Semestre Actual:</label>
+                                    <select id="semestre_actual" name="semestre_actual" class="input-field">
+                                        <option value="">--Seleccionar--</option>
+                                        <option value="1">1° Semestre</option>
+                                        <option value="2">2° Semestre</option>
+                                        <option value="3">3° Semestre</option>
+                                        <option value="4">4° Semestre</option>
+                                        <option value="5">5° Semestre</option>
+                                        <option value="6">6° Semestre</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="jornada" class="input-label">Jornada:</label>
+                                    <select id="jornada" name="jornada" class="input-field">
+                                        <option value="">--Seleccionar--</option>
+                                        <option value="diurna">🌅 Diurna</option>
+                                        <option value="nocturna">🌙 Nocturna</option>
+                                        <option value="sabatina">📅 Sabatina</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="input-group">
+                                    <label for="numero_estudiante" class="input-label">Número de Estudiante:</label>
+                                    <input type="text" id="numero_estudiante" name="numero_estudiante" 
+                                           class="input-field" placeholder="Código estudiantil">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Campos para profesores -->
+                        <div class="campos-condicionales" id="campos-profesor" style="display: none;">
+                            <div class="conditional-header">
+                                <h4>👨‍🏫 Información de Profesor</h4>
+                            </div>
+                            
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="departamento" class="input-label">Escuela o Departamento:</label>
+                                    <select id="departamento" name="departamento" class="input-field">
+                                        <option value="">--Seleccionar--</option>
+                                        <option value="administracion">Departamento de Administración</option>
+                                        <option value="sistemas">Escuela de Industrias Creativas</option>
+                                        <option value="tecnologias">Escuela de Nuevas Tecnologías</option>
+                                        <option value="agro">Escuela del Agro</option>
+                                        <option value="gastronomia">Escuela de Gastronomía y Turismo</option>
+                                        <option value="salud">Escuela de Salud y Cuidado</option>
+                                        <option value="empresarial">Escuela de Desarrollo Empresarial</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="input-group">
+                                    <label for="tipo_vinculacion" class="input-label">Tipo de Vinculación:</label>
+                                    <select id="tipo_vinculacion" name="tipo_vinculacion" class="input-field">
+                                        <option value="">--Seleccionar--</option>
+                                        <option value="tiempo_completo">Tiempo Completo</option>
+                                        <option value="medio_tiempo">Medio Tiempo</option>
+                                        <option value="catedra">Cátedra</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Configuración de Beneficios -->
+                    <fieldset class="form-section">
+                        <legend class="section-legend">
+                            <span class="legend-icon">💳</span>
+                            Configuración de Beneficios
+                        </legend>
+                        
+                        <div class="benefits-section">
+                            <h4 class="benefits-title">🎯 Descuentos Aplicables:</h4>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="descuentos[]" value="estudiante">
+                                    <span class="checkmark">✓</span>
+                                    <div class="checkbox-content">
+                                        <strong>🎓 Descuento Estudiante (10%)</strong>
+                                        <small>Válido con carnet estudiantil</small>
+                                    </div>
+                                </label>
+                                
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="descuentos[]" value="profesor">
+                                    <span class="checkmark">✓</span>
+                                    <div class="checkbox-content">
+                                        <strong>👨‍🏫 Descuento Profesor (15%)</strong>
+                                        <small>Válido para docentes activos</small>
+                                    </div>
+                                </label>
+                                
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="descuentos[]" value="empleado">
+                                    <span class="checkmark">✓</span>
+                                    <div class="checkbox-content">
+                                        <strong>👥 Descuento Empleado (20%)</strong>
+                                        <small>Válido para personal administrativo</small>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="benefits-section">
+                            <h4 class="benefits-title">📧 Notificaciones:</h4>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="notificaciones[]" value="promociones" checked>
+                                    <span class="checkmark">✓</span>
+                                    <div class="checkbox-content">
+                                        <strong>📧 Promociones y ofertas especiales</strong>
+                                        <small>Reciba las mejores ofertas por correo</small>
+                                    </div>
+                                </label>
+                                
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="notificaciones[]" value="nuevos_productos" checked>
+                                    <span class="checkmark">✓</span>
+                                    <div class="checkbox-content">
+                                        <strong>🍰 Nuevos productos del menú</strong>
+                                        <small>Sea el primero en conocer nuestras novedades</small>
+                                    </div>
+                                </label>
+                                
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="notificaciones[]" value="eventos">
+                                    <span class="checkmark">✓</span>
+                                    <div class="checkbox-content">
+                                        <strong>🎉 Eventos especiales</strong>
+                                        <small>Invitaciones a eventos de la cafetería</small>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Términos y Condiciones -->
+                    <fieldset class="form-section">
+                        <legend class="section-legend">
+                            <span class="legend-icon">📝</span>
+                            Términos y Condiciones
+                        </legend>
+                        
+                        <div class="terms-container">
+                            <div class="terms-content">
+                                <h4>🔒 Política de Tratamiento de Datos Personales</h4>
+                                <div class="terms-text">
+                                    <p>Al registrarse, usted autoriza a Cafetería Cesde para:</p>
+                                    <ul>
+                                        <li>📊 Recopilar y almacenar sus datos personales de forma segura</li>
+                                        <li>⚙️ Utilizar su información para mejorar nuestros servicios</li>
+                                        <li>📨 Enviar promociones y ofertas especiales (opcional)</li>
+                                        <li>📋 Contactarlo para encuestas de satisfacción</li>
+                                    </ul>
+                                    <p><strong>Sus derechos:</strong> Puede solicitar actualización, corrección o eliminación de sus datos en cualquier momento contactando al email: equipocesde25@gmail.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="terms-checkboxes">
+                                <label class="checkbox-item terms-check required">
+                                    <input type="checkbox" name="acepta_terminos" required>
+                                    <span class="checkmark">✓</span>
+                                    <div class="checkbox-content">
+                                        <strong>He leído y acepto los términos y condiciones del tratamiento de datos personales</strong>
+                                        <small>Requerido para completar el registro</small>
+                                    </div>
+                                </label>
+                                
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="acepta_comunicaciones">
+                                    <span class="checkmark">✓</span>
+                                    <div class="checkbox-content">
+                                        <strong>Autorizo el envío de comunicaciones comerciales (opcional)</strong>
+                                        <small>Puede cambiar esta preferencia en cualquier momento</small>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Acciones del formulario -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">
+                            <span class="btn-icon">✅</span>
+                            Registrar Cliente
+                        </button>
+                        <button type="button" id="btn-cancelar-edicion" class="btn-warning" style="display: none;">
+                            <span class="btn-icon">❌</span>
+                            Cancelar Edición
+                        </button>
+                        <button type="reset" class="btn-secondary">
+                            <span class="btn-icon">🔄</span>
+                            Limpiar Formulario
+                        </button>
+                        <a href="index.html" class="btn-link">
+                            <span class="btn-icon">🏠</span>
+                            Volver al Inicio
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Acciones rápidas -->
+        <section class="quick-actions">
+            <div class="container">
+                <h3 class="section-title">
+                    <span class="title-icon">⚡</span>
+                    ¿Ya tienes cuenta?
+                </h3>
+                <div class="actions-grid">
+                    <a href="compra.html" class="action-card">
+                        <div class="action-icon">🛒</div>
+                        <div class="action-content">
+                            <h4>Realizar Compra</h4>
+                            <p>Ve directamente al sistema de compras</p>
+                        </div>
+                    </a>
+                    
+                    <a href="productos.html" class="action-card">
+                        <div class="action-icon">🍽️</div>
+                        <div class="action-content">
+                            <h4>Ver Productos</h4>
+                            <p>Explora nuestro catálogo completo</p>
+                        </div>
+                    </a>
+                    
+                    <a href="soporte.html" class="action-card">
+                        <div class="action-icon">🆘</div>
+                        <div class="action-content">
+                            <h4>Soporte Técnico</h4>
+                            <p>¿Necesitas ayuda? Contáctanos</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer>
-        <p>Hecho por Equipo Cesde 2025-1</p>
-        <p>Soporte: 3008694578</p>
-        <p>Email: equipocesde25@gmail.com</p>
-        <div class="redes">
-            <div class="redes">
-                <a href="#"><img src="Images/whatsapp.png" alt="Whatsapp icon"></a>
-                <a href="#"><img src="Images/tik-tok.png" alt="Tiktok icon"></a>
-                <a href="#"><img src="Images/facebook.png" alt="Facebook icon"></a>
-                <a href="#"><img src="Images/signo-de-twitter.png" alt="Twitter icon"></a>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Cafetería Cesde</h3>
+                <p>El mejor café para estudiantes y profesionales</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📧 info@cafecesde.com</p>
+                <p>📱 +57 300 123 4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Horarios</h3>
+                <p>Lunes a Viernes: 7:00 AM - 8:00 PM</p>
+                <p>Sábados: 8:00 AM - 6:00 PM</p>
             </div>
         </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Equipo Cesde. Todos los derechos reservados.</p>
+        </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="js/registro.js"></script>
+    <script>
+        // Navegación móvil
+        document.getElementById('nav-toggle').addEventListener('click', function() {
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer clic en un enlace (móvil)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('nav-menu').classList.remove('active');
+            });
+        });
+
+        // Scroll suave para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+    <script src="js/navigation.js"></script>
 </body>
 </html>

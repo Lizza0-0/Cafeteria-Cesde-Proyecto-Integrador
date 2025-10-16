@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Backup - Cafetería Cesde</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-logo">
+                <img src="Images/cafe cesde logo.jpg" alt="Cafetería Cesde" class="logo-img">
+                <span class="logo-text">Cafe Cesde</span>
+            </div>
+            
+            <div class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">🏠 Inicio</a></li>
+                    <li><a href="empleados.html" class="nav-link">👨‍💼 Empleados</a></li>
+                    <li><a href="notificaciones.html" class="nav-link">🔔 Notificaciones</a></li>
+                    <li><a href="soporte.html" class="nav-link">🆘 Soporte</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="page-header">
+            <h1><span class="title-icon">💾</span> Sistema de Backup</h1>
+            <p>Gestión automática de copias de seguridad y restauración de datos</p>
+        </section>
+
+        <div class="backup-container">
+        <div class="backup-nav">
+            <button class="nav-btn active" onclick="mostrarSeccion('configuracion')">⚙️ Configuración</button>
+            <button class="nav-btn" onclick="mostrarSeccion('backups')">📁 Backups</button>
+            <button class="nav-btn" onclick="mostrarSeccion('estadisticas')">📊 Estadísticas</button>
+        </div>
+
+        <!-- Sección: Configuración de Backup -->
+        <div id="seccion-configuracion" class="section-card">
+            <h2 class="section-title">⚙️ Configuración de Backup</h2>
+            
+            <div class="alerta-info">
+                <strong>ℹ️ Información:</strong> Los backups automáticos se ejecutarán según la configuración establecida. 
+                Se recomienda mantener backups regulares para proteger los datos del sistema.
+            </div>
+
+            <div class="ultimo-backup">
+                <h3>📅 Último Backup</h3>
+                <div id="ultimo-backup-info">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+            </div>
+
+            <div class="configuracion-backup">
+                <div class="input-group">
+                    <label>Backup Automático:</label>
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" id="backup-automatico">
+                            <span class="slider"></span>
+                        </label>
+                        <span>Activar backups automáticos</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="frecuencia-backup">Frecuencia:</label>
+                    <select id="frecuencia-backup">
+                        <option value="diario">🌅 Diario</option>
+                        <option value="semanal">📅 Semanal</option>
+                        <option value="cada_hora">⏰ Cada Hora</option>
+                        <option value="manual">🖱️ Solo Manual</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="hora-backup">Hora de Backup:</label>
+                    <input type="time" id="hora-backup" value="02:00">
+                </div>
+
+                <div class="input-group">
+                    <label for="retencion-dias">Días de Retención:</label>
+                    <input type="number" id="retencion-dias" min="1" max="365" value="30" placeholder="Días">
+                </div>
+
+                <div class="input-group">
+                    <label>Compresión:</label>
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" id="compresion-backup" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span>Comprimir backups (ahorra espacio)</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Notificaciones:</label>
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" id="notificaciones-backup" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span>Mostrar notificaciones</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Incluir Imágenes:</label>
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" id="incluir-imagenes">
+                            <span class="slider"></span>
+                        </label>
+                        <span>Incluir archivos de imagen</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="limite-tamaño">Límite de Tamaño (MB):</label>
+                    <input type="number" id="limite-tamaño" min="1" max="500" value="50" placeholder="MB">
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 30px 0;">
+                <button class="btn btn-primary" onclick="sistemaBackup.guardarConfiguracion()">
+                    💾 Guardar Configuración
+                </button>
+                <button class="btn btn-success" onclick="sistemaBackup.crearBackupManual()">
+                    🚀 Crear Backup Ahora
+                </button>
+            </div>
+        </div>
+
+        <!-- Sección: Gestión de Backups -->
+        <div id="seccion-backups" class="section-card" style="display: none;">
+            <h2 class="section-title">📁 Gestión de Backups</h2>
+            
+            <div style="margin-bottom: 30px; text-align: center;">
+                <button class="btn btn-success" onclick="sistemaBackup.crearBackupManual()">
+                    ➕ Crear Backup Manual
+                </button>
+                <button class="btn btn-primary" onclick="sistemaBackup.importarBackup()">
+                    📤 Importar Backup
+                </button>
+            </div>
+
+            <div id="lista-backups">
+                <!-- Se llenará dinámicamente -->
+            </div>
+        </div>
+
+        <!-- Sección: Estadísticas -->
+        <div id="seccion-estadisticas" class="section-card" style="display: none;">
+            <h2 class="section-title">📊 Estadísticas de Backup</h2>
+            
+            <div class="estadisticas-backup" id="estadisticas-backup">
+                <!-- Se llenará dinámicamente -->
+            </div>
+
+            <div id="espacio-storage">
+                <!-- Se mostrará información del espacio usado -->
+            </div>
+
+            <div class="alerta-warning">
+                <strong>⚠️ Recomendaciones:</strong>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li>Mantenga al menos 3 backups recientes</li>
+                    <li>Exporte backups importantes a dispositivos externos</li>
+                    <li>Verifique regularmente la integridad de los backups</li>
+                    <li>Configure backups automáticos para mayor seguridad</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/backup.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>

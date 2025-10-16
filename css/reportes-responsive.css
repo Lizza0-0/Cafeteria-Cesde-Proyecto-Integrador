@@ -1,0 +1,438 @@
+/**
+ * Estilos CSS para análisis avanzado de productos - Cafetería Cesde
+ * Incluye estilos para tendencias, rentabilidad, rotación y distribución
+ */
+
+/* Estilos para análisis avanzado de productos */
+.productos-analisis-avanzada {
+    padding: 20px;
+}
+
+.metricas-resumen {
+    margin-bottom: 30px;
+}
+
+.analisis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.tendencias-resumen {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tendencia-item {
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+    min-width: 120px;
+    flex: 1;
+    max-width: 200px;
+}
+
+.tendencia-item.creciente {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    border: 2px solid #28a745;
+}
+
+.tendencia-item.estable {
+    background: linear-gradient(135deg, #fff3cd, #ffeeba);
+    border: 2px solid #ffc107;
+}
+
+.tendencia-item.decreciente {
+    background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+    border: 2px solid #dc3545;
+}
+
+.tendencia-numero {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.tendencia-label {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.tendencia-porcentaje {
+    font-size: 0.8em;
+    opacity: 0.8;
+}
+
+.productos-por-tendencia {
+    margin-top: 20px;
+}
+
+.productos-por-tendencia h5 {
+    margin: 15px 0 10px 0;
+    color: #8B4513;
+}
+
+.lista-productos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.producto-tag {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.producto-tag.creciente {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #28a745;
+}
+
+.producto-tag.decreciente {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #dc3545;
+}
+
+.rentabilidad-overview {
+    margin-bottom: 20px;
+}
+
+.rentabilidad-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stat-item {
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-item.alta {
+    background: #d4edda;
+    border-left: 4px solid #28a745;
+}
+
+.stat-item.media {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+}
+
+.stat-item.baja {
+    background: #f8d7da;
+    border-left: 4px solid #dc3545;
+}
+
+.stat-numero {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.stat-label {
+    font-size: 0.9em;
+    flex: 1;
+    margin-left: 10px;
+}
+
+.top-rentables {
+    margin-top: 20px;
+}
+
+.rentabilidad-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: 6px;
+}
+
+.producto-nombre {
+    flex: 1;
+    font-weight: 500;
+}
+
+.rentabilidad-valor {
+    font-weight: bold;
+    color: #28a745;
+    min-width: 60px;
+    text-align: right;
+}
+
+.rentabilidad-bar {
+    flex: 0 0 100px;
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #28a745, #20c997);
+    transition: width 0.3s ease;
+}
+
+.rotacion-overview {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.rotacion-stats {
+    margin-bottom: 20px;
+}
+
+.stat-central {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    border-radius: 15px;
+    border: 2px solid #2196f3;
+}
+
+.stat-numero-grande {
+    font-size: 3em;
+    font-weight: bold;
+    color: #1976d2;
+}
+
+.rotacion-categorias {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.categoria-rotacion {
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.categoria-rotacion.alta {
+    background: #d4edda;
+    border: 2px solid #28a745;
+}
+
+.categoria-rotacion.baja {
+    background: #f8d7da;
+    border: 2px solid #dc3545;
+}
+
+.categoria-titulo {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.productos-mini {
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+.top-rotacion {
+    margin-top: 20px;
+}
+
+.rotacion-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    background: #f8f9fa;
+    border-radius: 6px;
+}
+
+.rotacion-valor {
+    font-weight: bold;
+    color: #2196f3;
+}
+
+.distribucion-categorias {
+    padding: 10px;
+}
+
+.categoria-item {
+    margin-bottom: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+}
+
+.categoria-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.categoria-nombre {
+    font-weight: bold;
+    color: #8B4513;
+}
+
+.categoria-porcentaje {
+    font-weight: bold;
+    color: #2196f3;
+}
+
+.categoria-bar {
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.categoria-stats {
+    font-size: 0.85em;
+    color: #666;
+}
+
+.tendencia-creciente {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.tendencia-estable {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+.tendencia-decreciente {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.tendencia-neutral {
+    color: #6c757d;
+    font-weight: bold;
+}
+
+.rendimiento.excelente {
+    color: #28a745;
+    font-weight: bold;
+    background: #d4edda;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.rendimiento.bueno {
+    color: #2196f3;
+    font-weight: bold;
+    background: #e3f2fd;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.rendimiento.regular {
+    color: #ff9800;
+    font-weight: bold;
+    background: #fff3cd;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.rendimiento.necesita-atencion {
+    color: #dc3545;
+    font-weight: bold;
+    background: #f8d7da;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* Responsive design para análisis de productos */
+@media (max-width: 768px) {
+    .analisis-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .tendencias-resumen {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .tendencia-item {
+        min-width: unset;
+        max-width: unset;
+    }
+    
+    .rotacion-categorias {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .rentabilidad-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .rentabilidad-bar {
+        flex: 1;
+        width: 100%;
+    }
+    
+    .stat-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .stat-central {
+        padding: 15px;
+    }
+    
+    .stat-numero-grande {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .productos-analisis-avanzada {
+        padding: 10px;
+    }
+    
+    .tendencia-numero {
+        font-size: 1.8em;
+    }
+    
+    .lista-productos {
+        justify-content: center;
+    }
+    
+    .producto-tag {
+        padding: 4px 10px;
+        font-size: 0.8em;
+    }
+    
+    .categoria-item {
+        padding: 10px;
+    }
+    
+    .rotacion-item {
+        padding: 6px 10px;
+    }
+    
+    .rentabilidad-item {
+        padding: 6px;
+    }
+}

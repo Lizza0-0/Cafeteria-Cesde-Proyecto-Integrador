@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes y Analytics - Cafetería Cesde</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reportes-responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-logo">
+                <img src="Images/cafe cesde logo.jpg" alt="Cafetería Cesde" class="logo-img">
+                <span class="logo-text">Cafe Cesde</span>
+            </div>
+            
+            <div class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">🏠 Inicio</a></li>
+                    <li><a href="empleados.html" class="nav-link">👨‍💼 Empleados</a></li>
+                    <li><a href="notificaciones.html" class="nav-link">🔔 Notificaciones</a></li>
+                    <li><a href="soporte.html" class="nav-link">🆘 Soporte</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="page-header">
+            <h1><span class="title-icon">📊</span> Reportes y Analítica</h1>
+            <p>Dashboard completo de ventas y rendimiento</p>
+        </section>
+
+        <div class="reportes-container">
+        <div class="reportes-nav">
+            <button class="nav-btn active" onclick="mostrarSeccion('dashboard')">📈 Dashboard</button>
+            <button class="nav-btn" onclick="mostrarSeccion('ventas')">💰 Ventas</button>
+            <button class="nav-btn" onclick="mostrarSeccion('productos')">🍽️ Productos</button>
+            <button class="nav-btn" onclick="mostrarSeccion('clientes')">👥 Clientes</button>
+            <button class="nav-btn" onclick="mostrarSeccion('empleados')">👨‍💼 Empleados</button>
+        </div>
+
+        <!-- Overview de estadísticas -->
+        <div class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-numero" id="ventas-hoy">$0</div>
+                <div class="stat-label">Ventas Hoy</div>
+                <div class="stat-comparacion" id="comparacion-ayer">vs ayer</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-numero" id="ventas-mes">$0</div>
+                <div class="stat-label">Ventas del Mes</div>
+                <div class="stat-comparacion" id="comparacion-mes-anterior">vs mes anterior</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-numero" id="total-productos">0</div>
+                <div class="stat-label">Productos Vendidos Hoy</div>
+                <div class="stat-comparacion" id="comparacion-productos">items</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-numero" id="clientes-activos">0</div>
+                <div class="stat-label">Clientes Activos</div>
+                <div class="stat-comparacion" id="comparacion-clientes">total registrados</div>
+            </div>
+        </div>
+
+        <!-- Sección: Dashboard -->
+        <div id="seccion-dashboard" class="section-card">
+            <h2 class="section-title">📈 Dashboard General</h2>
+            
+            <div class="filtros-reportes">
+                <div class="input-group">
+                    <label for="periodo-dashboard">Período:</label>
+                    <select id="periodo-dashboard">
+                        <option value="hoy">Hoy</option>
+                        <option value="semana">Esta Semana</option>
+                        <option value="mes" selected>Este Mes</option>
+                        <option value="trimestre">Este Trimestre</option>
+                        <option value="año">Este Año</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <button class="btn btn-primary" onclick="sistemaReportes.actualizarDashboard()">
+                        🔄 Actualizar
+                    </button>
+                </div>
+            </div>
+
+            <div id="dashboard-contenido">
+                <!-- Se cargará dinámicamente -->
+            </div>
+        </div>
+
+        <!-- Sección: Reportes de Ventas -->
+        <div id="seccion-ventas" class="section-card" style="display: none;">
+            <h2 class="section-title">💰 Reportes de Ventas</h2>
+            
+            <div class="filtros-reportes">
+                <div class="input-group">
+                    <label for="fecha-inicio-ventas">Fecha Inicio:</label>
+                    <input type="date" id="fecha-inicio-ventas">
+                </div>
+                <div class="input-group">
+                    <label for="fecha-fin-ventas">Fecha Fin:</label>
+                    <input type="date" id="fecha-fin-ventas">
+                </div>
+                <div class="input-group">
+                    <label for="vendedor-filtro">Vendedor:</label>
+                    <select id="vendedor-filtro">
+                        <option value="">Todos los vendedores</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <button class="btn btn-primary" onclick="sistemaReportes.generarReporteVentas()">
+                        📊 Generar Reporte
+                    </button>
+                </div>
+            </div>
+
+            <div id="resultado-ventas" class="tabla-reportes">
+                <!-- Se mostrará el reporte de ventas -->
+            </div>
+        </div>
+
+        <!-- Sección: Analítica de Productos -->
+        <div id="seccion-productos" class="section-card" style="display: none;">
+            <h2 class="section-title">🍽️ Analítica de Productos</h2>
+            
+            <div class="filtros-reportes">
+                <div class="input-group">
+                    <label for="categoria-filtro">Categoría:</label>
+                    <select id="categoria-filtro">
+                        <option value="">Todas las categorías</option>
+                        <option value="Café">Café</option>
+                        <option value="Bebidas">Bebidas</option>
+                        <option value="Pastelería">Pastelería</option>
+                        <option value="Snacks">Snacks</option>
+                        <option value="Desayunos">Desayunos</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="periodo-productos">Período:</label>
+                    <select id="periodo-productos">
+                        <option value="semana">Última Semana</option>
+                        <option value="mes" selected>Último Mes</option>
+                        <option value="trimestre">Último Trimestre</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <button class="btn btn-primary" onclick="sistemaReportes.analizarProductos()">
+                        🔍 Analizar
+                    </button>
+                </div>
+            </div>
+
+            <div id="resultado-productos">
+                <!-- Se mostrará la analítica de productos -->
+            </div>
+        </div>
+
+        <!-- Sección: Reportes de Clientes -->
+        <div id="seccion-clientes" class="section-card" style="display: none;">
+            <h2 class="section-title">👥 Reportes de Clientes</h2>
+            
+            <div class="filtros-reportes">
+                <div class="input-group">
+                    <label for="tipo-cliente">Tipo de Cliente:</label>
+                    <select id="tipo-cliente">
+                        <option value="">Todos</option>
+                        <option value="vip">VIP</option>
+                        <option value="frecuente">Frecuentes</option>
+                        <option value="nuevo">Nuevos</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="nivel-lealtad">Nivel de Lealtad:</label>
+                    <select id="nivel-lealtad">
+                        <option value="">Todos los niveles</option>
+                        <option value="bronce">Bronce</option>
+                        <option value="plata">Plata</option>
+                        <option value="oro">Oro</option>
+                        <option value="diamante">Diamante</option>
+                        <option value="platino">Platino</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <button class="btn btn-primary" onclick="sistemaReportes.analizarClientes()">
+                        👥 Analizar
+                    </button>
+                </div>
+            </div>
+
+            <div id="resultado-clientes">
+                <!-- Se mostrará el reporte de clientes -->
+            </div>
+        </div>
+
+        <!-- Sección: Reportes de Empleados -->
+        <div id="seccion-empleados" class="section-card" style="display: none;">
+            <h2 class="section-title">👨‍💼 Reportes de Empleados</h2>
+            
+            <div class="filtros-reportes">
+                <div class="input-group">
+                    <label for="empleado-seleccion">Empleado:</label>
+                    <select id="empleado-seleccion">
+                        <option value="">Todos los empleados</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="fecha-inicio-empleados">Fecha Inicio:</label>
+                    <input type="date" id="fecha-inicio-empleados">
+                </div>
+                <div class="input-group">
+                    <label for="fecha-fin-empleados">Fecha Fin:</label>
+                    <input type="date" id="fecha-fin-empleados">
+                </div>
+                <div class="input-group">
+                    <button class="btn btn-primary" onclick="sistemaReportes.analizarEmpleados()">
+                        📈 Analizar
+                    </button>
+                </div>
+            </div>
+
+            <div id="resultado-empleados">
+                <!-- Se mostrará el reporte de empleados -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Cafetería Cesde</h3>
+                <p>El mejor café para estudiantes y profesionales</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📞 Soporte: 3008694578</p>
+                <p>📧 Email: equipocesde25@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Horarios</h3>
+                <p>Lunes a Viernes: 7:00 AM - 8:00 PM</p>
+                <p>Sábados: 8:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Equipo Cesde. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/reportes.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>

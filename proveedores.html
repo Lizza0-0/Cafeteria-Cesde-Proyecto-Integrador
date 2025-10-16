@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Proveedores - Cafetería Cesde</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header con navegación -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-logo">
+                <img src="Images/cafe cesde logo.jpg" alt="Cafetería Cesde" class="logo-img">
+                <span class="logo-text">Cafe Cesde</span>
+            </div>
+            
+            <div class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">🏠 Inicio</a></li>
+                    <li><a href="empleados.html" class="nav-link">👨‍💼 Empleados</a></li>
+                    <li><a href="notificaciones.html" class="nav-link">🔔 Notificaciones</a></li>
+                    <li><a href="soporte.html" class="nav-link">🆘 Soporte</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="page-header">
+            <h1><span class="title-icon">🏭</span> Gestión de Proveedores</h1>
+            <p>Administra proveedores, órdenes de compra y recepción de mercancía</p>
+        </section>
+
+        <div class="proveedores-container">
+        <div class="proveedores-nav">
+            <button class="nav-btn active" onclick="mostrarSeccion('proveedores')">🏭 Proveedores</button>
+            <button class="nav-btn" onclick="mostrarSeccion('ordenes')">📋 Órdenes de Compra</button>
+            <button class="nav-btn" onclick="mostrarSeccion('recepcion')">📦 Recepción</button>
+            <button class="nav-btn" onclick="mostrarSeccion('estadisticas')">📊 Estadísticas</button>
+        </div>
+
+        <!-- Sección: Gestión de Proveedores -->
+        <div id="seccion-proveedores" class="section-card">
+            <h2 class="section-title">🏭 Gestión de Proveedores</h2>
+            
+            <div class="formulario-proveedor">
+                <div class="input-group">
+                    <label for="nombre-empresa">Nombre de la Empresa:</label>
+                    <input type="text" id="nombre-empresa" placeholder="Ej: Distribuidora de Café Premium">
+                </div>
+                <div class="input-group">
+                    <label for="nit-proveedor">NIT/RUC:</label>
+                    <input type="text" id="nit-proveedor" placeholder="Ej: 900123456-7">
+                </div>
+                <div class="input-group">
+                    <label for="contacto-proveedor">Contacto Principal:</label>
+                    <input type="text" id="contacto-proveedor" placeholder="Nombre del contacto">
+                </div>
+                <div class="input-group">
+                    <label for="telefono-proveedor">Teléfono:</label>
+                    <input type="tel" id="telefono-proveedor" placeholder="Ej: +57 300 123 4567">
+                </div>
+                <div class="input-group">
+                    <label for="email-proveedor">Email:</label>
+                    <input type="email" id="email-proveedor" placeholder="contacto@proveedor.com">
+                </div>
+                <div class="input-group">
+                    <label for="direccion-proveedor">Dirección:</label>
+                    <input type="text" id="direccion-proveedor" placeholder="Dirección completa">
+                </div>
+                <div class="input-group">
+                    <label for="categoria-productos">Categoría de Productos:</label>
+                    <select id="categoria-productos">
+                        <option value="">Seleccionar categoría</option>
+                        <option value="cafe">Café y Bebidas</option>
+                        <option value="panaderia">Panadería y Pastelería</option>
+                        <option value="lacteos">Lácteos</option>
+                        <option value="dulces">Dulces y Postres</option>
+                        <option value="empaques">Empaques y Envases</option>
+                        <option value="limpieza">Productos de Limpieza</option>
+                        <option value="equipos">Equipos y Maquinaria</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="calificacion-proveedor">Calificación:</label>
+                    <select id="calificacion-proveedor">
+                        <option value="5">⭐⭐⭐⭐⭐ Excelente</option>
+                        <option value="4">⭐⭐⭐⭐ Muy Bueno</option>
+                        <option value="3">⭐⭐⭐ Bueno</option>
+                        <option value="2">⭐⭐ Regular</option>
+                        <option value="1">⭐ Malo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="notas-proveedor">Notas Adicionales:</label>
+                <textarea id="notas-proveedor" placeholder="Información adicional sobre el proveedor, términos de pago, días de entrega, etc."></textarea>
+            </div>
+
+            <div style="text-align: center; margin: 20px 0;">
+                <button class="btn btn-primary" onclick="sistemaProveedores.guardarProveedor()">
+                    💾 Guardar Proveedor
+                </button>
+                <button class="btn btn-warning" onclick="sistemaProveedores.limpiarFormulario()">
+                    🔄 Limpiar Formulario
+                </button>
+            </div>
+
+            <div class="tabla-proveedores">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Empresa</th>
+                            <th>NIT</th>
+                            <th>Contacto</th>
+                            <th>Teléfono</th>
+                            <th>Categoría</th>
+                            <th>Calificación</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-proveedores">
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Sección: Órdenes de Compra -->
+        <div id="seccion-ordenes" class="section-card" style="display: none;">
+            <h2 class="section-title">📋 Órdenes de Compra</h2>
+            
+            <div class="filtros-ordenes">
+                <div class="input-group">
+                    <label for="proveedor-orden">Proveedor:</label>
+                    <select id="proveedor-orden">
+                        <option value="">Seleccionar proveedor</option>
+                        <!-- Se llenará dinámicamente -->
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="fecha-entrega">Fecha de Entrega:</label>
+                    <input type="date" id="fecha-entrega">
+                </div>
+                <div class="input-group">
+                    <label for="urgencia-orden">Urgencia:</label>
+                    <select id="urgencia-orden">
+                        <option value="normal">Normal</option>
+                        <option value="urgente">Urgente</option>
+                        <option value="critica">Crítica</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <button class="btn btn-success" onclick="sistemaProveedores.abrirModalOrden()">
+                        ➕ Nueva Orden
+                    </button>
+                </div>
+            </div>
+
+            <div class="ordenes-grid" id="lista-ordenes">
+                <!-- Se llenará dinámicamente -->
+            </div>
+        </div>
+
+        <!-- Sección: Recepción de Mercancía -->
+        <div id="seccion-recepcion" class="section-card" style="display: none;">
+            <h2 class="section-title">📦 Recepción de Mercancía</h2>
+            
+            <div class="filtros-ordenes">
+                <div class="input-group">
+                    <label for="orden-recepcion">Orden a Recibir:</label>
+                    <select id="orden-recepcion">
+                        <option value="">Seleccionar orden enviada</option>
+                        <!-- Se llenará dinámicamente -->
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="fecha-recepcion">Fecha de Recepción:</label>
+                    <input type="date" id="fecha-recepcion">
+                </div>
+                <div class="input-group">
+                    <button class="btn btn-primary" onclick="sistemaProveedores.procesarRecepcion()">
+                        📦 Procesar Recepción
+                    </button>
+                </div>
+            </div>
+
+            <div id="detalles-recepcion">
+                <!-- Se mostrará información de la orden seleccionada -->
+            </div>
+        </div>
+
+        <!-- Sección: Estadísticas -->
+        <div id="seccion-estadisticas" class="section-card" style="display: none;">
+            <h2 class="section-title">📊 Estadísticas de Proveedores</h2>
+            
+            <div class="resumen-estadisticas" id="resumen-estadisticas">
+                <!-- Se llenará dinámicamente -->
+            </div>
+
+            <div id="graficos-estadisticas">
+                <!-- Se mostrarán gráficos y análisis -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal para Nueva Orden -->
+    <div id="modal-orden" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="sistemaProveedores.cerrarModal()">&times;</span>
+            <h3>📋 Nueva Orden de Compra</h3>
+            
+            <div class="input-group">
+                <label for="modal-proveedor">Proveedor:</label>
+                <select id="modal-proveedor">
+                    <option value="">Seleccionar proveedor</option>
+                </select>
+            </div>
+
+            <div id="productos-orden">
+                <h4>Productos a Solicitar:</h4>
+                <div id="lista-productos-orden">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+                <button class="btn btn-success" onclick="sistemaProveedores.agregarProductoOrden()">
+                    ➕ Agregar Producto
+                </button>
+            </div>
+
+            <div class="input-group">
+                <label for="notas-orden">Notas de la Orden:</label>
+                <textarea id="notas-orden" placeholder="Instrucciones especiales, términos de pago, etc."></textarea>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn btn-primary" onclick="sistemaProveedores.crearOrden()">
+                    💾 Crear Orden
+                </button>
+                <button class="btn btn-warning" onclick="sistemaProveedores.cerrarModal()">
+                    ❌ Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Cafetería Cesde</h3>
+                <p>El mejor café para estudiantes y profesionales</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📞 Soporte: 3008694578</p>
+                <p>📧 Email: equipocesde25@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Horarios</h3>
+                <p>Lunes a Viernes: 7:00 AM - 8:00 PM</p>
+                <p>Sábados: 8:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Equipo Cesde. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/proveedores.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>

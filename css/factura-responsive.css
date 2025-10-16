@@ -1,0 +1,821 @@
+/* Archivo: css/factura-responsive.css */
+/* ================================================
+   SISTEMA DE FACTURACIÓN - ESTILOS RESPONSIVOS
+   ================================================ */
+
+/* FORZAR LOGO NAVEGACIÓN EN FACTURACIÓN */
+header .nav-container .nav-logo .logo-text {
+    font-weight: 700 !important;
+    font-family: inherit !important;
+}
+
+header .nav-container .nav-logo {
+    font-weight: 700 !important;
+}
+
+/* Variables CSS para consistencia */
+:root {
+    /* Colores específicos de facturación */
+    --invoice-primary: #8B4513;
+    --invoice-secondary: #D2691E;
+    --invoice-accent: #CD853F;
+    
+    /* Colores de estado de factura */
+    --status-paid: #28a745;
+    --status-pending: #ffc107;
+    --status-overdue: #dc3545;
+    --status-cancelled: #6c757d;
+    
+    /* Colores de métodos de pago */
+    --payment-cash: #28a745;
+    --payment-card: #007bff;
+    --payment-transfer: #6f42c1;
+    
+    /* Espaciado específico */
+    --invoice-spacing: 1.5rem;
+    --section-spacing: 2rem;
+}
+
+/* ================================================
+   LAYOUT PRINCIPAL
+   ================================================ */
+
+.main-content {
+    padding-top: 80px;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.facturacion-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* ================================================
+   HEADER DE FACTURACIÓN
+   ================================================ */
+
+.facturacion-header {
+    background: linear-gradient(135deg, var(--invoice-primary) 0%, #654321 100%);
+    color: var(--text-white);
+    padding: var(--spacing-xl) 0;
+    margin-bottom: var(--spacing-lg);
+    border-radius: var(--border-radius-lg);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.facturacion-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect x="20" y="20" width="60" height="40" fill="white" opacity="0.05" rx="5"/><circle cx="30" cy="70" r="3" fill="white" opacity="0.1"/><circle cx="70" cy="70" r="2" fill="white" opacity="0.1"/></svg>') repeat;
+    pointer-events: none;
+}
+
+.facturacion-header h1 {
+    color: var(--text-white);
+    font-size: 2.5rem;
+    margin: 0 0 var(--spacing-sm) 0;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+}
+
+.facturacion-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* ================================================
+   ESTADÍSTICAS DE FACTURACIÓN
+   ================================================ */
+
+.stats-facturacion {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.stat-factura {
+    background: var(--bg-primary);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.stat-factura:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow-lg);
+    border-color: var(--invoice-primary);
+}
+
+.stat-icon {
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-white);
+    flex-shrink: 0;
+}
+
+.stat-icon.ventas {
+    background: linear-gradient(135deg, var(--status-paid), #1e7e34);
+}
+
+.stat-icon.pendientes {
+    background: linear-gradient(135deg, var(--status-pending), #d39e00);
+}
+
+.stat-icon.vencidas {
+    background: linear-gradient(135deg, var(--status-overdue), #c82333);
+}
+
+.stat-icon.total {
+    background: linear-gradient(135deg, var(--invoice-primary), var(--invoice-secondary));
+}
+
+.stat-info h3 {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--invoice-primary);
+}
+
+.stat-info p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* ================================================
+   FORMULARIO DE NUEVA FACTURA
+   ================================================ */
+
+.nueva-factura {
+    background: var(--bg-primary);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow);
+    margin-bottom: var(--spacing-lg);
+    overflow: hidden;
+    border: 1px solid var(--bg-light);
+}
+
+.form-header {
+    background: linear-gradient(135deg, var(--invoice-primary), var(--invoice-secondary));
+    color: var(--text-white);
+    padding: var(--spacing-lg);
+    text-align: center;
+}
+
+.form-header h2 {
+    margin: 0 0 var(--spacing-sm) 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.form-description {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 1rem;
+}
+
+.form-content {
+    padding: var(--spacing-lg);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.form-label.required::after {
+    content: '*';
+    color: var(--error-color);
+    margin-left: var(--spacing-xs);
+}
+
+.form-input {
+    padding: var(--spacing-sm);
+    border: 2px solid var(--bg-light);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--invoice-primary);
+    box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+}
+
+.form-input:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: var(--error-color);
+    background-color: rgba(220, 53, 69, 0.05);
+}
+
+/* ================================================
+   TABLA DE PRODUCTOS
+   ================================================ */
+
+.productos-section {
+    margin: var(--spacing-lg) 0;
+}
+
+.section-title {
+    color: var(--invoice-primary);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 var(--spacing-md) 0;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.productos-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-primary);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+}
+
+.productos-table thead {
+    background: linear-gradient(135deg, var(--invoice-primary), var(--invoice-secondary));
+    color: var(--text-white);
+}
+
+.productos-table th,
+.productos-table td {
+    padding: var(--spacing-sm);
+    text-align: left;
+    border-bottom: 1px solid var(--bg-light);
+}
+
+.productos-table th {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.productos-table tbody tr:hover {
+    background: rgba(139, 69, 19, 0.05);
+}
+
+.productos-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.cantidad-input {
+    width: 60px;
+    padding: var(--spacing-xs);
+    border: 1px solid var(--bg-light);
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.precio-unitario,
+.precio-total {
+    font-weight: 600;
+    color: var(--invoice-primary);
+}
+
+/* ================================================
+   RESUMEN DE FACTURA
+   ================================================ */
+
+.resumen-factura {
+    background: var(--bg-secondary);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--invoice-primary);
+    margin: var(--spacing-lg) 0;
+}
+
+.resumen-title {
+    color: var(--invoice-primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 var(--spacing-md) 0;
+    text-align: center;
+}
+
+.resumen-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--bg-light);
+}
+
+.resumen-item:last-child {
+    border-bottom: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--invoice-primary);
+    border-top: 2px solid var(--invoice-primary);
+    margin-top: var(--spacing-sm);
+    padding-top: var(--spacing-md);
+}
+
+.resumen-label {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.resumen-valor {
+    color: var(--invoice-primary);
+    font-weight: 600;
+}
+
+/* ================================================
+   MÉTODOS DE PAGO
+   ================================================ */
+
+.metodos-pago {
+    margin: var(--spacing-lg) 0;
+}
+
+.metodos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.metodo-pago {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    border: 2px solid var(--bg-light);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    background: var(--bg-primary);
+}
+
+.metodo-pago:hover {
+    border-color: var(--invoice-primary);
+    background: rgba(139, 69, 19, 0.05);
+}
+
+.metodo-pago.selected {
+    border-color: var(--invoice-primary);
+    background: rgba(139, 69, 19, 0.1);
+}
+
+.metodo-radio {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--bg-light);
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.metodo-radio:checked {
+    border-color: var(--invoice-primary);
+    background: var(--invoice-primary);
+}
+
+.metodo-radio:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+.metodo-icon {
+    font-size: 1.5rem;
+    color: var(--invoice-primary);
+}
+
+.metodo-info h4 {
+    margin: 0 0 var(--spacing-xs) 0;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.metodo-info p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+/* ================================================
+   HISTORIAL DE FACTURAS
+   ================================================ */
+
+.historial-facturas {
+    margin-top: var(--spacing-xl);
+}
+
+.facturas-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.filter-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: 2px solid var(--bg-light);
+    border-radius: var(--border-radius);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.9rem;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    border-color: var(--invoice-primary);
+    background: var(--invoice-primary);
+    color: var(--text-white);
+}
+
+.facturas-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-primary);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+}
+
+.facturas-table thead {
+    background: linear-gradient(135deg, var(--invoice-primary), var(--invoice-secondary));
+    color: var(--text-white);
+}
+
+.facturas-table th,
+.facturas-table td {
+    padding: var(--spacing-sm);
+    text-align: left;
+    border-bottom: 1px solid var(--bg-light);
+}
+
+.facturas-table tbody tr:hover {
+    background: rgba(139, 69, 19, 0.05);
+}
+
+.status-badge {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-badge.pagada {
+    background: var(--status-paid);
+    color: white;
+}
+
+.status-badge.pendiente {
+    background: var(--status-pending);
+    color: var(--text-primary);
+}
+
+.status-badge.vencida {
+    background: var(--status-overdue);
+    color: white;
+}
+
+.status-badge.cancelada {
+    background: var(--status-cancelled);
+    color: white;
+}
+
+/* ================================================
+   ACCIONES DE FACTURA
+   ================================================ */
+
+.factura-actions {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+.action-btn {
+    padding: var(--spacing-xs);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.9rem;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-btn.view {
+    background: var(--info-color);
+    color: white;
+}
+
+.action-btn.edit {
+    background: var(--warning-color);
+    color: white;
+}
+
+.action-btn.delete {
+    background: var(--error-color);
+    color: white;
+}
+
+.action-btn.print {
+    background: var(--success-color);
+    color: white;
+}
+
+.action-btn:hover {
+    transform: scale(1.1);
+}
+
+/* ================================================
+   BOTONES PRINCIPALES
+   ================================================ */
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-lg) 0;
+    border-top: 1px solid var(--bg-light);
+    margin-top: var(--spacing-lg);
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-success {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    min-width: 160px;
+    justify-content: center;
+}
+
+.btn-icon {
+    font-size: 1rem;
+}
+
+/* ================================================
+   RESPONSIVE DESIGN
+   ================================================ */
+
+/* Tablets (768px y menores) */
+@media (max-width: 768px) {
+    .facturacion-container {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .facturacion-header h1 {
+        font-size: 2rem;
+    }
+    
+    .stats-facturacion {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: var(--spacing-sm);
+    }
+    
+    .stat-factura {
+        flex-direction: column;
+        text-align: center;
+        padding: var(--spacing-sm);
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+    
+    .form-content {
+        padding: var(--spacing-md);
+    }
+    
+    .productos-table,
+    .facturas-table {
+        font-size: 0.9rem;
+    }
+    
+    .productos-table th,
+    .productos-table td,
+    .facturas-table th,
+    .facturas-table td {
+        padding: var(--spacing-xs);
+    }
+    
+    .metodos-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .facturas-filters {
+        justify-content: center;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .btn-primary,
+    .btn-secondary,
+    .btn-success {
+        width: 100%;
+        min-width: auto;
+    }
+}
+
+/* Móviles (480px y menores) */
+@media (max-width: 480px) {
+    .facturacion-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .facturacion-subtitle {
+        font-size: 1rem;
+    }
+    
+    .stats-facturacion {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-factura {
+        flex-direction: row;
+        text-align: left;
+    }
+    
+    .form-header {
+        padding: var(--spacing-md);
+    }
+    
+    .form-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .resumen-factura {
+        padding: var(--spacing-md);
+    }
+    
+    .productos-table,
+    .facturas-table {
+        font-size: 0.8rem;
+    }
+    
+    .section-title {
+        font-size: 1.1rem;
+        flex-wrap: wrap;
+    }
+    
+    .factura-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .metodo-pago {
+        flex-direction: column;
+        text-align: center;
+        padding: var(--spacing-sm);
+    }
+}
+
+/* Móviles pequeños (320px y menores) */
+@media (max-width: 320px) {
+    .facturacion-container {
+        margin: 5px;
+        padding: 10px;
+    }
+    
+    .facturacion-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .form-input {
+        padding: var(--spacing-xs);
+        font-size: 0.9rem;
+    }
+    
+    .btn-primary,
+    .btn-secondary,
+    .btn-success {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 0.9rem;
+    }
+    
+    .productos-table,
+    .facturas-table {
+        font-size: 0.7rem;
+    }
+    
+    .stat-info h3 {
+        font-size: 1.5rem;
+    }
+    
+    .resumen-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+}
+
+/* ================================================
+   MODO OSCURO (Opcional)
+   ================================================ */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #1a1a1a;
+        --bg-secondary: #2d2d2d;
+        --bg-light: #404040;
+        --text-primary: #ffffff;
+        --text-secondary: #cccccc;
+    }
+    
+    .productos-table,
+    .facturas-table {
+        background: var(--bg-primary);
+    }
+    
+    .metodo-pago,
+    .filter-btn,
+    .form-input {
+        background: var(--bg-primary);
+        color: var(--text-primary);
+    }
+}
+
+/* ================================================
+   IMPRESIÓN
+   ================================================ */
+
+@media print {
+    .facturacion-header,
+    .form-actions,
+    .facturas-filters,
+    .nueva-factura {
+        display: none;
+    }
+    
+    .productos-table,
+    .facturas-table {
+        break-inside: avoid;
+    }
+    
+    .resumen-factura {
+        break-inside: avoid;
+        border: 2px solid var(--text-primary);
+    }
+}

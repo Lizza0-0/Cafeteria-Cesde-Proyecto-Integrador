@@ -1,283 +1,551 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soporte</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Soporte Técnico - Cafetería Cesde</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/soporte-responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <div class="banner">Cafeteria Cesde</div>
-        <img src="Images/banner.webp" alt="Header Image">
-        <div class="eslogan">Donde el conocimiento se mezcla con buen café.</div>
-        <div class="logo"><img src="Images/cafe cesde logo.jpg" alt="Logo image"></div>
-    </header>
-    <nav>
-        <a href="index.html">Inicio</a>
-        <a href="mer.html">MER</a>
-        <a href="logica.html">Logica</a>
-        <a href="soporte.html">Soporte</a>
-    </nav> 
-   <main>
-        <form id="soporte-form" action="#" method="POST">
-            <h2>🎧 Centro de Soporte Técnico</h2>
-            <h3>Por favor ingrese la siguiente información para ponernos en contacto con usted</h3>
+    <!-- Header con navegación -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-logo">
+                <img src="Images/cafe cesde logo.jpg" alt="Cafetería Cesde" class="logo-img">
+                <span class="logo-text">Cafe Cesde</span>
+            </div>
             
-            <fieldset>
-                <legend>👤 Información del Empleado</legend>
-                
-                <div class="input-row">
-                    <div class="input-group">
-                        <label for="id_empleado">ID del Empleado:</label>
-                        <input type="text" id="id_empleado" name="id_empleado" 
-                               placeholder="Ej: EMP001" required>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="nombre_empleado">Nombre Completo:</label>
-                        <input type="text" id="nombre_empleado" name="nombre_empleado" 
-                               placeholder="Nombre y apellidos" required>
-                    </div>
-                </div>
-                
-                <div class="input-row">
-                    <div class="input-group">
-                        <label for="cargo_empleado">Cargo:</label>
-                        <select id="cargo_empleado" name="cargo_empleado" required>
-                            <option value="">--Seleccionar cargo--</option>
-                            <option value="cajero">💰 Cajero</option>
-                            <option value="asistente_ventas">🤝 Asistente de Ventas</option>
-                            <option value="administrador">🏢 Administrador</option>
-                        </select>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="turno_empleado">Turno de Trabajo:</label>
-                        <select id="turno_empleado" name="turno_empleado" required>
-                            <option value="">--Seleccionar turno--</option>
-                            <option value="medio">🌅 Medio Tiempo</option>
-                            <option value="completo">⏰ Tiempo Completo</option>
-                        </select>
-                    </div>
-                </div>
-            </fieldset>
+            <div class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">🏠 Inicio</a></li>
+                    <li><a href="empleados.html" class="nav-link">👨‍💼 Empleados</a></li>
+                    <li><a href="notificaciones.html" class="nav-link">🔔 Notificaciones</a></li>
+                    <li><a href="soporte.html" class="nav-link active">🆘 Soporte</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
-            <fieldset>
-                <legend>🔧 Información del Problema</legend>
-                
-                <div class="input-row">
-                    <div class="input-group">
-                        <label for="tipo_problema">Tipo de Problema:</label>
-                        <select id="tipo_problema" name="tipo_problema" required>
-                            <option value="">--Seleccionar tipo--</option>
-                            <option value="hardware">🖥️ Hardware (Equipos físicos)</option>
-                            <option value="software">💻 Software (Programas/Apps)</option>
-                            <option value="red">🌐 Conectividad/Red</option>
-                            <option value="sistema_pos">💳 Sistema POS/Pagos</option>
-                            <option value="impresora">🖨️ Impresoras</option>
-                            <option value="otro">❓ Otro</option>
-                        </select>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="nivel_prioridad">Nivel de Prioridad:</label>
-                        <select id="nivel_prioridad" name="nivel_prioridad" required>
-                            <option value="">--Seleccionar prioridad--</option>
-                            <option value="critica">🔴 CRÍTICA - Operación detenida</option>
-                            <option value="alta">🟠 ALTA - Afecta productividad</option>
-                            <option value="media">🟡 MEDIA - Molestia menor</option>
-                            <option value="baja">🟢 BAJA - Mejora/Sugerencia</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <label for="fecha_problema">¿Cuándo ocurrió el problema?</label>
-                    <input type="datetime-local" id="fecha_problema" name="fecha_problema" required>
-                </div>
-                
-                <div class="input-group">
-                    <label for="descripcion_problema">Descripción Detallada del Problema:</label>
-                    <textarea id="descripcion_problema" name="descripcion_problema" rows="5" 
-                              placeholder="Describa paso a paso lo que estaba haciendo cuando ocurrió el problema, qué esperaba que pasara y qué pasó en realidad. Incluya mensajes de error si los hay." 
-                              required></textarea>
-                </div>
-                
-                <div class="input-group">
-                    <label for="pasos_reproducir">Pasos para Reproducir el Problema:</label>
-                    <textarea id="pasos_reproducir" name="pasos_reproducir" rows="4" 
-                              placeholder="1. Primero hice esto...&#10;2. Luego hice esto otro...&#10;3. Entonces ocurrió..."></textarea>
-                </div>
-                
-                <div class="input-row">
-                    <div class="input-group">
-                        <label for="impacto_trabajo">¿Cómo afecta su trabajo?</label>
-                        <select id="impacto_trabajo" name="impacto_trabajo">
-                            <option value="">--Seleccionar--</option>
-                            <option value="total">🚫 No puedo trabajar</option>
-                            <option value="parcial">⚠️ Trabajo con dificultades</option>
-                            <option value="menor">😐 Molestia menor</option>
-                            <option value="ninguno">✅ No afecta mi trabajo</option>
-                        </select>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="solucion_temporal">¿Ha encontrado alguna solución temporal?</label>
-                        <select id="solucion_temporal" name="solucion_temporal">
-                            <option value="">--Seleccionar--</option>
-                            <option value="si">✅ Sí, encontré una forma de trabajar</option>
-                            <option value="parcial">🔄 Parcialmente</option>
-                            <option value="no">❌ No, necesito ayuda urgente</option>
-                        </select>
-                    </div>
-                </div>
-            </fieldset>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header de la página -->
+        <section class="page-header">
+            <h1>
+                <span class="title-icon">🆘</span>
+                Soporte Técnico
+            </h1>
+            <p>Centro de ayuda y soporte para empleados de Cafetería Cesde</p>
+        </section>
 
-            <fieldset>
-                <legend>📞 Información de Contacto</legend>
-                
-                <div class="input-row">
-                    <div class="input-group">
-                        <label for="email_empleado">Correo Electrónico:</label>
-                        <input type="email" id="email_empleado" name="email_empleado" 
-                               placeholder="su.email@cesde.edu.co" required>
+        <div class="container">
+        <!-- Panel de estadísticas de soporte -->
+        <section class="stats-panel">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🎫</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="total-tickets">0</span>
+                            <span class="stat-label">Total Tickets</span>
+                        </div>
                     </div>
-                    
-                    <div class="input-group">
-                        <label for="telefono_empleado">Teléfono de Contacto:</label>
-                        <input type="tel" id="telefono_empleado" name="telefono_empleado" 
-                               placeholder="Ej: 3001234567">
+                    <div class="stat-card">
+                        <div class="stat-icon">🔴</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="tickets-criticos">0</span>
+                            <span class="stat-label">Críticos</span>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="input-group">
-                    <label for="mejor_horario">¿Cuál es el mejor horario para contactarlo?</label>
-                    <select id="mejor_horario" name="mejor_horario">
-                        <option value="">--Seleccionar--</option>
-                        <option value="manana">🌅 Mañana (7:00 AM - 12:00 PM)</option>
-                        <option value="tarde">🌞 Tarde (12:00 PM - 6:00 PM)</option>
-                        <option value="cualquiera">⏰ Cualquier horario</option>
-                    </select>
-                </div>
-                
-                <div class="input-group">
-                    <label for="metodo_contacto">Método de Contacto Preferido:</label>
-                    <div class="radio-group">
-                        <label class="radio-item">
-                            <input type="radio" name="metodo_contacto" value="email" checked>
-                            <span class="radio-mark"></span>
-                            📧 Correo Electrónico
-                        </label>
-                        
-                        <label class="radio-item">
-                            <input type="radio" name="metodo_contacto" value="telefono">
-                            <span class="radio-mark"></span>
-                            📞 Llamada Telefónica
-                        </label>
-                        
-                        <label class="radio-item">
-                            <input type="radio" name="metodo_contacto" value="whatsapp">
-                            <span class="radio-mark"></span>
-                            💬 WhatsApp
-                        </label>
-                        
-                        <label class="radio-item">
-                            <input type="radio" name="metodo_contacto" value="presencial">
-                            <span class="radio-mark"></span>
-                            👥 Visita Presencial
-                        </label>
+                    <div class="stat-card">
+                        <div class="stat-icon">📂</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="tickets-abiertos">0</span>
+                            <span class="stat-label">Abiertos</span>
+                        </div>
                     </div>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>📎 Archivos Adjuntos</legend>
-                
-                <div class="input-group">
-                    <label for="archivo_adjunto">Adjuntar Archivo (opcional):</label>
-                    <input type="file" id="archivo_adjunto" name="archivo_adjunto" 
-                           accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.txt" multiple>
-                </div>
-                
-                <div class="file-tips">
-                    <h4>💡 Solo se reciben formatos Word, PDF, JPG o PNG </h4>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>📝 Información Adicional</legend>
-                
-                <div class="input-group">
-                    <label for="comentarios_adicionales">Comentarios Adicionales:</label>
-                    <textarea id="comentarios_adicionales" name="comentarios_adicionales" rows="3" 
-                              placeholder="Cualquier información adicional que considere importante..."></textarea>
-                </div>
-                
-                <div class="checkbox-group">
-                    <label class="checkbox-item">
-                        <input type="checkbox" name="urgente" value="1">
-                        <span class="checkmark"></span>
-                        <strong>MARCAR COMO URGENTE (Solo para problemas que impiden trabajar completamente)</strong> 
-                    </label>
-                    
-                    <label class="checkbox-item">
-                        <input type="checkbox" name="notificar_supervisor" value="1">
-                        <span class="checkmark"></span>
-                        Notificar también a mi supervisor inmediato
-                    </label>
-                    
-                    <label class="checkbox-item">
-                        <input type="checkbox" name="seguimiento" value="1" checked>
-                        <span class="checkmark"></span>
-                        Quiero recibir actualizaciones sobre el progreso de la solución
-                    </label>
-                </div>
-            </fieldset>
-
-            <div class="ticket-info">
-                <h4>¿Qué pasa después de enviar este ticket?</h4>
-                <div class="proceso-steps">
-                    <div class="step">
-                        <span class="step-number">1.</span>
-                        <span class="step-text">Recibirá un email de confirmación con el número de ticket</span>
-                    </div>
-                    <div class="step">
-                        <span class="step-number">2.</span>
-                        <span class="step-text">Nuestro equipo evaluará la prioridad (respuesta en 15 min - 4 horas)</span>
-                    </div>
-                    <div class="step">
-                        <span class="step-number">3.</span>
-                        <span class="step-text">Un técnico se comunicará para coordinar la solución</span>
-                    </div>
-                    <div class="step">
-                        <span class="step-number">4.</span>
-                        <span class="step-text">Una vez resuelto, confirmaremos que todo funciona correctamente</span>
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="empleados-activos">0</span>
+                            <span class="stat-label">Empleados Activos</span>
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="form-actions">
-                <button type="submit" class="btn-primary">📨 Enviar Ticket de Soporte</button>
-                <button type="reset" class="btn-secondary">🔄 Limpiar Formulario</button>
-                <a href="index.html" class="btn-link">🏠 Volver al Inicio</a>
+        <!-- Información de horarios -->
+        <section class="horarios-info">
+            <div class="container">
+                <div class="horarios-card">
+                    <div class="horarios-header">
+                        <h3>🕐 Horarios de Atención</h3>
+                    </div>
+                    <div class="horarios-content">
+                        <div class="horario-item">
+                            <span class="horario-dia">Lunes a Viernes:</span>
+                            <span class="horario-horas">7:00 AM - 6:00 PM</span>
+                        </div>
+                        <div class="horario-item">
+                            <span class="horario-dia">Sábados:</span>
+                            <span class="horario-horas">8:00 AM - 2:00 PM</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </form>
+        </section>
 
+        <!-- Formulario de soporte -->
+        <section class="soporte-section">
+            <div class="container">
+                <form id="soporte-form" class="soporte-form" novalidate>
+                    <div class="form-header">
+                        <h2 class="form-title">
+                            <span class="form-icon">🎧</span>
+                            Centro de Soporte Técnico
+                        </h2>
+                        <p class="form-description">Complete el formulario para crear un ticket de soporte</p>
+                        <div class="proceso-steps-preview">
+                            <span class="step-preview">📝 Crear</span>
+                            <span class="step-arrow">→</span>
+                            <span class="step-preview">📧 Confirmar</span>
+                            <span class="step-arrow">→</span>
+                            <span class="step-preview">👨‍💻 Resolver</span>
+                        </div>
+                    </div>
+
+                    <!-- Información del Empleado -->
+                    <fieldset class="form-section">
+                        <legend class="section-legend">
+                            <span class="legend-icon">👤</span>
+                            Información del Empleado
+                        </legend>
+                        
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="id_empleado" class="input-label required">ID del Empleado:</label>
+                                <input type="text" id="id_empleado" name="id_empleado" 
+                                       class="input-field" placeholder="Ej: EMP001" required>
+                                <small class="input-help">Formato: 3 letras + 3 números</small>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="nombre_empleado" class="input-label required">Nombre Completo:</label>
+                                <input type="text" id="nombre_empleado" name="nombre_empleado" 
+                                       class="input-field" placeholder="Nombre y apellidos" required>
+                            </div>
+                        </div>
+                        
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="cargo_empleado" class="input-label required">Cargo:</label>
+                                <select id="cargo_empleado" name="cargo_empleado" class="input-field" required>
+                                    <option value="">--Seleccionar cargo--</option>
+                                    <option value="cajero">💰 Cajero</option>
+                                    <option value="asistente_ventas">🤝 Asistente de Ventas</option>
+                                    <option value="administrador">🏢 Administrador</option>
+                                    <option value="gerente">👨‍💼 Gerente</option>
+                                    <option value="cocinero">👨‍🍳 Cocinero</option>
+                                    <option value="barista">☕ Barista</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="turno_empleado" class="input-label required">Turno de Trabajo:</label>
+                                <select id="turno_empleado" name="turno_empleado" class="input-field" required>
+                                    <option value="">--Seleccionar turno--</option>
+                                    <option value="medio">🌅 Medio Tiempo</option>
+                                    <option value="completo">⏰ Tiempo Completo</option>
+                                    <option value="nocturno">🌙 Nocturno</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Información del Problema -->
+                    <fieldset class="form-section">
+                        <legend class="section-legend">
+                            <span class="legend-icon">🔧</span>
+                            Información del Problema
+                        </legend>
+                        
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="tipo_problema" class="input-label required">Tipo de Problema:</label>
+                                <select id="tipo_problema" name="tipo_problema" class="input-field" required>
+                                    <option value="">--Seleccionar tipo--</option>
+                                    <option value="hardware">🖥️ Hardware (Equipos físicos)</option>
+                                    <option value="software">💻 Software (Programas/Apps)</option>
+                                    <option value="red">🌐 Conectividad/Red</option>
+                                    <option value="sistema_pos">💳 Sistema POS/Pagos</option>
+                                    <option value="impresora">🖨️ Impresoras</option>
+                                    <option value="otro">❓ Otro</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="nivel_prioridad" class="input-label required">Nivel de Prioridad:</label>
+                                <select id="nivel_prioridad" name="nivel_prioridad" class="input-field" required>
+                                    <option value="">--Se calculará automáticamente--</option>
+                                    <option value="critica">🔴 CRÍTICA - Operación detenida</option>
+                                    <option value="alta">🟠 ALTA - Afecta productividad</option>
+                                    <option value="media">🟡 MEDIA - Molestia menor</option>
+                                    <option value="baja">🟢 BAJA - Mejora/Sugerencia</option>
+                                </select>
+                                <small class="input-help">La prioridad se calcula automáticamente según el impacto</small>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group full-width">
+                            <label for="fecha_problema" class="input-label required">¿Cuándo ocurrió el problema?</label>
+                            <input type="datetime-local" id="fecha_problema" name="fecha_problema" 
+                                   class="input-field" required>
+                        </div>
+                        
+                        <div class="input-group full-width">
+                            <label for="descripcion_problema" class="input-label required">Descripción Detallada del Problema:</label>
+                            <textarea id="descripcion_problema" name="descripcion_problema" rows="5" 
+                                      class="input-field" 
+                                      placeholder="Describa paso a paso lo que estaba haciendo cuando ocurrió el problema, qué esperaba que pasara y qué pasó en realidad. Incluya mensajes de error si los hay." 
+                                      required></textarea>
+                            <small class="input-help">Mínimo 20 caracteres. Sea específico para una solución más rápida.</small>
+                        </div>
+                        
+                        <div class="input-group full-width">
+                            <label for="pasos_reproducir" class="input-label">Pasos para Reproducir el Problema:</label>
+                            <textarea id="pasos_reproducir" name="pasos_reproducir" rows="4" 
+                                      class="input-field" 
+                                      placeholder="1. Primero hice esto...&#10;2. Luego hice esto otro...&#10;3. Entonces ocurrió..."></textarea>
+                            <small class="input-help">Esto ayuda al técnico a reproducir y solucionar el problema</small>
+                        </div>
+                        
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="impacto_trabajo" class="input-label">¿Cómo afecta su trabajo?</label>
+                                <select id="impacto_trabajo" name="impacto_trabajo" class="input-field">
+                                    <option value="">--Seleccionar--</option>
+                                    <option value="total">🚫 No puedo trabajar</option>
+                                    <option value="parcial">⚠️ Trabajo con dificultades</option>
+                                    <option value="menor">😐 Molestia menor</option>
+                                    <option value="ninguno">✅ No afecta mi trabajo</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="solucion_temporal" class="input-label">¿Ha encontrado alguna solución temporal?</label>
+                                <select id="solucion_temporal" name="solucion_temporal" class="input-field">
+                                    <option value="">--Seleccionar--</option>
+                                    <option value="si">✅ Sí, encontré una forma de trabajar</option>
+                                    <option value="parcial">🔄 Parcialmente</option>
+                                    <option value="no">❌ No, necesito ayuda urgente</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Información de Contacto -->
+                    <fieldset class="form-section">
+                        <legend class="section-legend">
+                            <span class="legend-icon">📞</span>
+                            Información de Contacto
+                        </legend>
+                        
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="email_empleado" class="input-label required">Correo Electrónico:</label>
+                                <input type="email" id="email_empleado" name="email_empleado" 
+                                       class="input-field" placeholder="su.email@cesde.edu.co" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="telefono_empleado" class="input-label">Teléfono de Contacto:</label>
+                                <input type="tel" id="telefono_empleado" name="telefono_empleado" 
+                                       class="input-field" placeholder="Ej: 3001234567">
+                            </div>
+                        </div>
+                        
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="mejor_horario" class="input-label">¿Cuál es el mejor horario para contactarlo?</label>
+                                <select id="mejor_horario" name="mejor_horario" class="input-field">
+                                    <option value="">--Seleccionar--</option>
+                                    <option value="manana">🌅 Mañana (7:00 AM - 12:00 PM)</option>
+                                    <option value="tarde">🌞 Tarde (12:00 PM - 6:00 PM)</option>
+                                    <option value="cualquiera">⏰ Cualquier horario laboral</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="metodo_contacto" class="input-label">Método de Contacto Preferido:</label>
+                                <select id="metodo_contacto" name="metodo_contacto" class="input-field">
+                                    <option value="email">📧 Correo Electrónico</option>
+                                    <option value="telefono">📞 Llamada Telefónica</option>
+                                    <option value="whatsapp">💬 WhatsApp</option>
+                                    <option value="presencial">👥 Visita Presencial</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Archivos Adjuntos -->
+                    <fieldset class="form-section">
+                        <legend class="section-legend">
+                            <span class="legend-icon">📎</span>
+                            Archivos Adjuntos (Opcional)
+                        </legend>
+                        
+                        <div class="input-group full-width">
+                            <label for="archivo_adjunto" class="input-label">Adjuntar Archivos:</label>
+                            <input type="file" id="archivo_adjunto" name="archivo_adjunto" 
+                                   class="input-field" 
+                                   accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.txt" multiple>
+                            <small class="input-help">Capturas de pantalla de errores son muy útiles. Máximo 5MB por archivo.</small>
+                        </div>
+                        
+                        <div class="file-tips">
+                            <h4>💡 Formatos Permitidos:</h4>
+                            <div class="file-formats">
+                                <span class="format-tag">📷 JPG/PNG</span>
+                                <span class="format-tag">📄 PDF</span>
+                                <span class="format-tag">📝 DOC/DOCX</span>
+                                <span class="format-tag">📋 TXT</span>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Información Adicional -->
+                    <fieldset class="form-section">
+                        <legend class="section-legend">
+                            <span class="legend-icon">📝</span>
+                            Información Adicional
+                        </legend>
+                        
+                        <div class="input-group full-width">
+                            <label for="comentarios_adicionales" class="input-label">Comentarios Adicionales:</label>
+                            <textarea id="comentarios_adicionales" name="comentarios_adicionales" rows="3" 
+                                      class="input-field" 
+                                      placeholder="Cualquier información adicional que considere importante..."></textarea>
+                        </div>
+                        
+                        <div class="checkbox-section">
+                            <h4 class="checkbox-title">⚙️ Configuraciones del Ticket:</h4>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-item urgent">
+                                    <input type="checkbox" name="urgente" value="1">
+                                    <span class="checkmark">✓</span>
+                                    <div class="checkbox-content">
+                                        <strong>🚨 MARCAR COMO URGENTE</strong>
+                                        <small>Solo para problemas que impiden trabajar completamente</small>
+                                    </div>
+                                </label>
+                                
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="notificar_supervisor" value="1">
+                                    <span class="checkmark">✓</span>
+                                    <div class="checkbox-content">
+                                        <strong>👨‍💼 Notificar a mi supervisor</strong>
+                                        <small>Se enviará copia del ticket al supervisor inmediato</small>
+                                    </div>
+                                </label>
+                                
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="seguimiento" value="1" checked>
+                                    <span class="checkmark">✓</span>
+                                    <div class="checkbox-content">
+                                        <strong>📱 Recibir actualizaciones</strong>
+                                        <small>Quiero recibir notificaciones sobre el progreso</small>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Proceso de atención -->
+                    <div class="proceso-info">
+                        <h4 class="proceso-title">❓ ¿Qué pasa después de enviar este ticket?</h4>
+                        <div class="proceso-steps">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h5>Confirmación Automática</h5>
+                                    <p>Recibirá un email de confirmación con el número de ticket</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h5>Evaluación de Prioridad</h5>
+                                    <p>Nuestro equipo evaluará la prioridad (respuesta en 15 min - 4 horas)</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h5>Contacto del Técnico</h5>
+                                    <p>Un técnico especializado se comunicará para coordinar la solución</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <h5>Resolución y Cierre</h5>
+                                    <p>Una vez resuelto, confirmaremos que todo funciona correctamente</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Acciones del formulario -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">
+                            <span class="btn-icon">📨</span>
+                            Enviar Ticket de Soporte
+                        </button>
+                        <button type="reset" class="btn-secondary">
+                            <span class="btn-icon">🔄</span>
+                            Limpiar Formulario
+                        </button>
+                        <a href="index.html" class="btn-link">
+                            <span class="btn-icon">🏠</span>
+                            Volver al Inicio
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Base de Conocimientos -->
+        <section class="knowledge-base">
+            <div class="container">
+                <h3 class="section-title">
+                    <span class="title-icon">📚</span>
+                    Base de Conocimientos - Soluciones Rápidas
+                </h3>
+                <div class="kb-grid">
+                    <div class="kb-card">
+                        <div class="kb-icon">🖥️</div>
+                        <div class="kb-content">
+                            <h4>Problemas de Hardware</h4>
+                            <ul>
+                                <li>Reiniciar el equipo y verificar conexiones</li>
+                                <li>Verificar estado de cables y conexiones</li>
+                                <li>Comprobar indicadores LED del equipo</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="kb-card">
+                        <div class="kb-icon">💻</div>
+                        <div class="kb-content">
+                            <h4>Problemas de Software</h4>
+                            <ul>
+                                <li>Cerrar y volver a abrir la aplicación</li>
+                                <li>Verificar actualizaciones disponibles</li>
+                                <li>Reiniciar en modo seguro si es necesario</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="kb-card">
+                        <div class="kb-icon">🌐</div>
+                        <div class="kb-content">
+                            <h4>Problemas de Red</h4>
+                            <ul>
+                                <li>Verificar conexión WiFi o ethernet</li>
+                                <li>Reiniciar router/modem</li>
+                                <li>Probar conectividad con otros dispositivos</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="kb-card">
+                        <div class="kb-icon">💳</div>
+                        <div class="kb-content">
+                            <h4>Sistema POS</h4>
+                            <ul>
+                                <li>Verificar conexión a internet</li>
+                                <li>Comprobar estado de la impresora de tickets</li>
+                                <li>Reiniciar terminal de pagos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer>
-        <p>Hecho por Equipo Cesde 2025-1</p>
-        <p>Soporte: 3008694578</p>
-        <p>Email: equipocesde25@gmail.com</p>
-        <div class="redes">
-            <div class="redes">
-                <a href="#"><img src="Images/whatsapp.png" alt="Whatsapp icon"></a>
-                <a href="#"><img src="Images/tik-tok.png" alt="Tiktok icon"></a>
-                <a href="#"><img src="Images/facebook.png" alt="Facebook icon"></a>
-                <a href="#"><img src="Images/signo-de-twitter.png" alt="Twitter icon"></a>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Cafetería Cesde</h3>
+                <p>El mejor café para estudiantes y profesionales</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📞 Soporte: 3008694578</p>
+                <p>📧 Email: equipocesde25@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Horarios</h3>
+                <p>Lunes a Viernes: 7:00 AM - 8:00 PM</p>
+                <p>Sábados: 8:00 AM - 6:00 PM</p>
             </div>
         </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Equipo Cesde. Todos los derechos reservados.</p>
+        </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="js/soporte.js"></script>
+    <script>
+        // Scroll suave para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Actualizar indicador de estado en tiempo real
+        function actualizarEstadoServicio() {
+            const ahora = new Date();
+            const hora = ahora.getHours();
+            const dia = ahora.getDay();
+            
+            const statusDot = document.querySelector('.status-dot');
+            const statusText = document.querySelector('.status-text');
+            
+            const esDiaLaboral = dia >= 1 && dia <= 6; // Lunes a sábado
+            const esHorarioAtencion = hora >= 7 && hora < 18;
+            
+            if (esDiaLaboral && esHorarioAtencion) {
+                statusDot.className = 'status-dot active';
+                statusText.textContent = 'Servicio disponible - Respuesta inmediata';
+            } else if (esDiaLaboral) {
+                statusDot.className = 'status-dot warning';
+                statusText.textContent = 'Fuera de horario - Respuesta al siguiente día laboral';
+            } else {
+                statusDot.className = 'status-dot inactive';
+                statusText.textContent = 'Fin de semana - Respuesta el lunes';
+            }
+        }
+        
+        // Actualizar estado cada minuto
+        actualizarEstadoServicio();
+        setInterval(actualizarEstadoServicio, 60000);
+    </script>
+    <script src="js/navigation.js"></script>
 </body>
 </html>

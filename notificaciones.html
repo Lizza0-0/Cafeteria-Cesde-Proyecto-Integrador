@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Notificaciones - Cafetería Cesde</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-logo">
+                <img src="Images/cafe cesde logo.jpg" alt="Cafetería Cesde" class="logo-img">
+                <span class="logo-text">Cafe Cesde</span>
+            </div>
+            
+            <div class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">🏠 Inicio</a></li>
+                    <li><a href="empleados.html" class="nav-link">👨‍💼 Empleados</a></li>
+                    <li><a href="notificaciones.html" class="nav-link active">🔔 Notificaciones</a></li>
+                    <li><a href="soporte.html" class="nav-link">🆘 Soporte</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="page-header">
+            <h1><span class="title-icon">🔔</span> Sistema de Notificaciones</h1>
+            <p>Gestión avanzada de alertas, promociones y comunicaciones del sistema</p>
+        </section>
+
+        <div class="notificaciones-container">
+        <div class="notificaciones-nav">
+            <button class="nav-btn active" onclick="mostrarSeccion('bandeja')">📨 Bandeja de Entrada</button>
+            <button class="nav-btn" onclick="mostrarSeccion('crear')">✉️ Crear Notificación</button>
+            <button class="nav-btn" onclick="mostrarSeccion('plantillas')">📝 Plantillas</button>
+            <button class="nav-btn" onclick="mostrarSeccion('configuracion')">⚙️ Configuración</button>
+            <button class="nav-btn" onclick="mostrarSeccion('estadisticas')">📊 Estadísticas</button>
+        </div>
+
+        <!-- Sección: Bandeja de Entrada -->
+        <div id="seccion-bandeja" class="section-card">
+            <div class="section-title">
+                📨 Bandeja de Entrada
+                <div class="contador-notif" id="contador-no-leidas">0</div>
+            </div>
+
+            <div class="filtros-notif">
+                <button class="filtro-btn active" onclick="filtrarNotificaciones('todas')">Todas</button>
+                <button class="filtro-btn" onclick="filtrarNotificaciones('no-leidas')">No Leídas</button>
+                <button class="filtro-btn" onclick="filtrarNotificaciones('urgente')">Urgentes</button>
+                <button class="filtro-btn" onclick="filtrarNotificaciones('promocion')">Promociones</button>
+                <button class="filtro-btn" onclick="filtrarNotificaciones('info')">Información</button>
+                <button class="filtro-btn" onclick="filtrarNotificaciones('warning')">Alertas</button>
+            </div>
+
+            <div id="lista-notificaciones">
+                <!-- Se llenará dinámicamente -->
+            </div>
+        </div>
+
+        <!-- Sección: Crear Notificación -->
+        <div id="seccion-crear" class="section-card" style="display: none;">
+            <h2 class="section-title">✉️ Crear Nueva Notificación</h2>
+            
+            <form class="form-crear-notif" id="form-nueva-notificacion">
+                <div class="form-group">
+                    <label for="notif-titulo">Título:</label>
+                    <input type="text" id="notif-titulo" placeholder="Ingrese el título de la notificación" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="notif-tipo">Tipo de Notificación:</label>
+                    <select id="notif-tipo" required>
+                        <option value="">Seleccione un tipo</option>
+                        <option value="info">ℹ️ Información</option>
+                        <option value="urgente">🚨 Urgente</option>
+                        <option value="promocion">🎉 Promoción</option>
+                        <option value="warning">⚠️ Advertencia</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="notif-mensaje">Mensaje:</label>
+                    <textarea id="notif-mensaje" placeholder="Escriba el contenido de la notificación" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="notif-destinatarios">Destinatarios:</label>
+                    <select id="notif-destinatarios" required>
+                        <option value="">Seleccione destinatarios</option>
+                        <option value="todos">👥 Todos los usuarios</option>
+                        <option value="empleados">👨‍💼 Solo empleados</option>
+                        <option value="clientes">👥 Solo clientes</option>
+                        <option value="administradores">🔐 Solo administradores</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="notif-programar">Programar Envío:</label>
+                    <input type="datetime-local" id="notif-programar">
+                    <small style="color: #666; font-size: 0.9em;">Dejar vacío para envío inmediato</small>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <button type="submit" class="btn btn-primary">📤 Enviar Notificación</button>
+                    <button type="button" class="btn btn-outline" onclick="limpiarFormulario()">🗑️ Limpiar</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Sección: Plantillas -->
+        <div id="seccion-plantillas" class="section-card" style="display: none;">
+            <h2 class="section-title">📝 Plantillas de Notificaciones</h2>
+            
+            <div class="plantillas-notif">
+                <div class="plantilla-card" onclick="aplicarPlantilla('stock-bajo')">
+                    <div class="plantilla-titulo">📦 Stock Bajo</div>
+                    <div class="plantilla-desc">Alerta cuando un producto tiene pocas unidades disponibles</div>
+                </div>
+
+                <div class="plantilla-card" onclick="aplicarPlantilla('nueva-promocion')">
+                    <div class="plantilla-titulo">🎉 Nueva Promoción</div>
+                    <div class="plantilla-desc">Anuncio de ofertas especiales y descuentos</div>
+                </div>
+
+                <div class="plantilla-card" onclick="aplicarPlantilla('mantenimiento')">
+                    <div class="plantilla-titulo">🔧 Mantenimiento</div>
+                    <div class="plantilla-desc">Notificación sobre mantenimiento del sistema</div>
+                </div>
+
+                <div class="plantilla-card" onclick="aplicarPlantilla('felicitaciones')">
+                    <div class="plantilla-titulo">🎊 Felicitaciones</div>
+                    <div class="plantilla-desc">Mensajes de celebración por logros o eventos</div>
+                </div>
+
+                <div class="plantilla-card" onclick="aplicarPlantilla('recordatorio')">
+                    <div class="plantilla-titulo">⏰ Recordatorio</div>
+                    <div class="plantilla-desc">Recordatorios importantes para empleados</div>
+                </div>
+
+                <div class="plantilla-card" onclick="aplicarPlantilla('emergencia')">
+                    <div class="plantilla-titulo">🚨 Emergencia</div>
+                    <div class="plantilla-desc">Alertas urgentes que requieren atención inmediata</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección: Configuración -->
+        <div id="seccion-configuracion" class="section-card" style="display: none;">
+            <h2 class="section-title">⚙️ Configuración de Notificaciones</h2>
+            
+            <div class="configuracion-notificaciones">
+                <div class="config-group">
+                    <h4>🔔 Notificaciones del Sistema</h4>
+                    <div class="switch-container">
+                        <span>Notificaciones push</span>
+                        <label class="switch">
+                            <input type="checkbox" id="notif-push" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="switch-container">
+                        <span>Sonido de alerta</span>
+                        <label class="switch">
+                            <input type="checkbox" id="sonido-alerta" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="switch-container">
+                        <span>Vibración</span>
+                        <label class="switch">
+                            <input type="checkbox" id="vibracion">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="config-group">
+                    <h4>📦 Inventario</h4>
+                    <div class="switch-container">
+                        <span>Stock bajo</span>
+                        <label class="switch">
+                            <input type="checkbox" id="alert-stock" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="switch-container">
+                        <span>Productos vencidos</span>
+                        <label class="switch">
+                            <input type="checkbox" id="alert-vencimiento" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="switch-container">
+                        <span>Nuevos productos</span>
+                        <label class="switch">
+                            <input type="checkbox" id="alert-nuevos" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="config-group">
+                    <h4>💰 Ventas</h4>
+                    <div class="switch-container">
+                        <span>Ventas exitosas</span>
+                        <label class="switch">
+                            <input type="checkbox" id="alert-ventas" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="switch-container">
+                        <span>Metas alcanzadas</span>
+                        <label class="switch">
+                            <input type="checkbox" id="alert-metas" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="switch-container">
+                        <span>Promociones activas</span>
+                        <label class="switch">
+                            <input type="checkbox" id="alert-promociones" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="config-group">
+                    <h4>👥 Personal</h4>
+                    <div class="switch-container">
+                        <span>Turnos programados</span>
+                        <label class="switch">
+                            <input type="checkbox" id="alert-turnos" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="switch-container">
+                        <span>Nuevos empleados</span>
+                        <label class="switch">
+                            <input type="checkbox" id="alert-empleados" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="switch-container">
+                        <span>Evaluaciones pendientes</span>
+                        <label class="switch">
+                            <input type="checkbox" id="alert-evaluaciones">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="sistemaNotificaciones.guardarConfiguracion()">
+                    💾 Guardar Configuración
+                </button>
+            </div>
+        </div>
+
+        <!-- Sección: Estadísticas -->
+        <div id="seccion-estadisticas" class="section-card" style="display: none;">
+            <h2 class="section-title">📊 Estadísticas de Notificaciones</h2>
+            
+            <div class="estadisticas-notif" id="estadisticas-notif">
+                <!-- Se llenará dinámicamente -->
+            </div>
+        </div>
+        </div>
+    </main>
+
+    <script src="js/notificaciones.js"></script>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Cafetería Cesde</h3>
+                <p>El mejor café para estudiantes y profesionales</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>� Soporte: 3008694578</p>
+                <p>� Email: equipocesde25@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Horarios</h3>
+                <p>Lunes a Viernes: 7:00 AM - 8:00 PM</p>
+                <p>Sábados: 8:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Equipo Cesde. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/notificaciones.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Empleados - Cafetería Cesde</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/empleados-responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header con navegación -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-logo">
+                <img src="Images/cafe cesde logo.jpg" alt="Cafetería Cesde" class="logo-img">
+                <span class="logo-text">Cafe Cesde</span>
+            </div>
+            
+            <div class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">🏠 Inicio</a></li>
+                    <li><a href="empleados.html" class="nav-link active">👨‍💼 Empleados</a></li>
+                    <li><a href="notificaciones.html" class="nav-link">🔔 Notificaciones</a></li>
+                    <li><a href="soporte.html" class="nav-link">🆘 Soporte</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="page-header">
+            <h1><span class="title-icon">👨‍💼</span> Gestión de Empleados</h1>
+            <p>Sistema completo de administración de personal y recursos humanos</p>
+        </section>
+
+        <div class="empleados-container">
+        <div class="empleados-nav">
+            <button class="nav-btn active" onclick="mostrarSeccion('registro')">📝 Registrar Empleado</button>
+            <button class="nav-btn" onclick="mostrarSeccion('lista')">📋 Lista de Empleados</button>
+            <button class="nav-btn" onclick="mostrarSeccion('horarios')">⏰ Control de Horarios</button>
+            <button class="nav-btn" onclick="mostrarSeccion('roles')">👑 Gestión de Roles</button>
+            <button class="nav-btn" onclick="mostrarSeccion('estadisticas')">📊 Estadísticas</button>
+        </div>
+
+        <!-- Estadísticas generales -->
+        <div class="stats-empleados">
+            <div class="stat-card">
+                <div class="stat-numero" id="total-empleados">0</div>
+                <div class="stat-label">Total Empleados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-numero" id="empleados-activos">0</div>
+                <div class="stat-label">Empleados Activos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-numero" id="total-administradores">0</div>
+                <div class="stat-label">Administradores</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-numero" id="total-vendedores">0</div>
+                <div class="stat-label">Vendedores</div>
+            </div>
+        </div>
+
+        <div class="empleados-sections">
+            <!-- Sección: Registro de Empleados -->
+            <div id="seccion-registro" class="section-card">
+                <h2 class="section-title">📝 Registrar Nuevo Empleado</h2>
+                <form id="form-empleado">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="emp-nombres">Nombres:</label>
+                            <input type="text" id="emp-nombres" name="nombres" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="emp-apellidos">Apellidos:</label>
+                            <input type="text" id="emp-apellidos" name="apellidos" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="emp-documento">Número de Documento:</label>
+                            <input type="text" id="emp-documento" name="documento" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="emp-email">Email:</label>
+                            <input type="email" id="emp-email" name="email" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="emp-telefono">Teléfono:</label>
+                            <input type="tel" id="emp-telefono" name="telefono" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="emp-fecha-nacimiento">Fecha de Nacimiento:</label>
+                            <input type="date" id="emp-fecha-nacimiento" name="fechaNacimiento" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="emp-direccion">Dirección:</label>
+                            <input type="text" id="emp-direccion" name="direccion" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="emp-cargo">Cargo:</label>
+                            <select id="emp-cargo" name="cargo" required>
+                                <option value="">Seleccionar cargo</option>
+                                <option value="administrador">Administrador</option>
+                                <option value="gerente">Gerente</option>
+                                <option value="supervisor">Supervisor</option>
+                                <option value="cajero">Cajero</option>
+                                <option value="barista">Barista</option>
+                                <option value="mesero">Mesero</option>
+                                <option value="cocinero">Cocinero</option>
+                                <option value="limpieza">Personal de Limpieza</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="emp-salario">Salario:</label>
+                            <input type="number" id="emp-salario" name="salario" min="0" step="1000" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="emp-fecha-ingreso">Fecha de Ingreso:</label>
+                            <input type="date" id="emp-fecha-ingreso" name="fechaIngreso" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="emp-turno">Turno de Trabajo:</label>
+                            <select id="emp-turno" name="turno" required>
+                                <option value="">Seleccionar turno</option>
+                                <option value="mañana">Mañana (6:00 AM - 2:00 PM)</option>
+                                <option value="tarde">Tarde (2:00 PM - 10:00 PM)</option>
+                                <option value="noche">Noche (10:00 PM - 6:00 AM)</option>
+                                <option value="completo">Tiempo Completo</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="emp-estado">Estado:</label>
+                            <select id="emp-estado" name="estado" required>
+                                <option value="activo">Activo</option>
+                                <option value="inactivo">Inactivo</option>
+                                <option value="vacaciones">En Vacaciones</option>
+                                <option value="licencia">En Licencia</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary">💾 Guardar Empleado</button>
+                        <button type="reset" class="btn btn-secondary">🔄 Limpiar Formulario</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Sección: Lista de Empleados -->
+            <div id="seccion-lista" class="section-card" style="display: none;">
+                <h2 class="section-title">📋 Lista de Empleados</h2>
+                <div class="busqueda-empleados">
+                    <input type="text" id="buscar-empleado" placeholder="🔍 Buscar empleado por nombre, documento o cargo...">
+                </div>
+                <div id="lista-empleados" class="empleados-lista">
+                    <!-- Los empleados se cargarán aquí dinámicamente -->
+                </div>
+            </div>
+
+            <!-- Sección: Control de Horarios -->
+            <div id="seccion-horarios" class="section-card" style="display: none;">
+                <h2 class="section-title">⏰ Control de Horarios y Asistencia</h2>
+                
+                <!-- Panel de marcación rápida -->
+                <div class="marcacion-rapida">
+                    <h3>⚡ Marcación Rápida</h3>
+                    <div class="marcacion-form">
+                        <div class="input-group">
+                            <label for="empleado-marcacion">Seleccionar Empleado:</label>
+                            <select id="empleado-marcacion" name="empleado">
+                                <option value="">Seleccionar empleado...</option>
+                            </select>
+                        </div>
+                        <div class="marcacion-botones">
+                            <button class="btn btn-primary" onclick="sistemaEmpleados.marcarEntrada()">
+                                🟢 Marcar Entrada
+                            </button>
+                            <button class="btn btn-warning" onclick="sistemaEmpleados.marcarSalida()">
+                                🔴 Marcar Salida
+                            </button>
+                            <button class="btn btn-secondary" onclick="sistemaEmpleados.marcarDescanso()">
+                                ☕ Iniciar Descanso
+                            </button>
+                            <button class="btn btn-secondary" onclick="sistemaEmpleados.finalizarDescanso()">
+                                ▶️ Finalizar Descanso
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Estado actual del empleado -->
+                    <div id="estado-empleado-actual" class="estado-actual">
+                        <!-- Se mostrará el estado del empleado seleccionado -->
+                    </div>
+                </div>
+
+                <!-- Registro de asistencia del día -->
+                <div class="asistencia-hoy">
+                    <h3>📅 Asistencia de Hoy</h3>
+                    <div class="filtros-asistencia">
+                        <input type="date" id="fecha-asistencia" value="">
+                        <button class="btn btn-primary" onclick="sistemaEmpleados.cargarAsistenciaDia()">
+                            🔍 Cargar Día
+                        </button>
+                    </div>
+                    <div id="tabla-asistencia-dia" class="tabla-asistencia">
+                        <!-- Se cargará la tabla de asistencia -->
+                    </div>
+                </div>
+
+                <!-- Resumen semanal -->
+                <div class="resumen-semanal">
+                    <h3>📊 Resumen Semanal</h3>
+                    <div class="semana-controles">
+                        <button class="btn btn-secondary" onclick="sistemaEmpleados.semanaAnterior()">⬅️ Semana Anterior</button>
+                        <span id="semana-actual">Semana del 12/10/2025</span>
+                        <button class="btn btn-secondary" onclick="sistemaEmpleados.semanaSiguiente()">➡️ Semana Siguiente</button>
+                    </div>
+                    <div id="resumen-horas-semana" class="resumen-horas">
+                        <!-- Se cargará el resumen semanal -->
+                    </div>
+                </div>
+
+                <!-- Reportes de asistencia -->
+                <div class="reportes-asistencia">
+                    <h3>📈 Reportes de Asistencia</h3>
+                    <div class="reportes-form">
+                        <div class="input-group">
+                            <label for="empleado-reporte">Empleado:</label>
+                            <select id="empleado-reporte">
+                                <option value="">Todos los empleados</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="fecha-inicio-reporte">Fecha Inicio:</label>
+                            <input type="date" id="fecha-inicio-reporte">
+                        </div>
+                        <div class="input-group">
+                            <label for="fecha-fin-reporte">Fecha Fin:</label>
+                            <input type="date" id="fecha-fin-reporte">
+                        </div>
+                        <button class="btn btn-primary" onclick="sistemaEmpleados.generarReporteAsistencia()">
+                            📊 Generar Reporte
+                        </button>
+                    </div>
+                    <div id="resultado-reporte" class="resultado-reporte">
+                        <!-- Se mostrará el reporte generado -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección: Gestión de Roles -->
+            <div id="seccion-roles" class="section-card" style="display: none;">
+                <h2 class="section-title">👑 Gestión de Roles y Permisos</h2>
+                <div class="roles-container">
+                    <div class="role-card">
+                        <h3>🔐 Administrador</h3>
+                        <ul>
+                            <li>✅ Acceso completo al sistema</li>
+                            <li>✅ Gestión de empleados</li>
+                            <li>✅ Configuración del sistema</li>
+                            <li>✅ Reportes avanzados</li>
+                            <li>✅ Gestión de inventario</li>
+                        </ul>
+                    </div>
+                    <div class="role-card">
+                        <h3>👨‍💼 Gerente</h3>
+                        <ul>
+                            <li>✅ Supervisión de operaciones</li>
+                            <li>✅ Reportes de ventas</li>
+                            <li>✅ Gestión de inventario</li>
+                            <li>✅ Supervisión de empleados</li>
+                            <li>❌ Configuración del sistema</li>
+                        </ul>
+                    </div>
+                    <div class="role-card">
+                        <h3>💰 Cajero</h3>
+                        <ul>
+                            <li>✅ Procesar ventas</li>
+                            <li>✅ Gestión de caja</li>
+                            <li>✅ Atención al cliente</li>
+                            <li>❌ Gestión de inventario</li>
+                            <li>❌ Reportes administrativos</li>
+                        </ul>
+                    </div>
+                    <div class="role-card">
+                        <h3>☕ Barista</h3>
+                        <ul>
+                            <li>✅ Preparación de bebidas</li>
+                            <li>✅ Control de calidad</li>
+                            <li>✅ Inventario de materias primas</li>
+                            <li>❌ Procesar ventas</li>
+                            <li>❌ Reportes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección: Estadísticas -->
+            <div id="seccion-estadisticas" class="section-card" style="display: none;">
+                <h2 class="section-title">📊 Estadísticas de Empleados</h2>
+                <div id="estadisticas-detalladas">
+                    <!-- Las estadísticas se cargarán aquí -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Cafetería Cesde</h3>
+                <p>El mejor café para estudiantes y profesionales</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📞 Soporte: 3008694578</p>
+                <p>📧 Email: equipocesde25@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Horarios</h3>
+                <p>Lunes a Viernes: 7:00 AM - 8:00 PM</p>
+                <p>Sábados: 8:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Equipo Cesde. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/empleados.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>

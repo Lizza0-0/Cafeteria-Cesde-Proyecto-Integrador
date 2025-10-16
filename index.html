@@ -1,61 +1,160 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Cafetería Cesde - Inicio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <div class="banner">Cafeteria Cesde</div>
-        <img src="Images/banner.webp" alt="Header Image">
-        <div class="eslogan">Donde el conocimiento se mezcla con buen café.</div>
-        <div class="logo"><img src="Images/cafe cesde logo.jpg" alt="Logo image"></div>
+    <!-- Header con navegación -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-logo">
+                <img src="Images/cafe cesde logo.jpg" alt="Cafetería Cesde" class="logo-img">
+                <span class="logo-text">Cafe Cesde</span>
+            </div>
+            
+            <div class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link active">🏠 Inicio</a></li>
+                    <li><a href="empleados.html" class="nav-link">👨‍💼 Empleados</a></li>
+                    <li><a href="notificaciones.html" class="nav-link">🔔 Notificaciones</a></li>
+                    <li><a href="soporte.html" class="nav-link">🆘 Soporte</a></li>
+                </ul>
+            </div>
+        </nav>
     </header>
-    <nav>
-        <a href="index.html">Inicio</a>
-        <a href="mer.html">MER</a>
-        <a href="logica.html">Logica</a>
-        <a href="soporte.html">Soporte</a>
-    </nav> 
-    <nav>
-        <div class="main">
-            <aside class="left"><a href="promocion.html">Promoción</a></aside>
-        <div class="items">
-            <div class="box">
-                <a href="compra.html">Registrar Compra</a>
+
+    <main class="main-content">
+        <!-- Header principal -->
+        <section class="page-header">
+            <h1><span class="title-icon">🏠</span> Inicio</h1>
+            <p>Bienvenido al sistema de gestión integral de la Cafetería Cesde</p>
+        </section>
+
+        <!-- Sección de Enlaces Principales -->
+        <section class="services-section">
+            <div class="container">
+                <h2 class="section-title">Gestión de Cafetería</h2>
+                <div class="services-grid">
+                    <div class="service-box">
+                        <a href="productos.html">
+                            <div class="service-icon">🍽️</div>
+                            <h3>Menú de Productos</h3>
+                            <p>Catálogo completo de productos y bebidas</p>
+                        </a>
+                    </div>
+                    
+                    <div class="service-box">
+                        <a href="compra.html">
+                            <div class="service-icon">🛒</div>
+                            <h3>Registrar Venta</h3>
+                            <p>Sistema de ventas y procesamiento de pedidos</p>
+                        </a>
+                    </div>
+
+                    <div class="service-box">
+                        <a href="inventario.html">
+                            <div class="service-icon">📦</div>
+                            <h3>Gestionar Inventario</h3>
+                            <p>Control de stock y productos disponibles</p>
+                        </a>
+                    </div>
+
+                    <div class="service-box">
+                        <a href="factura.html">
+                            <div class="service-icon">🧾</div>
+                            <h3>Facturación</h3>
+                            <p>Gestión y consulta de facturas electrónicas</p>
+                        </a>
+                    </div>
+                    
+                    <div class="service-box">
+                        <a href="registro.html">
+                            <div class="service-icon">📝</div>
+                            <h3>Registrar Cliente</h3>
+                            <p>Registro de nuevos clientes y usuarios</p>
+                        </a>
+                    </div>
+                    
+                    <div class="service-box">
+                        <a href="empleados.html">
+                            <div class="service-icon">👨‍💼</div>
+                            <h3>Gestión Empleados</h3>
+                            <p>Administración de personal y roles</p>
+                        </a>
+                    </div>
+                    
+                    <div class="service-box">
+                        <a href="proveedores.html">
+                            <div class="service-icon">🏭</div>
+                            <h3>Gestión Proveedores</h3>
+                            <p>Administración de proveedores y órdenes</p>
+                        </a>
+                    </div>
+                    
+                    <div class="service-box">
+                        <a href="backup.html">
+                            <div class="service-icon">💾</div>
+                            <h3>Backup y Seguridad</h3>
+                            <p>Respaldo automático de datos</p>
+                        </a>
+                    </div>
+                    
+                    <div class="service-box">
+                        <a href="notificaciones.html">
+                            <div class="service-icon">🔔</div>
+                            <h3>Notificaciones</h3>
+                            <p>Centro de alertas y mensajes</p>
+                        </a>
+                    </div>
+                    
+                    <div class="service-box">
+                        <a href="reportes.html">
+                            <div class="service-icon">📊</div>
+                            <h3>Reportes y Analytics</h3>
+                            <p>Dashboard analítico y reportes</p>
+                        </a>
+                    </div>
+                    
+                    <div class="service-box">
+                        <a href="soporte.html">
+                            <div class="service-icon">🆘</div>
+                            <h3>Soporte Técnico</h3>
+                            <p>Ayuda técnica y atención al cliente</p>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="box">
-                <a href="inventario.html">Gestionar Inventario</a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Cafetería Cesde</h3>
+                <p>El mejor café para estudiantes y profesionales</p>
             </div>
-            <div class="box">
-                <a href="ingreso.html">Ingreso de Personal</a>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📞 Soporte: 3008694578</p>
+                <p>📧 Email: equipocesde25@gmail.com</p>
             </div>
-            <div class="box">
-                <a href="registro.html">Registrar Nuevo Cliente</a>
-            </div>
-            <div class="box">
-                <a href="factura.html"> Ver Facturas</a>
-            </div>
-            <div class="box">
-                <a href="productos.html"> Ver Menu</a>
+            <div class="footer-section">
+                <h3>Horarios</h3>
+                <p>Lunes a Viernes: 7:00 AM - 8:00 PM</p>
+                <p>Sábados: 8:00 AM - 6:00 PM</p>
             </div>
         </div>
-        </div>
-    </nav>  
-    <footer>
-        <p>Hecho por Equipo Cesde 2025-1</p>
-        <p>Soporte: 3008694578</p>
-        <p>Email: equipocesde25@gmail.com</p>
-        <div class="redes">
-            <div class="redes">
-                <a href="#"><img src="Images/whatsapp.png" alt="Whatsapp icon"></a>
-                <a href="#"><img src="Images/tik-tok.png" alt="Tiktok icon"></a>
-                <a href="#"><img src="Images/facebook.png" alt="Facebook icon"></a>
-                <a href="#"><img src="Images/signo-de-twitter.png" alt="Twitter icon"></a>
-            </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Equipo Cesde. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <script src="js/navigation.js"></script>
 </body>
 </html>
