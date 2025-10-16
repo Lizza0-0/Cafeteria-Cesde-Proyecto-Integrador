@@ -760,6 +760,495 @@ textarea.input-field {
 }
 
 /* ================================================
+   MODAL DE DETALLES DE PRODUCTO
+   ================================================ */
+
+.modal-detalle {
+    max-width: 800px;
+}
+
+.detalle-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    align-items: start;
+}
+
+.detalle-imagen {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.producto-imagen-detalle {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--border-radius-lg);
+    border: 3px solid var(--accent-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    display: block;
+}
+
+.detalle-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 0.25rem 0.6rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 10;
+}
+
+.detalle-badge.disponible {
+    background: #28a745;
+    color: white;
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.4);
+}
+
+.detalle-badge.no-disponible {
+    background: #dc3545;
+    color: white;
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.4);
+}
+
+.detalle-header-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+}
+
+.detalle-header-info h2 {
+    color: var(--primary-dark);
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.detalle-categoria-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.8rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 0 auto;
+    width: fit-content;
+    box-shadow: 0 2px 6px rgba(139, 69, 19, 0.3);
+}
+
+.detalle-precio-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: linear-gradient(135deg, #FFF8DC, #F5F5DC);
+    border-radius: var(--border-radius-lg);
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.detalle-precio {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.detalle-tiempo {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: var(--bg-light);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    border: 1px solid var(--primary-light);
+}
+
+.detalle-descripcion {
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: linear-gradient(135deg, #FFFEF7, #F5F5DC);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.detalle-descripcion p {
+    margin: 0;
+    line-height: 1.5;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-style: italic;
+    text-align: center;
+}
+
+.detalle-extras {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+}
+
+.detalle-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: linear-gradient(135deg, var(--accent-color), #F5DEB3);
+    border-radius: var(--border-radius);
+    border-left: 3px solid var(--primary-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.detalle-item strong {
+    color: var(--primary-dark);
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.detalle-item span {
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: right;
+}
+
+.detalle-acciones {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--bg-light);
+}
+
+.btn-agregar-carrito-detalle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(139, 69, 19, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-agregar-carrito-detalle:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(139, 69, 19, 0.4);
+    background: linear-gradient(135deg, var(--primary-dark), #3E2723);
+}
+
+.btn-agregar-carrito-detalle:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Responsive para modal de detalles */
+
+/* Tablets grandes (hasta 1024px) */
+@media (max-width: 1024px) {
+    .modal-detalle {
+        max-width: 90vw;
+    }
+    
+    .detalle-container {
+        gap: var(--spacing-md);
+    }
+    
+    .producto-imagen-detalle {
+        height: 280px;
+    }
+}
+
+/* Tablets y móviles grandes (hasta 768px) */
+@media (max-width: 768px) {
+    .modal-detalle {
+        max-width: 95vw;
+        margin: var(--spacing-sm);
+        max-height: 95vh;
+    }
+    
+    .detalle-container {
+        gap: var(--spacing-sm);
+    }
+    
+    .producto-imagen-detalle {
+        height: 180px;
+        max-width: 280px;
+    }
+    
+    .detalle-header-info h2 {
+        font-size: 1.4rem;
+    }
+    
+    .detalle-precio-container {
+        max-width: 250px;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+    
+    .detalle-precio {
+        font-size: 1.3rem;
+    }
+    
+    .detalle-tiempo {
+        font-size: 0.8rem;
+    }
+    
+    .detalle-extras {
+        gap: 0.25rem;
+    }
+    
+    .detalle-item {
+        padding: 0.4rem 0.6rem;
+    }
+    
+    .detalle-item strong,
+    .detalle-item span {
+        font-size: 0.8rem;
+    }
+    
+    .btn-agregar-carrito-detalle {
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
+    }
+}
+
+/* Móviles medianos (hasta 480px) */
+@media (max-width: 480px) {
+    .modal-overlay {
+        padding: 0.25rem;
+    }
+    
+    .modal-detalle {
+        max-width: 98vw;
+        max-height: 98vh;
+        margin: 0;
+    }
+    
+    .modal-header {
+        padding: 0.75rem;
+    }
+    
+    .modal-header h3 {
+        font-size: 1rem;
+    }
+    
+    .modal-body {
+        padding: 0.75rem;
+    }
+    
+    .producto-imagen-detalle {
+        height: 150px;
+        max-width: 220px;
+    }
+    
+    .detalle-header-info h2 {
+        font-size: 1.2rem;
+    }
+    
+    .detalle-categoria-badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.6rem;
+    }
+    
+    .detalle-precio-container {
+        max-width: 200px;
+        padding: 0.5rem;
+    }
+    
+    .detalle-precio {
+        font-size: 1.1rem;
+    }
+    
+    .detalle-badge {
+        top: 5px;
+        right: 5px;
+        font-size: 0.65rem;
+        padding: 0.2rem 0.4rem;
+    }
+}
+
+/* Móviles muy pequeños (hasta 360px) */
+@media (max-width: 360px) {
+    .modal-detalle {
+        max-width: 100vw;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+    
+    .producto-imagen-detalle {
+        height: 150px;
+        max-width: 200px;
+    }
+    
+    .detalle-header-info h2 {
+        font-size: 1.1rem;
+    }
+    
+    .detalle-precio {
+        font-size: 1.3rem;
+    }
+    
+    .detalle-descripcion {
+        font-size: 0.85rem;
+    }
+    
+    .detalle-item strong,
+    .detalle-item span {
+        font-size: 0.8rem;
+    }
+    
+    .btn-agregar-carrito-detalle,
+    .btn-secondary {
+        font-size: 0.85rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+}
+
+/* Mejoras adicionales para accesibilidad */
+@media (max-height: 600px) {
+    .modal-detalle {
+        max-height: 95vh;
+    }
+    
+    .modal-body {
+        overflow-y: auto;
+        max-height: calc(95vh - 80px);
+    }
+    
+    .detalle-container {
+        gap: var(--spacing-sm);
+    }
+    
+    .producto-imagen-detalle {
+        height: 120px;
+    }
+    
+    .detalle-extras {
+        gap: var(--spacing-xs);
+    }
+    
+    .detalle-item {
+        padding: var(--spacing-xs);
+    }
+}
+
+/* Mejoras para dispositivos táctiles */
+@media (hover: none) and (pointer: coarse) {
+    .modal-close {
+        min-width: 44px;
+        min-height: 44px;
+        font-size: 1.2rem;
+    }
+    
+    .btn-agregar-carrito-detalle,
+    .btn-secondary {
+        min-height: 48px;
+        font-size: 1rem;
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .detalle-badge {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    /* Área táctil más grande para elementos interactivos */
+    .modal-overlay {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .modal-content {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Mejoras para modo landscape en móviles */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    .modal-detalle {
+        max-height: 98vh;
+        max-width: 95vw;
+    }
+    
+    .detalle-container {
+        grid-template-columns: 1fr 1.5fr;
+        gap: var(--spacing-sm);
+    }
+    
+    .producto-imagen-detalle {
+        height: 150px;
+    }
+    
+    .detalle-header-info h2 {
+        font-size: 1.2rem;
+    }
+    
+    .detalle-precio {
+        font-size: 1.3rem;
+    }
+    
+    .modal-body {
+        max-height: calc(98vh - 60px);
+        overflow-y: auto;
+    }
+}
+
+/* Animaciones suaves para cambios responsive */
+.modal-content,
+.detalle-container,
+.producto-imagen-detalle {
+    transition: all 0.3s ease;
+}
+
+/* Estilo para scroll en modal */
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: var(--bg-light);
+    border-radius: 3px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 3px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* ================================================
    11. UTILIDADES
    Clases helper y utilidades de uso general
    ================================================ */

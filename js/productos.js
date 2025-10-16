@@ -301,11 +301,292 @@ class SistemaProductos {
 
     // ===== ACCIONES PÚBLICAS =====
     verDetalle(id) {
-        console.log('Ver detalle del producto:', id);
+        const producto = this.productos.find(p => p.id === id);
+        if (!producto) {
+            this.mostrarMensaje('Producto no encontrado', 'error');
+            return;
+        }
+
+        // Obtener elementos del modal
+        const modal = document.getElementById('modal-detalle-producto');
+        const titulo = document.getElementById('detalle-titulo');
+        const imagen = document.getElementById('detalle-img');
+        const nombre = document.getElementById('detalle-nombre');
+        const categoria = document.getElementById('detalle-categoria');
+        const categoriaBadge = document.getElementById('detalle-categoria-badge');
+        const precio = document.getElementById('detalle-precio');
+        const tiempo = document.getElementById('detalle-tiempo');
+        const descripcion = document.getElementById('detalle-descripcion');
+        const calorias = document.getElementById('detalle-calorias');
+        const ingredientes = document.getElementById('detalle-ingredientes');
+        const alergenos = document.getElementById('detalle-alergenos');
+        const estado = document.getElementById('detalle-estado');
+        const disponibilidadBadge = document.getElementById('detalle-disponibilidad');
+        const btnAgregarCarrito = document.getElementById('btn-agregar-carrito-detalle');
+
+        if (!modal) {
+            console.error('Modal de detalles no encontrado');
+            return;
+        }
+
+        // Configurar contenido del modal
+        if (titulo) titulo.textContent = `Detalles: ${producto.nombre}`;
+        if (imagen) {
+            // Usar imagen por defecto si no existe o está vacía
+            const imagenSrc = producto.imagen && producto.imagen.trim() !== '' 
+                ? producto.imagen 
+                : 'https://via.placeholder.com/300x200/8B4513/ffffff?text=Sin+Imagen';
+            
+            imagen.src = imagenSrc;
+            imagen.alt = producto.nombre;
+            
+            // Manejar error de carga de imagen
+            imagen.onerror = function() {
+                this.src = 'https://via.placeholder.com/300x200/8B4513/ffffff?text=Sin+Imagen';
+            };
+        }
+        if (nombre) nombre.textContent = producto.nombre;
+        
+        // Categoría
+        const categoriaInfo = this.categorias[producto.categoria] || { nombre: producto.categoria, icono: '🍽️' };
+        if (categoria) categoria.textContent = `${categoriaInfo.icono} ${categoriaInfo.nombre}`;
+        
+        // Precio y tiempo
+        if (precio) precio.textContent = `$${producto.precio.toLocaleString('es-CO')}`;
+        if (tiempo) tiempo.textContent = producto.tiempo_preparacion || 'No especificado';
+        
+        // Descripción
+        if (descripcion) descripcion.textContent = producto.descripcion || 'Sin descripción disponible';
+        
+        // Información adicional
+        if (calorias) {
+            const caloriasContainer = document.getElementById('detalle-calorias-container');
+            if (producto.calorias) {
+                calorias.textContent = `${producto.calorias} kcal`;
+                if (caloriasContainer) caloriasContainer.style.display = 'flex';
+            } else {
+                if (caloriasContainer) caloriasContainer.style.display = 'none';
+            }
+        }
+        
+        if (ingredientes) {
+            const ingredientesContainer = document.getElementById('detalle-ingredientes-container');
+            if (producto.ingredientes && producto.ingredientes.length > 0) {
+                ingredientes.textContent = Array.isArray(producto.ingredientes) 
+                    ? producto.ingredientes.join(', ') 
+                    : producto.ingredientes;
+                if (ingredientesContainer) ingredientesContainer.style.display = 'flex';
+            } else {
+                if (ingredientesContainer) ingredientesContainer.style.display = 'none';
+            }
+        }
+        
+        if (alergenos) {
+            const alergenosContainer = document.getElementById('detalle-alergenos-container');
+            if (producto.alergenos && producto.alergenos.length > 0) {
+                alergenos.textContent = Array.isArray(producto.alergenos) 
+                    ? producto.alergenos.join(', ') 
+                    : producto.alergenos;
+                if (alergenosContainer) alergenosContainer.style.display = 'flex';
+            } else {
+                alergenos.textContent = 'Ninguno';
+                if (alergenosContainer) alergenosContainer.style.display = 'flex';
+            }
+        }
+        
+        // Estado de disponibilidad
+        if (estado && disponibilidadBadge) {
+            if (producto.disponible) {
+                estado.textContent = 'Disponible';
+                disponibilidadBadge.className = 'detalle-badge disponible';
+            } else {
+                estado.textContent = 'No disponible';
+                disponibilidadBadge.className = 'detalle-badge no-disponible';
+            }
+        }
+        
+        // Configurar botón de agregar al carrito
+        if (btnAgregarCarrito) {
+            btnAgregarCarrito.onclick = () => {
+                this.agregarAlCarrito(id);
+                this.cerrarModalDetalle();
+            };
+            btnAgregarCarrito.disabled = !producto.disponible;
+        }
+
+        // Configurar eventos de cierre del modal
+        this.configurarEventosModalDetalle();
+        
+        // Mostrar modal con efecto responsive
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        // Ajustar para dispositivos móviles
+        setTimeout(() => {
+            this.ajustarModalResponsivo();
+        }, 50);
+    }
+
+    cerrarModalDetalle() {
+        const modal = document.getElementById('modal-detalle-producto');
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            // Limpiar eventos de orientación
+            window.removeEventListener('orientationchange', this.ajustarModalResponsivo);
+            
+            // Restaurar scroll en móviles
+            if (window.innerWidth <= 768) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+    }
+
+    configurarEventosModalDetalle() {
+        const modal = document.getElementById('modal-detalle-producto');
+        const btnCerrar = document.getElementById('btn-cerrar-detalle');
+        const btnCerrar2 = document.getElementById('btn-cerrar-detalle-2');
+        
+        // Configurar botones de cierre
+        if (btnCerrar) {
+            btnCerrar.onclick = () => this.cerrarModalDetalle();
+        }
+        if (btnCerrar2) {
+            btnCerrar2.onclick = () => this.cerrarModalDetalle();
+        }
+        
+        // Cerrar al hacer clic fuera del modal
+        if (modal) {
+            modal.onclick = (e) => {
+                if (e.target === modal) {
+                    this.cerrarModalDetalle();
+                }
+            };
+        }
+        
+        // Cerrar con tecla Escape
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                this.cerrarModalDetalle();
+                document.removeEventListener('keydown', handleEscape);
+            }
+        };
+        document.addEventListener('keydown', handleEscape);
+        
+        // Manejar scroll en dispositivos móviles
+        this.manejarScrollResponsivo();
+    }
+
+    manejarScrollResponsivo() {
+        const modal = document.getElementById('modal-detalle-producto');
+        const modalContent = modal?.querySelector('.modal-content');
+        
+        if (!modal || !modalContent) return;
+        
+        // Detectar si es dispositivo móvil
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile) {
+            // En móviles, asegurar que el modal sea scrolleable
+            modalContent.style.maxHeight = '95vh';
+            modalContent.style.overflowY = 'auto';
+            
+            // Smooth scroll al abrir en móvil
+            setTimeout(() => {
+                modalContent.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 100);
+        } else {
+            // En desktop, mantener comportamiento normal
+            modalContent.style.maxHeight = '90vh';
+            modalContent.style.overflowY = 'auto';
+        }
+        
+        // Manejar cambios de orientación en móviles
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                this.ajustarModalResponsivo();
+            }, 300);
+        });
+    }
+
+    ajustarModalResponsivo() {
+        const modal = document.getElementById('modal-detalle-producto');
+        const modalContent = modal?.querySelector('.modal-content');
+        
+        if (!modal || !modalContent || modal.style.display === 'none') return;
+        
+        const isMobile = window.innerWidth <= 768;
+        const isSmallHeight = window.innerHeight <= 600;
+        
+        if (isMobile || isSmallHeight) {
+            modalContent.style.maxHeight = '95vh';
+            modalContent.style.margin = '0.5rem';
+        } else {
+            modalContent.style.maxHeight = '90vh';
+            modalContent.style.margin = '1rem';
+        }
+        
+        // Asegurar que el contenido sea visible
+        const modalBody = modalContent.querySelector('.modal-body');
+        if (modalBody && isSmallHeight) {
+            modalBody.style.maxHeight = 'calc(95vh - 80px)';
+            modalBody.style.overflowY = 'auto';
+        }
     }
 
     agregarAlCarrito(id) {
-        console.log('Agregar al carrito:', id);
+        const producto = this.productos.find(p => p.id === id);
+        if (!producto) {
+            this.mostrarMensaje('Producto no encontrado', 'error');
+            return;
+        }
+
+        if (!producto.disponible) {
+            this.mostrarMensaje('Este producto no está disponible actualmente', 'warning');
+            return;
+        }
+
+        // Obtener carrito actual del localStorage
+        let carrito = JSON.parse(localStorage.getItem('carritoProductos') || '[]');
+        
+        // Verificar si el producto ya está en el carrito
+        const productoEnCarrito = carrito.find(item => item.id === id);
+        
+        if (productoEnCarrito) {
+            // Incrementar cantidad
+            productoEnCarrito.cantidad += 1;
+            this.mostrarMensaje(`Se agregó otra unidad de ${producto.nombre} al carrito`, 'success');
+        } else {
+            // Agregar nuevo producto al carrito
+            carrito.push({
+                id: producto.id,
+                nombre: producto.nombre,
+                precio: producto.precio,
+                imagen: producto.imagen,
+                categoria: producto.categoria,
+                cantidad: 1
+            });
+            this.mostrarMensaje(`${producto.nombre} agregado al carrito`, 'success');
+        }
+        
+        // Guardar carrito actualizado
+        localStorage.setItem('carritoProductos', JSON.stringify(carrito));
+        
+        // Actualizar contador del carrito si existe
+        this.actualizarContadorCarrito();
+    }
+
+    actualizarContadorCarrito() {
+        const carrito = JSON.parse(localStorage.getItem('carritoProductos') || '[]');
+        const totalItems = carrito.reduce((total, item) => total + item.cantidad, 0);
+        
+        // Actualizar contador visual si existe
+        const contadorCarrito = document.querySelector('.carrito-contador');
+        if (contadorCarrito) {
+            contadorCarrito.textContent = totalItems;
+            contadorCarrito.style.display = totalItems > 0 ? 'block' : 'none';
+        }
     }
 
     actualizarEstadisticas() {

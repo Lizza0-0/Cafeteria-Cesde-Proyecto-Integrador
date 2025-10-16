@@ -350,6 +350,63 @@
         </div>
     </div>
 
+    <!-- Modal de Detalles del Producto -->
+    <div id="modal-detalle-producto" class="modal-overlay">
+        <div class="modal-content modal-detalle">
+            <div class="modal-header">
+                <h3 id="detalle-titulo">Detalles del Producto</h3>
+                <button class="modal-close" id="btn-cerrar-detalle">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detalle-container">
+                    <div class="detalle-imagen">
+                        <img id="detalle-img" src="" alt="Producto" class="producto-imagen-detalle">
+                        <div class="detalle-badge" id="detalle-disponibilidad">
+                            <span id="detalle-estado"></span>
+                        </div>
+                    </div>
+                    <div class="detalle-info">
+                        <div class="detalle-header-info">
+                            <h2 id="detalle-nombre">Nombre del Producto</h2>
+                            <div class="detalle-categoria" id="detalle-categoria-badge">
+                                <span id="detalle-categoria"></span>
+                            </div>
+                        </div>
+                        <div class="detalle-precio-container">
+                            <span class="detalle-precio" id="detalle-precio">$0</span>
+                            <span class="detalle-tiempo" id="detalle-tiempo"></span>
+                        </div>
+                        <div class="detalle-descripcion">
+                            <p id="detalle-descripcion">Descripción del producto...</p>
+                        </div>
+                        <div class="detalle-extras">
+                            <div class="detalle-item" id="detalle-calorias-container">
+                                <strong>🔥 Calorías:</strong>
+                                <span id="detalle-calorias">0 kcal</span>
+                            </div>
+                            <div class="detalle-item" id="detalle-ingredientes-container">
+                                <strong>🥄 Ingredientes:</strong>
+                                <span id="detalle-ingredientes">-</span>
+                            </div>
+                            <div class="detalle-item" id="detalle-alergenos-container">
+                                <strong>⚠️ Alérgenos:</strong>
+                                <span id="detalle-alergenos">Ninguno</span>
+                            </div>
+                        </div>
+                        <div class="detalle-acciones">
+                            <button class="btn-primary btn-agregar-carrito-detalle" id="btn-agregar-carrito-detalle">
+                                🛒 Agregar al Carrito
+                            </button>
+                            <button class="btn-secondary" id="btn-cerrar-detalle-2">
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal de Confirmación -->
     <div id="modal-confirmacion" class="modal-overlay">
         <div class="modal-content modal-small">
