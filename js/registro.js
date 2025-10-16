@@ -252,6 +252,9 @@ class SistemaRegistro {
     }
 
     mostrarModalDetalleCliente(cliente, historial, detalle) {
+        console.log('Mostrando modal detalle para cliente:', cliente);
+        console.log('ID del cliente:', cliente.id_cliente);
+        
         // Crear modal dinámico
         const modal = document.createElement('div');
         modal.className = 'modal-detalle-cliente';
@@ -318,14 +321,14 @@ class SistemaRegistro {
                                 }
                             </div>
                             ${historial.totalCompras > 3 ? 
-                                `<button class="btn-ver-historial" data-cliente-id="${cliente.id}">Ver Historial Completo</button>` : 
+                                `<button class="btn-ver-historial" data-cliente-id="${cliente.id_cliente}">Ver Historial Completo</button>` : 
                                 ''
                             }
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer-detalle">
-                    <button class="btn btn-primary btn-editar-modal" data-cliente-id="${cliente.id}">✏️ Editar Cliente</button>
+                    <button class="btn btn-primary btn-editar-modal" data-cliente-id="${cliente.id_cliente}">✏️ Editar Cliente</button>
                     <button class="btn btn-secondary modal-close-detalle">Cerrar</button>
                 </div>
             </div>
@@ -344,9 +347,22 @@ class SistemaRegistro {
             this.editarCliente(clienteId);
         });
 
-        modal.querySelector('.btn-ver-historial')?.addEventListener('click', (e) => {
-            const clienteId = e.target.dataset.clienteId;
-            this.mostrarHistorialCompleto(clienteId);
+        // Evento para ver historial completo
+        const btnHistorial = modal.querySelector('.btn-ver-historial');
+        if (btnHistorial) {
+            btnHistorial.addEventListener('click', (e) => {
+                console.log('Click en Ver Historial Completo');
+                const clienteId = e.target.getAttribute('data-cliente-id');
+                console.log('ID del cliente desde botón:', clienteId);
+                this.mostrarHistorialCompleto(clienteId);
+            });
+        }
+
+        // Evento para editar cliente desde modal
+        modal.querySelector('.btn-editar-modal')?.addEventListener('click', (e) => {
+            const clienteId = e.target.getAttribute('data-cliente-id');
+            this.editarCliente(clienteId);
+            this.cerrarModalDetalle(modal);
         });
 
         // Cerrar al hacer clic fuera del modal
@@ -365,8 +381,18 @@ class SistemaRegistro {
     }
 
     mostrarHistorialCompleto(clienteId) {
+        console.log('Mostrando historial completo para cliente:', clienteId);
+        
         const cliente = this.clientes[clienteId];
+        if (!cliente) {
+            console.error('Cliente no encontrado:', clienteId);
+            this.mostrarMensaje('Cliente no encontrado', 'error');
+            return;
+        }
+        
         const historial = this.obtenerHistorialCompras(clienteId);
+        console.log('Historial obtenido:', historial);
+        console.log('Todas las compras:', historial.todasLasCompras);
         
         const modalHistorial = document.createElement('div');
         modalHistorial.className = 'modal-historial-completo';
@@ -402,18 +428,23 @@ class SistemaRegistro {
             </div>
         `;
 
+        console.log('Modal creado, agregando al DOM');
         document.body.appendChild(modalHistorial);
 
         // Eventos
         modalHistorial.querySelector('.modal-close-historial').addEventListener('click', () => {
+            console.log('Cerrando modal historial');
             this.cerrarModalDetalle(modalHistorial);
         });
 
         modalHistorial.addEventListener('click', (e) => {
             if (e.target === modalHistorial) {
+                console.log('Click fuera del modal, cerrando');
                 this.cerrarModalDetalle(modalHistorial);
             }
         });
+        
+        console.log('Modal historial mostrado exitosamente');
     }
 
     generarFilasHistorial(compras) {
@@ -443,17 +474,24 @@ class SistemaRegistro {
             return;
         }
 
-        // Establecer modo edición
-        this.clienteEditando = clienteId;
-        
         // Llenar el formulario con los datos del cliente
+        this.clienteEditando = clienteId;
         this.llenarFormularioEdicion(cliente);
         
-        // Cambiar la interfaz para modo edición
-        this.activarModoEdicion(cliente);
+        // Cambiar el título y botón del formulario
+        const titulo = document.querySelector('.form-title');
+        const btnSubmit = document.querySelector('button[type="submit"]');
+        const btnCancelar = document.getElementById('btn-cancelar-edicion');
+        
+        if (titulo) titulo.textContent = '✏️ Editando Cliente';
+        if (btnSubmit) btnSubmit.innerHTML = '<span class="btn-icon">💾</span> Actualizar Cliente';
+        if (btnCancelar) {
+            btnCancelar.style.display = 'inline-flex';
+            btnCancelar.addEventListener('click', () => this.cancelarEdicion());
+        }
         
         // Scroll al formulario para que el usuario vea que está en modo edición
-        const formulario = document.querySelector('.registro-form');
+        const formulario = document.querySelector('.registration-form');
         if (formulario) {
             formulario.scrollIntoView({ 
                 behavior: 'smooth', 
@@ -461,57 +499,12 @@ class SistemaRegistro {
             });
         }
         
-        // Cerrar panel de búsqueda para mejor enfoque
-        const busquedaContainer = document.getElementById('busqueda-container');
-        if (busquedaContainer) {
-            busquedaContainer.style.display = 'none';
-        }
-        
         this.mostrarMensaje(`✏️ Editando cliente: ${cliente.nombres} ${cliente.apellidos}`, 'info');
-    }
-
-    activarModoEdicion(cliente) {
-        // Cambiar el título del formulario
-        const titulo = document.querySelector('.form-title');
-        if (titulo) {
-            titulo.innerHTML = `
-                <span class="form-icon">✏️</span>
-                Editando Cliente: ${cliente.nombres} ${cliente.apellidos}
-            `;
-        }
-
-        // Cambiar el texto del botón de submit
-        const btnSubmit = document.querySelector('button[type="submit"]');
-        if (btnSubmit) {
-            btnSubmit.innerHTML = '<span class="btn-icon">💾</span> Actualizar Cliente';
-            btnSubmit.classList.add('btn-edit-mode');
-        }
-
-        // Mostrar el botón de cancelar edición
-        const btnCancelar = document.getElementById('btn-cancelar-edicion');
-        if (btnCancelar) {
-            btnCancelar.style.display = 'inline-flex';
-            // Asegurar que el evento esté configurado
-            btnCancelar.onclick = () => this.cancelarEdicion();
-        }
-
-        // Cambiar la descripción del formulario
-        const descripcion = document.querySelector('.form-description');
-        if (descripcion) {
-            descripcion.textContent = 'Modifique los datos que desee actualizar y presione "Actualizar Cliente"';
-        }
-
-        // Agregar clase CSS para modo edición al formulario
-        const formulario = document.getElementById('registro-clientes');
-        if (formulario) {
-            formulario.classList.add('modo-edicion');
-        }
     }
 
     llenarFormularioEdicion(cliente) {
         console.log('Llenando formulario con datos:', cliente);
         
-        // Mapeo más preciso de campos
         const campos = {
             'id_cliente': cliente.id_cliente,
             'numero_documento': cliente.numero_documento,
@@ -526,10 +519,15 @@ class SistemaRegistro {
             'ciudad': cliente.ciudad,
             'barrio': cliente.barrio,
             'direccion_completa': cliente.direccion_completa,
-            'rol_institucion': cliente.rol_institucion
+            'rol_institucion': cliente.rol_institucion,
+            'programa_academico': cliente.programa_academico,
+            'semestre_actual': cliente.semestre_actual,
+            'jornada': cliente.jornada,
+            'numero_estudiante': cliente.numero_estudiante,
+            'departamento': cliente.departamento,
+            'tipo_vinculacion': cliente.tipo_vinculacion
         };
 
-        // Llenar campos básicos
         for (const [campo, valor] of Object.entries(campos)) {
             const elemento = document.getElementById(campo);
             if (elemento) {
@@ -540,47 +538,7 @@ class SistemaRegistro {
             }
         }
 
-        // Manejar campos específicos de estudiante
-        if (cliente.rol_institucion === 'estudiante') {
-            const camposEstudiante = {
-                'programa_academico': cliente.programa_academico,
-                'semestre_actual': cliente.semestre_actual,
-                'jornada': cliente.jornada,
-                'numero_estudiante': cliente.numero_estudiante
-            };
-
-            for (const [campo, valor] of Object.entries(camposEstudiante)) {
-                const elemento = document.getElementById(campo);
-                if (elemento) {
-                    elemento.value = valor || '';
-                }
-            }
-        }
-
-        // Manejar campos específicos de profesor
-        if (cliente.rol_institucion === 'profesor') {
-            const camposProfesor = {
-                'departamento': cliente.departamento,
-                'tipo_vinculacion': cliente.tipo_vinculacion
-            };
-
-            for (const [campo, valor] of Object.entries(camposProfesor)) {
-                const elemento = document.getElementById(campo);
-                if (elemento) {
-                    elemento.value = valor || '';
-                }
-            }
-        }
-
-        // Mostrar campos condicionales según el rol
-        this.manejarCambioRol(cliente.rol_institucion);
-
         // Manejar checkboxes para descuentos
-        // Primero limpiar todos los checkboxes de descuentos
-        document.querySelectorAll('input[name="descuentos[]"]').forEach(checkbox => {
-            checkbox.checked = false;
-        });
-        
         if (cliente.descuentos && Array.isArray(cliente.descuentos)) {
             cliente.descuentos.forEach(descuento => {
                 const checkbox = document.querySelector(`input[name="descuentos[]"][value="${descuento}"]`);
@@ -589,11 +547,6 @@ class SistemaRegistro {
         }
 
         // Manejar checkboxes para notificaciones
-        // Primero limpiar todos los checkboxes de notificaciones
-        document.querySelectorAll('input[name="notificaciones[]"]').forEach(checkbox => {
-            checkbox.checked = false;
-        });
-        
         if (cliente.notificaciones && Array.isArray(cliente.notificaciones)) {
             cliente.notificaciones.forEach(notificacion => {
                 const checkbox = document.querySelector(`input[name="notificaciones[]"][value="${notificacion}"]`);
@@ -602,13 +555,11 @@ class SistemaRegistro {
         }
 
         // Manejar checkboxes de términos
-        const terminosCheckbox = document.querySelector('input[name="acepta_terminos"]');
-        if (terminosCheckbox) terminosCheckbox.checked = cliente.acepta_terminos || true;
+        const terminosCheckbox = document.getElementById('acepta_terminos');
+        if (terminosCheckbox) terminosCheckbox.checked = cliente.acepta_terminos || false;
 
-        const comunicacionesCheckbox = document.querySelector('input[name="acepta_comunicaciones"]');
+        const comunicacionesCheckbox = document.getElementById('acepta_comunicaciones');
         if (comunicacionesCheckbox) comunicacionesCheckbox.checked = cliente.acepta_comunicaciones || false;
-
-        console.log('Formulario llenado completamente');
     }
 
     eliminarCliente(clienteId) {
@@ -937,20 +888,11 @@ class SistemaRegistro {
             }
 
             // Recopilar datos del formulario
-            const tipoFormulario = this.clienteEditando ? 'edicion' : 'registro';
-            const datosCliente = this.recopilarDatosFormulario(tipoFormulario);
+            const datosCliente = this.recopilarDatosFormulario();
 
             if (this.clienteEditando) {
                 // Modo edición
-                const exito = await this.actualizarCliente(this.clienteEditando, datosCliente);
-                if (exito) {
-                    // Solo limpiar y restaurar sin mostrar mensaje de cancelación
-                    this.limpiarFormulario();
-                    this.restaurarModoNormalSinMensaje();
-                    this.generarIdCliente();
-                    this.actualizarEstadisticas();
-                    this.clienteEditando = null;
-                }
+                await this.actualizarCliente(this.clienteEditando, datosCliente);
             } else {
                 // Modo creación
                 // Validar unicidad solo para nuevos clientes
@@ -964,11 +906,13 @@ class SistemaRegistro {
 
                 if (clienteRegistrado) {
                     this.mostrarExitoRegistro(clienteRegistrado);
-                    this.limpiarFormulario();
-                    this.generarIdCliente();
-                    this.actualizarEstadisticas();
                 }
             }
+
+            this.limpiarFormulario();
+            this.cancelarEdicion();
+            this.generarIdCliente();
+            this.actualizarEstadisticas();
 
         } catch (error) {
             console.error('Error en el registro:', error);
@@ -982,77 +926,39 @@ class SistemaRegistro {
             throw new Error('Cliente no encontrado');
         }
 
-        console.log('Actualizando cliente:', clienteId);
-        console.log('Datos nuevos:', datosCliente);
-        console.log('Datos existentes:', clienteExistente);
-
         // Validar unicidad solo si cambió el documento o email
         if (datosCliente.numero_documento !== clienteExistente.numero_documento) {
-            const documentoExiste = Object.values(this.clientes).some(cliente => 
-                cliente.numero_documento === datosCliente.numero_documento && cliente.id_cliente !== clienteId
-            );
-            
-            if (documentoExiste) {
-                this.mostrarMensaje('Este número de documento ya está registrado por otro cliente', 'error');
+            if (!await this.validarDocumentoUnico(datosCliente.numero_documento)) {
                 return false;
             }
         }
 
         if (datosCliente.correo_electronico !== clienteExistente.correo_electronico) {
-            const correoExiste = Object.values(this.clientes).some(cliente => 
-                cliente.correo_electronico === datosCliente.correo_electronico && cliente.id_cliente !== clienteId
-            );
-            
-            if (correoExiste) {
-                this.mostrarMensaje('Este correo electrónico ya está registrado por otro cliente', 'error');
+            if (!await this.validarCorreoUnico(datosCliente.correo_electronico)) {
                 return false;
             }
         }
 
-        // Actualizar datos manteniendo información importante existente
+        // Actualizar datos manteniendo información existente
         const clienteActualizado = {
             ...clienteExistente,
-            // Datos básicos
             numero_documento: datosCliente.numero_documento,
             tipo_documento: datosCliente.tipo_documento,
             nombres: datosCliente.nombres,
             apellidos: datosCliente.apellidos,
             fecha_nacimiento: datosCliente.fecha_nacimiento,
-            genero: datosCliente.genero,
-            // Contacto
             correo_electronico: datosCliente.correo_electronico,
             telefono_principal: datosCliente.telefono_principal,
-            telefono_secundario: datosCliente.telefono_secundario,
-            ciudad: datosCliente.ciudad,
-            barrio: datosCliente.barrio,
-            direccion_completa: datosCliente.direccion_completa,
-            // Información académica
             rol_institucion: datosCliente.rol_institucion,
-            programa_academico: datosCliente.programa_academico || null,
-            semestre_actual: datosCliente.semestre_actual || null,
-            jornada: datosCliente.jornada || null,
-            numero_estudiante: datosCliente.numero_estudiante || null,
-            departamento: datosCliente.departamento || null,
-            tipo_vinculacion: datosCliente.tipo_vinculacion || null,
-            // Beneficios y preferencias
-            descuentos: datosCliente.descuentos || [],
-            notificaciones: datosCliente.notificaciones || [],
-            acepta_terminos: datosCliente.acepta_terminos,
-            acepta_comunicaciones: datosCliente.acepta_comunicaciones,
-            // Mantener datos históricos
-            fecha_registro: clienteExistente.fecha_registro,
-            fecha_actualizacion: new Date().toISOString(),
-            activo: clienteExistente.activo !== undefined ? clienteExistente.activo : true,
-            esVip: clienteExistente.esVip || false,
-            puntos: clienteExistente.puntos || 0
+            programa_academico: datosCliente.programa_academico || '',
+            semestre_actual: datosCliente.semestre_actual || '',
+            fecha_actualizacion: new Date().toISOString()
         };
-
-        console.log('Cliente actualizado:', clienteActualizado);
 
         this.clientes[clienteId] = clienteActualizado;
         this.guardarClientes();
 
-        this.mostrarMensaje(`✅ Cliente "${clienteActualizado.nombres} ${clienteActualizado.apellidos}" actualizado correctamente`, 'exito');
+        this.mostrarMensaje(`Cliente "${clienteActualizado.nombres} ${clienteActualizado.apellidos}" actualizado correctamente`, 'exito');
         
         // Actualizar resultados de búsqueda si están visibles
         const inputBuscar = document.getElementById('buscar-cliente');
@@ -1066,79 +972,20 @@ class SistemaRegistro {
     cancelarEdicion() {
         this.clienteEditando = null;
         
-        // Restaurar el modo normal del formulario
-        this.restaurarModoNormal();
+        // Restaurar título y botón del formulario
+        const titulo = document.querySelector('.form-title');
+        const btnSubmit = document.querySelector('button[type="submit"]');
+        const btnCancelar = document.getElementById('btn-cancelar-edicion');
+        
+        if (titulo) titulo.textContent = '📝 Registro de Cliente';
+        if (btnSubmit) btnSubmit.innerHTML = '<span class="btn-icon">✅</span> Registrar Cliente';
+        if (btnCancelar) btnCancelar.style.display = 'none';
         
         // Limpiar formulario
         this.limpiarFormulario();
         this.generarIdCliente();
         
         this.mostrarMensaje('Edición cancelada', 'info');
-    }
-
-    restaurarModoNormal() {
-        // Restaurar título del formulario
-        const titulo = document.querySelector('.form-title');
-        if (titulo) {
-            titulo.innerHTML = `
-                <span class="form-icon">👤</span>
-                Registro de Nuevos Clientes
-            `;
-        }
-
-        // Restaurar texto del botón de submit
-        const btnSubmit = document.querySelector('button[type="submit"]');
-        if (btnSubmit) {
-            btnSubmit.innerHTML = '<span class="btn-icon">✅</span> Registrar Cliente';
-            btnSubmit.classList.remove('btn-edit-mode');
-        }
-
-        // Ocultar el botón de cancelar edición
-        const btnCancelar = document.getElementById('btn-cancelar-edicion');
-        if (btnCancelar) {
-            btnCancelar.style.display = 'none';
-        }
-
-        // Restaurar descripción del formulario
-        const descripcion = document.querySelector('.form-description');
-        if (descripcion) {
-            descripcion.textContent = 'Complete la información del cliente para registrarlo en el sistema';
-        }
-
-        // Remover clase de modo edición
-        const formulario = document.getElementById('registro-clientes');
-        if (formulario) {
-            formulario.classList.remove('modo-edicion');
-        }
-
-        // Mostrar panel de búsqueda
-        const busquedaContainer = document.getElementById('busqueda-container');
-        if (busquedaContainer) {
-            busquedaContainer.style.display = 'block';
-        }
-    }
-
-    restaurarModoNormalSinMensaje() {
-        this.restaurarModoNormal();
-        // Esta función hace lo mismo que restaurarModoNormal pero está separada 
-        // para mayor claridad en el código cuando no queremos mensajes adicionales
-    }
-        const btnCancelar = document.getElementById('btn-cancelar-edicion');
-        if (btnCancelar) {
-            btnCancelar.style.display = 'none';
-        }
-
-        // Restaurar la descripción del formulario
-        const descripcion = document.querySelector('.form-description');
-        if (descripcion) {
-            descripcion.textContent = 'Complete el formulario para obtener su cuenta de cliente';
-        }
-
-        // Remover clase CSS de modo edición
-        const formulario = document.getElementById('registro-clientes');
-        if (formulario) {
-            formulario.classList.remove('modo-edicion');
-        }
     }
 
     async validarFormularioCompleto() {
@@ -1179,68 +1026,40 @@ class SistemaRegistro {
         return esValido;
     }
 
-    recopilarDatosFormulario(tipoFormulario = 'registro') {
-        console.log('Recopilando datos del formulario, tipo:', tipoFormulario);
-        
+    recopilarDatosFormulario() {
         const formulario = document.getElementById('registro-clientes');
-        if (!formulario) {
-            console.error('Formulario no encontrado');
-            return null;
-        }
-
         const formData = new FormData(formulario);
         
-        // Obtener datos básicos
         const datos = {
-            nombres: formData.get('nombres')?.trim() || '',
-            apellidos: formData.get('apellidos')?.trim() || '',
-            tipo_documento: formData.get('tipo_documento') || 'CC',
-            numero_documento: formData.get('numero_documento')?.trim() || '',
-            fecha_nacimiento: formData.get('fecha_nacimiento') || '',
-            genero: formData.get('genero') || '',
-            telefono_principal: formData.get('telefono_principal')?.trim() || '',
-            telefono_secundario: formData.get('telefono_secundario')?.trim() || null,
-            correo_electronico: formData.get('correo_electronico')?.toLowerCase()?.trim() || '',
-            ciudad: formData.get('ciudad')?.trim() || '',
-            barrio: formData.get('barrio')?.trim() || null,
-            direccion_completa: formData.get('direccion_completa')?.trim() || null,
-            rol_institucion: formData.get('rol_institucion') || 'estudiante',
-            programa_academico: formData.get('programa_academico')?.trim() || null,
+            id_cliente: document.getElementById('id_cliente').value,
+            nombres: formData.get('nombres'),
+            apellidos: formData.get('apellidos'),
+            tipo_documento: formData.get('tipo_documento'),
+            numero_documento: formData.get('numero_documento'),
+            fecha_nacimiento: formData.get('fecha_nacimiento'),
+            genero: formData.get('genero'),
+            telefono_principal: formData.get('telefono_principal'),
+            telefono_secundario: formData.get('telefono_secundario') || null,
+            correo_electronico: formData.get('correo_electronico').toLowerCase(),
+            ciudad: formData.get('ciudad'),
+            barrio: formData.get('barrio') || null,
+            direccion_completa: formData.get('direccion_completa') || null,
+            rol_institucion: formData.get('rol_institucion'),
+            programa_academico: formData.get('programa_academico') || null,
             semestre_actual: formData.get('semestre_actual') || null,
             jornada: formData.get('jornada') || null,
-            numero_estudiante: formData.get('numero_estudiante')?.trim() || null,
-            departamento: formData.get('departamento')?.trim() || null,
+            numero_estudiante: formData.get('numero_estudiante') || null,
+            departamento: formData.get('departamento') || null,
             tipo_vinculacion: formData.get('tipo_vinculacion') || null,
-            descuentos: formData.getAll('descuentos[]') || [],
-            notificaciones: formData.getAll('notificaciones[]') || [],
+            descuentos: formData.getAll('descuentos[]'),
+            notificaciones: formData.getAll('notificaciones[]'),
             acepta_terminos: formData.get('acepta_terminos') === 'on',
-            acepta_comunicaciones: formData.get('acepta_comunicaciones') === 'on'
+            acepta_comunicaciones: formData.get('acepta_comunicaciones') === 'on',
+            fecha_registro: new Date().toISOString(),
+            estado: 'activo',
+            activo: true,
+            esVip: false
         };
-
-        // Campos específicos para registro nuevo
-        if (tipoFormulario === 'registro') {
-            datos.id_cliente = document.getElementById('id_cliente')?.value || '';
-            datos.fecha_registro = new Date().toISOString();
-            datos.estado = 'activo';
-            datos.activo = true;
-            datos.esVip = false;
-            datos.puntos = 0;
-        }
-
-        console.log('Datos recopilados:', datos);
-        
-        // Validación básica
-        if (!datos.numero_documento || !datos.nombres || !datos.apellidos || !datos.correo_electronico) {
-            console.warn('Faltan campos obligatorios');
-            this.mostrarMensaje('Por favor complete todos los campos obligatorios marcados con *', 'error');
-            return null;
-        }
-
-        // Para registro nuevo, los términos son obligatorios
-        if (tipoFormulario === 'registro' && !datos.acepta_terminos) {
-            this.mostrarMensaje('Debe aceptar los términos y condiciones para continuar', 'error');
-            return null;
-        }
 
         return datos;
     }
@@ -1444,50 +1263,22 @@ class SistemaRegistro {
     }
 
     mostrarMensaje(mensaje, tipo) {
-        // Remover mensaje existente si hay uno
-        this.cerrarMensaje();
+        let container = document.getElementById('mensaje-sistema');
         
-        const container = document.createElement('div');
-        container.id = 'mensaje-sistema';
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'mensaje-sistema';
+            container.className = 'mensaje-sistema';
+            document.body.appendChild(container);
+        }
+        
+        container.innerHTML = `<div class="mensaje-${tipo}">${mensaje}</div>`;
         container.className = `mensaje-sistema ${tipo}`;
         
-        // Crear el contenido del mensaje con botón de cerrar
-        container.innerHTML = `
-            <div class="mensaje-contenido">
-                <span class="mensaje-texto">${mensaje}</span>
-                <button class="mensaje-cerrar" onclick="document.getElementById('mensaje-sistema').remove()" title="Cerrar">×</button>
-            </div>
-        `;
-        
-        document.body.appendChild(container);
-        
-        // Auto-cerrar después de 5 segundos
         setTimeout(() => {
-            this.cerrarMensaje();
+            container.innerHTML = '';
+            container.className = 'mensaje-sistema';
         }, 5000);
-        
-        // Permitir cerrar con click en el fondo (overlay)
-        container.addEventListener('click', (e) => {
-            if (e.target === container) {
-                this.cerrarMensaje();
-            }
-        });
-        
-        // Permitir cerrar con tecla Escape
-        const handleEscape = (e) => {
-            if (e.key === 'Escape') {
-                this.cerrarMensaje();
-                document.removeEventListener('keydown', handleEscape);
-            }
-        };
-        document.addEventListener('keydown', handleEscape);
-    }
-    
-    cerrarMensaje() {
-        const container = document.getElementById('mensaje-sistema');
-        if (container) {
-            container.remove();
-        }
     }
 
     // Métodos públicos para integración
@@ -1527,6 +1318,86 @@ class SistemaRegistro {
         this.contadorClientes = 0;
         this.guardarClientes();
         console.log('Todos los clientes han sido eliminados');
+    }
+
+    // Función para generar datos de prueba de ventas
+    debug_generarVentasPrueba() {
+        // Obtener el primer cliente disponible
+        const clienteIds = Object.keys(this.clientes);
+        if (clienteIds.length === 0) {
+            this.mostrarMensaje('No hay clientes registrados. Registre un cliente primero.', 'error');
+            return;
+        }
+        
+        const clienteId = clienteIds[0]; // Usar el primer cliente disponible
+        console.log('Generando ventas para cliente:', clienteId);
+        
+        const ventasPrueba = [
+            {
+                id: 'V001',
+                fecha: '2025-10-16T10:30:00',
+                idCliente: clienteId,
+                items: [
+                    { nombre: 'Café Americano', precio: 3500, cantidad: 2 },
+                    { nombre: 'Croissant', precio: 2500, cantidad: 1 }
+                ],
+                total: 9500,
+                metodoPago: 'Efectivo',
+                descuento: 0
+            },
+            {
+                id: 'V002',
+                fecha: '2025-10-15T14:15:00',
+                idCliente: clienteId,
+                items: [
+                    { nombre: 'Cappuccino', precio: 4000, cantidad: 1 },
+                    { nombre: 'Sandwich', precio: 8500, cantidad: 1 }
+                ],
+                total: 12500,
+                metodoPago: 'Tarjeta',
+                descuento: 500
+            },
+            {
+                id: 'V003',
+                fecha: '2025-10-15T09:20:00',
+                idCliente: clienteId,
+                items: [
+                    { nombre: 'Latte', precio: 4500, cantidad: 1 },
+                    { nombre: 'Muffin', precio: 3000, cantidad: 2 }
+                ],
+                total: 10500,
+                metodoPago: 'Efectivo',
+                descuento: 0
+            },
+            {
+                id: 'V004',
+                fecha: '2025-10-14T16:45:00',
+                idCliente: clienteId,
+                items: [
+                    { nombre: 'Expresso', precio: 3000, cantidad: 3 },
+                    { nombre: 'Galletas', precio: 1500, cantidad: 4 }
+                ],
+                total: 15000,
+                metodoPago: 'Transferencia',
+                descuento: 1000
+            },
+            {
+                id: 'V005',
+                fecha: '2025-10-13T11:30:00',
+                idCliente: clienteId,
+                items: [
+                    { nombre: 'Mocha', precio: 5000, cantidad: 1 },
+                    { nombre: 'Brownie', precio: 4000, cantidad: 1 }
+                ],
+                total: 9000,
+                metodoPago: 'Efectivo',
+                descuento: 0
+            }
+        ];
+
+        localStorage.setItem('ventas', JSON.stringify(ventasPrueba));
+        console.log('Datos de ventas de prueba generados:', ventasPrueba);
+        this.mostrarMensaje(`Datos de ventas de prueba generados para cliente ${clienteId}`, 'exito');
     }
 
     actualizarCliente(idCliente, datosActualizados) {

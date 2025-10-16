@@ -109,6 +109,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 15px;
+    margin: 15px 0;
 }
 
 .stat-compra {
@@ -118,6 +119,11 @@
     text-align: center;
     border: 1px solid #e9ecef;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .stat-compra:hover {
@@ -127,10 +133,12 @@
 
 .stat-numero {
     display: block;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
     color: #8B4513;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    line-height: 1.2;
+    word-break: break-word;
 }
 
 .stat-label {
@@ -138,6 +146,9 @@
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    font-weight: 500;
+    margin-top: 5px;
+}
 }
 
 /* Historial de compras */
@@ -347,6 +358,22 @@
 @media (max-width: 480px) {
     .stats-compras {
         grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .stat-compra {
+        padding: 15px;
+        min-height: 70px;
+    }
+    
+    .stat-numero {
+        font-size: 1.4rem;
+        margin-bottom: 6px;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
+    }
     }
     
     .stat-numero {
