@@ -3533,28 +3533,84 @@ input:checked + .slider:before {
 
 .mensaje-sistema {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+}
+
+.mensaje-contenido {
+    background: white;
     max-width: 500px;
     width: 90%;
     border-radius: 15px;
     padding: 25px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     text-align: center;
+    position: relative;
+    animation: mensajeEntrada 0.3s ease-out;
 }
 
-.mensaje-sistema.exito {
+@keyframes mensajeEntrada {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.mensaje-cerrar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.mensaje-cerrar:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.mensaje-sistema.exito .mensaje-contenido {
     background: linear-gradient(135deg, #d4edda, #c3e6cb);
     border: 2px solid #28a745;
     color: #155724;
 }
 
-.mensaje-sistema.error {
+.mensaje-sistema.error .mensaje-contenido {
     background: linear-gradient(135deg, #f8d7da, #f5c6cb);
     border: 2px solid #dc3545;
     color: #721c24;
+}
+
+.mensaje-sistema.info .mensaje-contenido {
+    background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+    border: 2px solid #17a2b8;
+    color: #0c5460;
+}
+
+.mensaje-texto {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    padding-right: 30px;
 }
 
 .pago-section {
@@ -4999,5 +5055,46 @@ input:checked + .slider:before {
 
     .certificaciones {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Responsive para sistema de mensajes */
+@media (max-width: 768px) {
+    .mensaje-contenido {
+        width: 95%;
+        padding: 20px;
+        margin: 20px;
+    }
+    
+    .mensaje-texto {
+        font-size: 14px;
+        padding-right: 25px;
+    }
+    
+    .mensaje-cerrar {
+        font-size: 20px;
+        top: 8px;
+        right: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mensaje-contenido {
+        width: 98%;
+        padding: 15px;
+        margin: 10px;
+        border-radius: 10px;
+    }
+    
+    .mensaje-texto {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+    
+    .mensaje-cerrar {
+        font-size: 18px;
+        top: 5px;
+        right: 8px;
+        padding: 3px;
     }
 }

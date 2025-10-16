@@ -942,7 +942,15 @@ class SistemaRegistro {
 
             if (this.clienteEditando) {
                 // Modo edición
-                await this.actualizarCliente(this.clienteEditando, datosCliente);
+                const exito = await this.actualizarCliente(this.clienteEditando, datosCliente);
+                if (exito) {
+                    // Solo limpiar y restaurar sin mostrar mensaje de cancelación
+                    this.limpiarFormulario();
+                    this.restaurarModoNormalSinMensaje();
+                    this.generarIdCliente();
+                    this.actualizarEstadisticas();
+                    this.clienteEditando = null;
+                }
             } else {
                 // Modo creación
                 // Validar unicidad solo para nuevos clientes
@@ -956,13 +964,11 @@ class SistemaRegistro {
 
                 if (clienteRegistrado) {
                     this.mostrarExitoRegistro(clienteRegistrado);
+                    this.limpiarFormulario();
+                    this.generarIdCliente();
+                    this.actualizarEstadisticas();
                 }
             }
-
-            this.limpiarFormulario();
-            this.cancelarEdicion();
-            this.generarIdCliente();
-            this.actualizarEstadisticas();
 
         } catch (error) {
             console.error('Error en el registro:', error);
@@ -1088,6 +1094,35 @@ class SistemaRegistro {
         }
 
         // Ocultar el botón de cancelar edición
+        const btnCancelar = document.getElementById('btn-cancelar-edicion');
+        if (btnCancelar) {
+            btnCancelar.style.display = 'none';
+        }
+
+        // Restaurar descripción del formulario
+        const descripcion = document.querySelector('.form-description');
+        if (descripcion) {
+            descripcion.textContent = 'Complete la información del cliente para registrarlo en el sistema';
+        }
+
+        // Remover clase de modo edición
+        const formulario = document.getElementById('registro-clientes');
+        if (formulario) {
+            formulario.classList.remove('modo-edicion');
+        }
+
+        // Mostrar panel de búsqueda
+        const busquedaContainer = document.getElementById('busqueda-container');
+        if (busquedaContainer) {
+            busquedaContainer.style.display = 'block';
+        }
+    }
+
+    restaurarModoNormalSinMensaje() {
+        this.restaurarModoNormal();
+        // Esta función hace lo mismo que restaurarModoNormal pero está separada 
+        // para mayor claridad en el código cuando no queremos mensajes adicionales
+    }
         const btnCancelar = document.getElementById('btn-cancelar-edicion');
         if (btnCancelar) {
             btnCancelar.style.display = 'none';
@@ -1409,22 +1444,50 @@ class SistemaRegistro {
     }
 
     mostrarMensaje(mensaje, tipo) {
-        let container = document.getElementById('mensaje-sistema');
+        // Remover mensaje existente si hay uno
+        this.cerrarMensaje();
         
-        if (!container) {
-            container = document.createElement('div');
-            container.id = 'mensaje-sistema';
-            container.className = 'mensaje-sistema';
-            document.body.appendChild(container);
-        }
-        
-        container.innerHTML = `<div class="mensaje-${tipo}">${mensaje}</div>`;
+        const container = document.createElement('div');
+        container.id = 'mensaje-sistema';
         container.className = `mensaje-sistema ${tipo}`;
         
+        // Crear el contenido del mensaje con botón de cerrar
+        container.innerHTML = `
+            <div class="mensaje-contenido">
+                <span class="mensaje-texto">${mensaje}</span>
+                <button class="mensaje-cerrar" onclick="document.getElementById('mensaje-sistema').remove()" title="Cerrar">×</button>
+            </div>
+        `;
+        
+        document.body.appendChild(container);
+        
+        // Auto-cerrar después de 5 segundos
         setTimeout(() => {
-            container.innerHTML = '';
-            container.className = 'mensaje-sistema';
+            this.cerrarMensaje();
         }, 5000);
+        
+        // Permitir cerrar con click en el fondo (overlay)
+        container.addEventListener('click', (e) => {
+            if (e.target === container) {
+                this.cerrarMensaje();
+            }
+        });
+        
+        // Permitir cerrar con tecla Escape
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                this.cerrarMensaje();
+                document.removeEventListener('keydown', handleEscape);
+            }
+        };
+        document.addEventListener('keydown', handleEscape);
+    }
+    
+    cerrarMensaje() {
+        const container = document.getElementById('mensaje-sistema');
+        if (container) {
+            container.remove();
+        }
     }
 
     // Métodos públicos para integración
