@@ -11,7 +11,7 @@ class SistemaCompras {
         this.descuentosHorarios = this.initDescuentosHorarios();
         this.inventario = this.initInventario();
         this.ventas = JSON.parse(localStorage.getItem('ventas')) || [];
-        this.clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+        this.clientes = JSON.parse(localStorage.getItem('clientes_cafeteria')) || {};
         this.empleados = JSON.parse(localStorage.getItem('empleados')) || [];
         this.programaLealtad = this.initProgramaLealtad();
         this.init();
@@ -896,14 +896,19 @@ class SistemaCompras {
         const lealtadInfo = document.getElementById('cliente-lealtad-info');
         if (!clienteInfo) return;
         
-        const cliente = this.clientes.find(c => c.id === id);
+        console.log('Buscando cliente con ID:', id);
+        console.log('Clientes disponibles:', this.clientes);
+        
+        const cliente = Object.values(this.clientes).find(c => c.id_cliente === id);
+        console.log('Cliente encontrado:', cliente);
+        
         if (cliente) {
             // Información básica del cliente
             clienteInfo.innerHTML = `
                 <div class="cliente-encontrado">
                     <strong>${cliente.nombres} ${cliente.apellidos}</strong><br>
-                    ${cliente.email}<br>
-                    Tel: ${cliente.telefono}
+                    ${cliente.correo_electronico}<br>
+                    Tel: ${cliente.telefono_principal}
                 </div>
             `;
             
@@ -1084,12 +1089,12 @@ class SistemaCompras {
     }
 
     descontarPuntosCliente(idCliente, puntosUsados) {
-        const clientes = JSON.parse(localStorage.getItem('clientes')) || [];
-        const cliente = clientes.find(c => c.id === idCliente);
+        const clientes = JSON.parse(localStorage.getItem('clientes_cafeteria')) || {};
+        const cliente = Object.values(clientes).find(c => c.id_cliente === idCliente);
         
         if (cliente) {
             cliente.puntos = Math.max(0, (cliente.puntos || 0) - puntosUsados);
-            localStorage.setItem('clientes', JSON.stringify(clientes));
+            localStorage.setItem('clientes_cafeteria', JSON.stringify(clientes));
             this.clientes = clientes;
         }
     }
@@ -1219,7 +1224,7 @@ class SistemaCompras {
     }
 
     obtenerCliente(idCliente) {
-        return this.clientes.find(cliente => cliente.id === idCliente);
+        return Object.values(this.clientes).find(cliente => cliente.id_cliente === idCliente);
     }
 
     obtenerNivelCliente(puntosActuales) {
@@ -1232,8 +1237,8 @@ class SistemaCompras {
     }
 
     actualizarPuntosCliente(idCliente, puntosGanados) {
-        const clientes = JSON.parse(localStorage.getItem('clientes')) || [];
-        const cliente = clientes.find(c => c.id === idCliente);
+        const clientes = JSON.parse(localStorage.getItem('clientes_cafeteria')) || {};
+        const cliente = Object.values(clientes).find(c => c.id_cliente === idCliente);
         
         if (cliente) {
             cliente.puntos = (cliente.puntos || 0) + puntosGanados;
@@ -1248,7 +1253,7 @@ class SistemaCompras {
                 this.notificarNuevoNivel(cliente, nivelActual);
             }
             
-            localStorage.setItem('clientes', JSON.stringify(clientes));
+            localStorage.setItem('clientes_cafeteria', JSON.stringify(clientes));
             this.clientes = clientes;
         }
     }

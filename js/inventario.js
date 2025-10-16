@@ -5,27 +5,42 @@
 
 class SistemaInventario {
     constructor() {
+        console.log('Iniciando constructor SistemaInventario...');
         this.inventario = JSON.parse(localStorage.getItem('inventario')) || {};
         this.movimientos = JSON.parse(localStorage.getItem('movimientos')) || [];
         this.productos = this.initProductos();
         this.alertas = this.initAlertas();
         this.configuracionReabastecimiento = this.initConfiguracionReabastecimiento();
+        console.log('Constructor completado, ejecutando init...');
         this.init();
     }
 
     init() {
-        this.renderizarInventario();
-        this.configurarEventos();
-        this.actualizarEstadisticas();
-        this.renderizarAlertas();
-        this.configurarFechaActual();
-        this.configurarReabastecimientoAutomatico();
-        
-        // Actualizar alertas cada 30 segundos
-        setInterval(() => {
-            this.renderizarAlertas();
+        try {
+            console.log('Ejecutando init()...');
+            this.renderizarInventario();
+            console.log('renderizarInventario() completado');
+            this.configurarEventos();
+            console.log('configurarEventos() completado');
             this.actualizarEstadisticas();
-        }, 30000);
+            console.log('actualizarEstadisticas() completado');
+            this.renderizarAlertas();
+            console.log('renderizarAlertas() completado');
+            this.configurarFechaActual();
+            console.log('configurarFechaActual() completado');
+            this.configurarReabastecimientoAutomatico();
+            console.log('configurarReabastecimientoAutomatico() completado');
+            
+            // Actualizar alertas cada 30 segundos
+            setInterval(() => {
+                this.renderizarAlertas();
+                this.actualizarEstadisticas();
+            }, 30000);
+            
+            console.log('init() completado exitosamente');
+        } catch (error) {
+            console.error('ERROR en init():', error);
+        }
     }
 
     initProductos() {
@@ -770,22 +785,36 @@ class SistemaInventario {
     }
 
     configurarEventos() {
+        console.log('Configurando eventos del sistema de inventario...');
+        
         // Eventos de botones principales
         const btnActualizar = document.getElementById('btn-actualizar-inventario');
         const btnReporte = document.getElementById('btn-generar-reporte');
         const btnExportar = document.getElementById('btn-exportar-excel');
 
+        console.log('Botones encontrados:', {
+            actualizar: !!btnActualizar,
+            reporte: !!btnReporte,
+            exportar: !!btnExportar
+        });
+
         if (btnActualizar) {
             btnActualizar.addEventListener('click', () => this.actualizarInventarioManual());
+            console.log('Event listener añadido a btnActualizar');
         }
 
         if (btnReporte) {
             btnReporte.addEventListener('click', () => this.generarReporte());
+            console.log('Event listener añadido a btnReporte');
         }
 
         if (btnExportar) {
             btnExportar.addEventListener('click', () => this.exportarExcel());
+            console.log('Event listener añadido a btnExportar');
         }
+
+        // Configurar eventos de reabastecimiento
+        this.configurarEventosReabastecimiento();
 
         // Eventos de filtros
         const filtroCategoria = document.getElementById('filtro-categoria');
@@ -1555,8 +1584,21 @@ class SistemaInventario {
 
 // Auto-inicializar cuando se carga la página
 document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('inventario-container')) {
-        window.sistemaInventario = new SistemaInventario();
+    console.log('DOM cargado, buscando contenedor inventario...');
+    const container = document.getElementById('inventario-container');
+    console.log('Contenedor encontrado:', !!container);
+    
+    if (container) {
+        console.log('Inicializando sistema de inventario...');
+        try {
+            window.sistemaInventario = new SistemaInventario();
+            console.log('Sistema de inventario inicializado correctamente');
+        } catch (error) {
+            console.error('ERROR al inicializar sistema de inventario:', error);
+            alert('Error al cargar el sistema de inventario: ' + error.message);
+        }
+    } else {
+        console.log('Contenedor inventario-container no encontrado');
     }
 });
 

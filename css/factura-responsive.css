@@ -3,6 +3,36 @@
    SISTEMA DE FACTURACIÓN - ESTILOS RESPONSIVOS
    ================================================ */
 
+/* CONTENEDOR PRINCIPAL - FORZAR VISIBILIDAD */
+#factura-content {
+    background-color: white !important;
+    padding: 20px !important;
+    border-radius: 8px !important;
+    min-height: 500px !important;
+    display: block !important;
+    visibility: visible !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* LISTA DE FACTURAS - FORZAR VISIBILIDAD */
+#lista-facturas {
+    display: block !important;
+    visibility: visible !important;
+    width: 100% !important;
+    min-height: 200px !important;
+    background-color: #f9f9f9 !important;
+    padding: 15px !important;
+    border-radius: 5px !important;
+    margin-top: 20px !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
 /* FORZAR LOGO NAVEGACIÓN EN FACTURACIÓN */
 header .nav-container .nav-logo .logo-text {
     font-weight: 700 !important;
@@ -37,7 +67,333 @@ header .nav-container .nav-logo {
 }
 
 /* ================================================
-   LAYOUT PRINCIPAL
+   ESTILOS PARA FACTURA GENERADA
+   ================================================ */
+
+.factura {
+    background: white !important;
+    padding: 30px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+    margin-bottom: 20px !important;
+    font-family: 'Poppins', sans-serif !important;
+    color: #333 !important;
+    line-height: 1.6 !important;
+}
+
+.factura * {
+    color: #333 !important;
+}
+
+.factura-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 3px solid var(--invoice-primary);
+    padding-bottom: 20px;
+}
+
+.empresa-info h1 {
+    color: var(--invoice-primary);
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.empresa-info h2 {
+    color: var(--invoice-secondary);
+    font-size: 1.5rem;
+    margin: 5px 0;
+}
+
+.eslogan-factura {
+    color: #666;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.logo-factura img {
+    max-width: 100px;
+    height: auto;
+}
+
+.empresa-detalles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.empresa-datos h3,
+.resolucion-dian h3 {
+    color: var(--invoice-primary);
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--invoice-secondary);
+    padding-bottom: 5px;
+}
+
+.factura-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.factura-datos h3,
+.cliente-datos h3 {
+    color: var(--invoice-primary);
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.productos-factura {
+    margin-bottom: 30px;
+}
+
+.productos-factura h3 {
+    color: var(--invoice-primary);
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.tabla-productos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.tabla-productos th,
+.tabla-productos td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabla-productos th {
+    background-color: var(--invoice-primary);
+    color: white;
+    font-weight: 600;
+}
+
+.tabla-productos tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.tabla-productos tr:hover {
+    background-color: #e9ecef;
+}
+
+.totales-factura {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+}
+
+.totales-detalle {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    min-width: 300px;
+}
+
+.total-final {
+    font-size: 1.3rem;
+    color: var(--invoice-primary);
+    border-top: 2px solid var(--invoice-primary);
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.pago-info {
+    background: #e3f2fd;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.pago-info h3 {
+    color: var(--invoice-primary);
+    margin-bottom: 15px;
+}
+
+.factura-footer {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 2px solid var(--invoice-secondary);
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Estilos para factura vacía */
+.factura-vacia {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.mensaje-vacio {
+    text-align: center;
+    padding: 40px;
+}
+
+.mensaje-vacio h2 {
+    color: var(--invoice-primary);
+    margin-bottom: 20px;
+}
+
+.acciones-vacio {
+    margin-top: 30px;
+}
+
+.acciones-vacio .btn-primary,
+.acciones-vacio .btn-secondary {
+    margin: 0 10px;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.acciones-vacio .btn-primary {
+    background: var(--invoice-primary);
+    color: white;
+    border: none;
+}
+
+.acciones-vacio .btn-secondary {
+    background: white;
+    color: var(--invoice-primary);
+    border: 2px solid var(--invoice-primary);
+}
+
+/* Lista de facturas */
+.facturas-lista {
+    margin-top: 20px;
+}
+
+.factura-item {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.factura-item:hover {
+    background: #f8f9fa;
+    border-color: var(--invoice-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.factura-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.factura-item-header strong {
+    color: var(--invoice-primary);
+    font-size: 1.1rem;
+}
+
+.fecha {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.factura-item-body p {
+    margin: 5px 0;
+    color: #333;
+}
+
+/* Sin facturas */
+.sin-facturas {
+    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.sin-facturas .btn-primary {
+    background: var(--invoice-primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .factura {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    .factura-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .empresa-detalles,
+    .factura-info {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .tabla-productos {
+        font-size: 0.9rem;
+    }
+    
+    .tabla-productos th,
+    .tabla-productos td {
+        padding: 8px;
+    }
+    
+    .totales-detalle {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .factura-item-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .tabla-productos th:nth-child(3),
+    .tabla-productos td:nth-child(3) {
+        display: none;
+    }
+    
+    .empresa-info h1 {
+        font-size: 1.5rem;
+    }
+    
+    .empresa-info h2 {
+        font-size: 1.3rem;
+    }
+}
+
+/* ================================================
+   FIN ESTILOS FACTURA GENERADA
    ================================================ */
 
 .main-content {

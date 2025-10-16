@@ -15,6 +15,7 @@ class SistemaFacturacion {
         this.configurarEventos();
         this.cargarFacturaActual();
         this.renderizarListaFacturas();
+        this.actualizarEstadisticas();
     }
 
     initConfiguracion() {
@@ -61,19 +62,13 @@ class SistemaFacturacion {
             btnBuscar.addEventListener('click', () => this.buscarFactura());
         }
 
-        // Búsqueda en tiempo real
+        // Campo de búsqueda con Enter
         const inputBusqueda = document.getElementById('busqueda-factura');
         if (inputBusqueda) {
-            inputBusqueda.addEventListener('input', (e) => {
-                this.filtrarFacturas(e.target.value);
-            });
-        }
-
-        // Selector de factura
-        const selectorFactura = document.getElementById('selector-factura');
-        if (selectorFactura) {
-            selectorFactura.addEventListener('change', (e) => {
-                this.cargarFactura(e.target.value);
+            inputBusqueda.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    this.buscarFactura();
+                }
             });
         }
     }
@@ -91,14 +86,18 @@ class SistemaFacturacion {
     }
 
     generarFacturaDesdeVenta(ventaId) {
+        console.log('Generando factura desde venta:', ventaId);
         const venta = this.ventas.find(v => v.id === ventaId);
         
         if (!venta) {
+            console.error('Venta no encontrada:', ventaId);
             this.mostrarError('Venta no encontrada');
             return;
         }
 
+        console.log('Venta encontrada:', venta);
         const factura = this.crearFactura(venta);
+        console.log('Factura creada:', factura);
         this.renderizarFactura(factura);
         this.guardarFactura(factura);
     }
@@ -113,7 +112,7 @@ class SistemaFacturacion {
             fechaFormateada: new Date().toLocaleDateString('es-CO'),
             horaFormateada: new Date().toLocaleTimeString('es-CO'),
             venta: venta,
-            cliente: this.obtenerDatosCliente(venta.cliente),
+            cliente: this.obtenerDatosCliente(venta.cliente || venta.idCliente),
             vendedor: this.obtenerDatosVendedor(venta.vendedor),
             items: venta.items,
             subtotal: venta.subtotal,
@@ -128,25 +127,21 @@ class SistemaFacturacion {
     }
 
     generarNumeroFactura() {
-        const fecha = new Date();
         const correlativo = (this.facturas.length + 1).toString().padStart(5, '0');
         return `FAC-${correlativo}`;
     }
 
     obtenerDatosCliente(idCliente) {
-        // Buscar en ambos sistemas de clientes
+        console.log('Buscando datos de cliente con ID:', idCliente);
+        
+        // Buscar en el sistema de registro
         const clientesRegistro = JSON.parse(localStorage.getItem('clientes_cafeteria')) || {};
-        const clientesCompra = JSON.parse(localStorage.getItem('clientes')) || [];
+        console.log('Clientes en registro:', clientesRegistro);
         
-        // Buscar primero en el sistema de registro (más completo)
+        // Buscar cliente en el sistema de registro
         let cliente = Object.values(clientesRegistro).find(c => c.id_cliente === idCliente);
+        console.log('Cliente encontrado en registro:', cliente);
         
-        // Si no se encuentra, buscar en el sistema de compras
-        if (!cliente) {
-            cliente = clientesCompra.find(c => c.id === idCliente);
-        }
-        
-        // Si se encuentra un cliente del sistema de registro, formatear para factura
         if (cliente && cliente.id_cliente) {
             return {
                 id: cliente.id_cliente,
@@ -154,58 +149,63 @@ class SistemaFacturacion {
                 documento: `${cliente.tipo_documento} ${cliente.numero_documento}`,
                 email: cliente.correo_electronico,
                 telefono: cliente.telefono_principal,
-                ciudad: cliente.ciudad,
-                rol: cliente.rol_institucion
+                direccion: cliente.direccion || 'No especificada'
             };
         }
         
-        // Si se encuentra un cliente del sistema de compras
-        if (cliente && cliente.id) {
-            return {
-                id: cliente.id,
-                nombre: cliente.nombre || 'Cliente General',
-                documento: cliente.documento || 'N/A',
-                email: cliente.email || 'N/A',
-                telefono: cliente.telefono || 'N/A',
-                ciudad: cliente.ciudad || 'N/A',
-                rol: 'Cliente'
-            };
-        }
-        
-        // Cliente por defecto si no se encuentra
+        // Si no se encuentra, crear un cliente genérico
+        console.log('Cliente no encontrado, creando genérico para ID:', idCliente);
         return {
             id: idCliente,
             nombre: 'Cliente General',
-            documento: 'N/A',
-            email: 'N/A',
-            telefono: 'N/A',
-            ciudad: 'N/A',
-            rol: 'Cliente'
+            documento: 'No especificado',
+            email: 'No especificado',
+            telefono: 'No especificado',
+            direccion: 'No especificada'
         };
     }
 
     obtenerDatosVendedor(idVendedor) {
-        const empleados = JSON.parse(localStorage.getItem('empleados')) || [];
-        const vendedor = empleados.find(e => e.id === idVendedor);
-        
-        return vendedor || {
+        return {
             id: idVendedor,
-            nombre: 'Vendedor',
-            cargo: 'Cajero'
+            nombre: `Vendedor ${idVendedor}`,
+            documento: 'N/A'
         };
     }
 
     renderizarFactura(factura) {
+        console.log('Renderizando factura:', factura);
         const container = document.getElementById('factura-content');
-        if (!container) return;
+        
+        if (!container) {
+            console.error('Contenedor factura-content no encontrado');
+            return;
+        }
 
-        container.innerHTML = this.generarHTMLFactura(factura);
+        const htmlFactura = this.generarHTMLFactura(factura);
+        container.innerHTML = htmlFactura;
         
         // Actualizar título de la página
         document.title = `Factura ${factura.numero} - Cafetería Cesde`;
     }
 
     generarHTMLFactura(factura) {
+        console.log('Generando HTML para factura:', factura);
+        console.log('Cliente en factura:', factura.cliente);
+        console.log('Items en factura:', factura.items);
+        console.log('Configuración empresa:', this.configuracion.empresa);
+        
+        // Verificar que todos los datos estén presentes
+        if (!factura.cliente) {
+            console.error('Error: factura.cliente es undefined');
+            return '<div class="error">Error: Datos de cliente no disponibles</div>';
+        }
+        
+        if (!factura.items || factura.items.length === 0) {
+            console.error('Error: factura.items está vacío o undefined');
+            return '<div class="error">Error: No hay productos en la factura</div>';
+        }
+        
         return `
             <div class="factura">
                 <div class="factura-header">
@@ -229,7 +229,7 @@ class SistemaFacturacion {
                         <p><strong>Régimen:</strong> ${this.configuracion.empresa.regimen}</p>
                     </div>
                     <div class="resolucion-dian">
-                        <h3>📋 Resolución DIAN</h3>
+                        <h3>Resolución DIAN</h3>
                         <p><strong>No. Resolución:</strong> ${this.configuracion.dian.resolucion}</p>
                         <p><strong>Fecha:</strong> ${this.configuracion.dian.fecha}</p>
                         <p><strong>Rango Autorizado:</strong></p>
@@ -246,26 +246,24 @@ class SistemaFacturacion {
                         <p><strong>Fecha:</strong> ${factura.fechaFormateada}</p>
                         <p><strong>Hora:</strong> ${factura.horaFormateada}</p>
                         <p><strong>Vendedor:</strong> ${factura.vendedor.nombre}</p>
-                        <p style="background: #faf8f5; padding: 8px; border-radius: 5px; border-left: 4px solid #8B4513;"><strong>💳 Método de Pago:</strong> ${factura.metodoPago}</p>
                     </div>
                     <div class="cliente-datos">
                         <h3>👤 Datos del Cliente</h3>
                         <p><strong>Cliente:</strong> ${factura.cliente.nombre}</p>
-                        <p><strong>ID:</strong> ${factura.cliente.id}</p>
                         <p><strong>Documento:</strong> ${factura.cliente.documento}</p>
                         <p><strong>Email:</strong> ${factura.cliente.email}</p>
                         <p><strong>Teléfono:</strong> ${factura.cliente.telefono}</p>
+                        <p><strong>Dirección:</strong> ${factura.cliente.direccion}</p>
                     </div>
                 </div>
 
-                <div class="productos-detalle">
-                    <h3>🛒 Detalle de Productos</h3>
+                <div class="productos-factura">
+                    <h3>🛒 Productos</h3>
                     <table class="tabla-productos">
                         <thead>
                             <tr>
-                                <th>Código</th>
-                                <th>Descripción</th>
-                                <th>Cant.</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
                                 <th>Precio Unit.</th>
                                 <th>Subtotal</th>
                             </tr>
@@ -273,7 +271,6 @@ class SistemaFacturacion {
                         <tbody>
                             ${factura.items.map(item => `
                                 <tr>
-                                    <td>${item.id}</td>
                                     <td>${item.nombre}</td>
                                     <td>${item.cantidad}</td>
                                     <td>$${item.precio.toLocaleString('es-CO')}</td>
@@ -282,60 +279,28 @@ class SistemaFacturacion {
                             `).join('')}
                         </tbody>
                     </table>
+                </div>
 
-                    <div class="resumen-totales">
-                        <div class="totales-derecha">
-                            <div class="subtotal-line">
-                                <span>Subtotal:</span>
-                                <span>$${factura.subtotal.toLocaleString('es-CO')}</span>
-                            </div>
-                            ${factura.descuento > 0 ? `
-                                <div class="descuento-line">
-                                    <span>Descuento:</span>
-                                    <span>-$${factura.descuento.toLocaleString('es-CO')}</span>
-                                </div>
-                            ` : ''}
-                            <div class="iva-line">
-                                <span>IVA (0%):</span>
-                                <span>$0</span>
-                            </div>
-                            <div class="total-line">
-                                <span><strong>TOTAL A PAGAR:</strong></span>
-                                <span><strong>$${factura.total.toLocaleString('es-CO')}</strong></span>
-                            </div>
-                            ${factura.metodoPago === 'Efectivo' ? `
-                                <div class="pago-efectivo">
-                                    <div class="recibido-line">
-                                        <span>Recibido:</span>
-                                        <span>$${factura.montoRecibido.toLocaleString('es-CO')}</span>
-                                    </div>
-                                    <div class="cambio-line">
-                                        <span>Cambio:</span>
-                                        <span>$${factura.cambio.toLocaleString('es-CO')}</span>
-                                    </div>
-                                </div>
-                            ` : ''}
-                        </div>
+                <div class="totales-factura">
+                    <div class="totales-detalle">
+                        <p><strong>Subtotal:</strong> $${factura.subtotal.toLocaleString('es-CO')}</p>
+                        ${factura.descuento > 0 ? `<p><strong>Descuento:</strong> -$${factura.descuento.toLocaleString('es-CO')}</p>` : ''}
+                        <p class="total-final"><strong>TOTAL:</strong> $${factura.total.toLocaleString('es-CO')}</p>
                     </div>
                 </div>
 
-                ${factura.observaciones ? `
-                    <div class="observaciones-factura">
-                        <h3>📝 Observaciones</h3>
-                        <p>${factura.observaciones}</p>
-                    </div>
-                ` : ''}
+                <div class="pago-info">
+                    <h3>💳 Información de Pago</h3>
+                    <p><strong>Método de Pago:</strong> ${factura.metodoPago}</p>
+                    <p><strong>Monto Recibido:</strong> $${factura.montoRecibido.toLocaleString('es-CO')}</p>
+                    <p><strong>Cambio:</strong> $${factura.cambio.toLocaleString('es-CO')}</p>
+                    ${factura.observaciones ? `<p><strong>Observaciones:</strong> ${factura.observaciones}</p>` : ''}
+                </div>
 
-                <div class="pie-factura">
-                    <div class="agradecimiento">
-                        <p><strong>¡Gracias por su compra!</strong></p>
-                        <p>Esperamos volver a verle pronto en Cafetería Cesde</p>
-                    </div>
-                    <div class="info-adicional">
-                        <p><small>Esta factura es válida como soporte contable</small></p>
-                        <p><small>Para reclamos: equipocesde25@gmail.com</small></p>
-                        <p><small>Soporte técnico: 3008694578</small></p>
-                    </div>
+                <div class="factura-footer">
+                    <p>¡Gracias por su compra!</p>
+                    <p>Esta factura fue generada automáticamente</p>
+                    <p>Fecha de generación: ${new Date().toLocaleString('es-CO')}</p>
                 </div>
             </div>
         `;
@@ -364,44 +329,34 @@ class SistemaFacturacion {
         if (!container) return;
 
         if (this.facturas.length === 0) {
-            container.innerHTML = '<p class="sin-facturas">No hay facturas generadas</p>';
+            container.innerHTML = `
+                <div class="sin-facturas">
+                    <p>No hay facturas generadas</p>
+                    <a href="compra.html" class="btn-primary">🛒 Crear Primera Venta</a>
+                </div>
+            `;
             return;
         }
 
-        const html = `
-            <div class="facturas-tabla">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Número</th>
-                            <th>Fecha</th>
-                            <th>Cliente</th>
-                            <th>Total</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${this.facturas.map(factura => `
-                            <tr>
-                                <td>${factura.numero}</td>
-                                <td>${factura.fechaFormateada}</td>
-                                <td>${factura.cliente.nombre}</td>
-                                <td>$${factura.total.toLocaleString('es-CO')}</td>
-                                <td><span class="estado-${factura.estado}">${factura.estado}</span></td>
-                                <td>
-                                    <button onclick="sistemaFacturacion.cargarFactura('${factura.id}')" class="btn-mini">👁️ Ver</button>
-                                    <button onclick="sistemaFacturacion.imprimirFactura('${factura.id}')" class="btn-mini">🖨️ Imprimir</button>
-                                    <button onclick="sistemaFacturacion.descargarPDF('${factura.id}')" class="btn-mini">📄 PDF</button>
-                                </td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
+        const facturas = this.facturas.slice().reverse(); // Mostrar las más recientes primero
+        
+        container.innerHTML = `
+            <h3>Facturas Recientes</h3>
+            <div class="facturas-lista">
+                ${facturas.map(factura => `
+                    <div class="factura-item" onclick="sistemaFacturacion.cargarFactura('${factura.id}')">
+                        <div class="factura-item-header">
+                            <strong>${factura.numero}</strong>
+                            <span class="fecha">${factura.fechaFormateada}</span>
+                        </div>
+                        <div class="factura-item-body">
+                            <p>Cliente: ${factura.cliente.nombre}</p>
+                            <p>Total: $${factura.total.toLocaleString('es-CO')}</p>
+                        </div>
+                    </div>
+                `).join('')}
             </div>
         `;
-
-        container.innerHTML = html;
     }
 
     guardarFactura(factura) {
@@ -415,225 +370,150 @@ class SistemaFacturacion {
         
         localStorage.setItem('facturas', JSON.stringify(this.facturas));
         this.renderizarListaFacturas();
+        this.actualizarEstadisticas();
     }
 
     cargarFactura(facturaId) {
+        console.log('Cargando factura con ID:', facturaId);
+        console.log('Facturas disponibles:', this.facturas);
+        
         const factura = this.facturas.find(f => f.id === facturaId);
         
         if (!factura) {
+            console.log('Factura no encontrada con ID:', facturaId);
             this.mostrarError('Factura no encontrada');
             return;
         }
         
+        console.log('Factura encontrada:', factura);
         this.renderizarFactura(factura);
     }
 
     buscarFactura() {
-        const numero = document.getElementById('numero-busqueda')?.value;
+        const termino = document.getElementById('busqueda-factura')?.value;
         
-        if (!numero) {
-            this.mostrarError('Ingrese un número de factura o ID de cliente');
+        if (!termino) {
+            this.mostrarError('Ingrese un criterio de búsqueda');
             return;
         }
         
-        // Buscar por número de factura, ID de factura o ID de cliente
-        const factura = this.facturas.find(f => 
-            f.numero.toLowerCase().includes(numero.toLowerCase()) ||
-            f.id.toLowerCase().includes(numero.toLowerCase()) ||
-            f.cliente.id === numero ||
-            f.venta.idCliente === numero
-        );
+        console.log('Buscando facturas con término:', termino);
+        console.log('Facturas disponibles:', this.facturas);
+        console.log('Ventas disponibles:', this.ventas);
+        
+        // Buscar por múltiples criterios
+        let factura = this.facturas.find(f => {
+            // Buscar por número de factura
+            if (f.numero && f.numero.toLowerCase().includes(termino.toLowerCase())) {
+                return true;
+            }
+            
+            // Buscar por ID de factura
+            if (f.id && f.id.toLowerCase().includes(termino.toLowerCase())) {
+                return true;
+            }
+            
+            // Buscar por ID de cliente
+            if (f.venta && f.venta.idCliente === termino) {
+                return true;
+            }
+            
+            // Buscar por información del cliente
+            if (f.cliente) {
+                if (f.cliente.id === termino || 
+                    f.cliente.email === termino ||
+                    f.cliente.nombre?.toLowerCase().includes(termino.toLowerCase())) {
+                    return true;
+                }
+            }
+            
+            return false;
+        });
         
         if (factura) {
-            this.cargarFactura(factura.id);
-        } else {
-            // Si no encuentra factura, buscar si hay una venta con ese cliente
-            const venta = this.ventas.find(v => v.idCliente === numero);
-            if (venta) {
-                this.generarFacturaDesdeVenta(venta.id);
-                this.mostrarInfo(`Factura generada para la venta del cliente ${numero}`);
-            } else {
-                this.mostrarError('No se encontró factura ni venta para el criterio de búsqueda');
-            }
-        }
-    }
-
-    filtrarFacturas(termino) {
-        const facturasFiltradas = this.facturas.filter(factura =>
-            factura.numero.toLowerCase().includes(termino.toLowerCase()) ||
-            factura.cliente.nombre.toLowerCase().includes(termino.toLowerCase()) ||
-            factura.cliente.id.includes(termino) ||
-            factura.venta.idCliente.includes(termino) ||
-            factura.fechaFormateada.includes(termino)
-        );
-        
-        this.renderizarTablaFiltrada(facturasFiltradas);
-    }
-
-    renderizarTablaFiltrada(facturas) {
-        const tbody = document.querySelector('#lista-facturas tbody');
-        if (!tbody) return;
-
-        if (facturas.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="6" class="sin-resultados">No se encontraron facturas</td></tr>';
-            return;
-        }
-
-        tbody.innerHTML = facturas.map(factura => `
-            <tr>
-                <td>${factura.numero}</td>
-                <td>${factura.fechaFormateada}</td>
-                <td>${factura.cliente.nombre}</td>
-                <td>$${factura.total.toLocaleString('es-CO')}</td>
-                <td><span class="estado-${factura.estado}">${factura.estado}</span></td>
-                <td>
-                    <button onclick="sistemaFacturacion.cargarFactura('${factura.id}')" class="btn-mini">👁️ Ver</button>
-                    <button onclick="sistemaFacturacion.imprimirFactura('${factura.id}')" class="btn-mini">🖨️ Imprimir</button>
-                    <button onclick="sistemaFacturacion.descargarPDF('${factura.id}')" class="btn-mini">📄 PDF</button>
-                </td>
-            </tr>
-        `).join('');
-    }
-
-    imprimirFactura(facturaId = null) {
-        let factura;
-        
-        if (facturaId) {
-            factura = this.facturas.find(f => f.id === facturaId);
-        } else {
-            // Imprimir la factura actualmente mostrada
+            console.log('✅ FACTURA ENCONTRADA:', factura);
+            
+            // RENDERIZAR FACTURA CON DEBUGGING
+            this.renderizarFactura(factura);
+            
+            // FORZAR VISIBILIDAD
             const container = document.getElementById('factura-content');
-            if (!container || !container.querySelector('.factura')) {
-                this.mostrarError('No hay factura para imprimir');
-                return;
+            const listaContainer = document.getElementById('lista-facturas');
+            
+            console.log('📦 Container factura-content encontrado:', !!container);
+            console.log('📦 Container lista-facturas encontrado:', !!listaContainer);
+            
+            if (container) {
+                container.style.display = 'block';
+                container.style.visibility = 'visible';
+                container.style.opacity = '1';
+                console.log('🎨 Estilos forzados en factura-content');
+            }
+            
+            this.mostrarInfo(`Factura ${factura.numero} encontrada`);
+        } else {
+            // Si no encuentra factura directa, buscar venta y generar factura
+            console.log('No se encontró factura, buscando venta...');
+            const venta = this.ventas.find(v => v.idCliente === termino || v.id === termino);
+            
+            if (venta) {
+                console.log('Venta encontrada, generando factura:', venta);
+                this.generarFacturaDesdeVenta(venta.id);
+                this.mostrarInfo(`Factura generada para la venta del cliente ${termino}`);
+            } else {
+                this.mostrarError('No se encontró factura ni venta para el criterio de búsqueda: ' + termino);
             }
         }
-        
-        // Crear ventana de impresión
-        const ventanaImpresion = window.open('', '_blank');
-        const estilosImpresion = this.obtenerEstilosImpresion();
-        
-        ventanaImpresion.document.write(`
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Factura ${factura ? factura.numero : ''}</title>
-                <style>${estilosImpresion}</style>
-            </head>
-            <body>
-                ${factura ? this.generarHTMLFactura(factura) : document.getElementById('factura-content').innerHTML}
-            </body>
-            </html>
-        `);
-        
-        ventanaImpresion.document.close();
-        ventanaImpresion.focus();
-        
-        setTimeout(() => {
-            ventanaImpresion.print();
-            ventanaImpresion.close();
-        }, 500);
     }
 
-    obtenerEstilosImpresion() {
-        return `
-            @page { margin: 0.5in; }
-            body { font-family: Arial, sans-serif; font-size: 12px; }
-            .factura { max-width: 100%; }
-            .factura-header { display: flex; justify-content: space-between; margin-bottom: 20px; }
-            .empresa-info h1 { font-size: 18px; margin: 0; }
-            .empresa-info h2 { font-size: 16px; margin: 5px 0; }
-            .logo-factura img { width: 80px; height: 80px; }
-            .empresa-detalles, .factura-info { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-            .tabla-productos { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-            .tabla-productos th, .tabla-productos td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-            .tabla-productos th { background-color: #f5f5f5; }
-            .resumen-totales { text-align: right; margin-top: 20px; }
-            .total-line { font-size: 14px; font-weight: bold; border-top: 2px solid #333; padding-top: 5px; }
-            .pie-factura { margin-top: 30px; text-align: center; font-size: 10px; }
-        `;
+    actualizarEstadisticas() {
+        const totalFacturas = this.facturas.length;
+        const hoy = new Date().toDateString();
+        const facturasHoy = this.facturas.filter(f => 
+            new Date(f.fecha).toDateString() === hoy
+        ).length;
+        
+        const fechaSemana = new Date();
+        fechaSemana.setDate(fechaSemana.getDate() - 7);
+        const facturasSemana = this.facturas.filter(f => 
+            new Date(f.fecha) >= fechaSemana
+        ).length;
+
+        // Actualizar elementos del DOM
+        const totalElement = document.getElementById('total-facturas');
+        const hoyElement = document.getElementById('facturas-hoy');
+        const semanaElement = document.getElementById('facturas-semana');
+
+        if (totalElement) totalElement.textContent = totalFacturas;
+        if (hoyElement) hoyElement.textContent = facturasHoy;
+        if (semanaElement) semanaElement.textContent = facturasSemana;
     }
 
-    async descargarPDF(facturaId = null) {
-        this.mostrarMensaje('Generando PDF...', 'info');
-        
-        try {
-            // Aquí implementarías la generación de PDF
-            // Por ahora simulo el proceso
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            this.mostrarMensaje('PDF generado exitosamente', 'exito');
-            
-            // Simular descarga
-            const link = document.createElement('a');
-            link.href = '#';
-            link.download = `factura_${facturaId || 'actual'}.pdf`;
-            link.click();
-            
-        } catch (error) {
-            this.mostrarError('Error al generar PDF: ' + error.message);
-        }
+    imprimirFactura() {
+        window.print();
+    }
+
+    descargarPDF() {
+        this.mostrarInfo('Función de descarga PDF en desarrollo');
     }
 
     mostrarError(mensaje) {
-        this.mostrarMensaje(mensaje, 'error');
+        console.error('Error:', mensaje);
+        alert('Error: ' + mensaje);
     }
 
     mostrarInfo(mensaje) {
-        this.mostrarMensaje(mensaje, 'info');
+        console.log('Info:', mensaje);
+        alert('Info: ' + mensaje);
     }
 
-    // Función para debugging - mostrar todas las ventas
-    debug_mostrarVentas() {
-        console.log('=== VENTAS REGISTRADAS ===');
-        console.log('Total de ventas:', this.ventas.length);
-        console.log('Ventas:', this.ventas);
-        return this.ventas;
-    }
-
-    // Función para debugging - mostrar todas las facturas
-    debug_mostrarFacturas() {
-        console.log('=== FACTURAS GENERADAS ===');
-        console.log('Total de facturas:', this.facturas.length);
+    // Método para debugging
+    debug_mostrarDatos() {
+        console.log('=== DEBUG FACTURACIÓN ===');
         console.log('Facturas:', this.facturas);
-        return this.facturas;
-    }
-
-    mostrarMensaje(mensaje, tipo) {
-        let container = document.getElementById('mensaje-sistema');
-        
-        if (!container) {
-            container = document.createElement('div');
-            container.id = 'mensaje-sistema';
-            container.className = 'mensaje-sistema';
-            document.body.appendChild(container);
-        }
-        
-        container.innerHTML = `<div class="mensaje-${tipo}">${mensaje}</div>`;
-        container.className = `mensaje-sistema ${tipo}`;
-        
-        setTimeout(() => {
-            container.innerHTML = '';
-            container.className = 'mensaje-sistema';
-        }, 3000);
-    }
-
-    // Métodos públicos para integración
-    obtenerFacturas() {
-        return this.facturas;
-    }
-
-    obtenerFacturaPorId(id) {
-        return this.facturas.find(f => f.id === id);
-    }
-
-    generarFactura(ventaId = null) {
-        if (ventaId) {
-            this.generarFacturaDesdeVenta(ventaId);
-        } else {
-            // Redirigir a compras si no hay venta especificada
-            window.location.href = 'compra.html';
-        }
+        console.log('Ventas:', this.ventas);
+        console.log('Clientes registro:', JSON.parse(localStorage.getItem('clientes_cafeteria')));
+        console.log('========================');
     }
 }
 
@@ -641,6 +521,11 @@ class SistemaFacturacion {
 document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('factura-content') || document.getElementById('lista-facturas')) {
         window.sistemaFacturacion = new SistemaFacturacion();
+        
+        // Agregar función de debug global
+        window.debugFacturacion = () => {
+            window.sistemaFacturacion.debug_mostrarDatos();
+        };
     }
 });
 

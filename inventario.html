@@ -279,6 +279,60 @@
     </footer>
 
     <script src="js/inventario.js"></script>
-    <script src="js/navigation.js"></script>
+    
+    <!-- Script temporal para hacer funcionar los botones -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Configurando botones de inventario directamente...');
+            
+            // Botón Actualizar Inventario
+            const btnActualizar = document.getElementById('btn-actualizar-inventario');
+            if (btnActualizar) {
+                btnActualizar.addEventListener('click', function() {
+                    alert('Actualizando inventario...');
+                    console.log('Botón actualizar clickeado');
+                });
+            }
+            
+            // Botón Generar Reporte
+            const btnReporte = document.getElementById('btn-generar-reporte');
+            if (btnReporte) {
+                btnReporte.addEventListener('click', function() {
+                    alert('Generando reporte...');
+                    console.log('Botón reporte clickeado');
+                });
+            }
+            
+            // Botón Exportar Excel
+            const btnExportar = document.getElementById('btn-exportar-excel');
+            if (btnExportar) {
+                btnExportar.addEventListener('click', function() {
+                    alert('Exportando a Excel...');
+                    console.log('Botón exportar clickeado');
+                });
+            }
+            
+            // Botón Ejecutar Reabastecimiento
+            const btnEjecutar = document.getElementById('btn-ejecutar-reabastecimiento');
+            if (btnEjecutar) {
+                btnEjecutar.addEventListener('click', function() {
+                    alert('Ejecutando reabastecimiento...');
+                    console.log('Botón reabastecimiento clickeado');
+                });
+            }
+            
+            // Botón Configurar Reabastecimiento
+            const btnConfigurar = document.getElementById('btn-configurar-reabastecimiento');
+            if (btnConfigurar) {
+                btnConfigurar.addEventListener('click', function() {
+                    alert('Configurando reabastecimiento...');
+                    console.log('Botón configurar clickeado');
+                });
+            }
+            
+            console.log('Todos los botones configurados temporalmente');
+        });
+    </script>
+    <script src="js/global.js"></script>
 </body>
 </html>

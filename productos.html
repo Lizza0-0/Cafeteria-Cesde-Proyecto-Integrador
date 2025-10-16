@@ -78,6 +78,31 @@
             </div>
         </section>
 
+        <!-- Panel de Administración de Productos -->
+        <section class="admin-panel">
+            <div class="container">
+                <div class="admin-header">
+                    <h2>
+                        <span class="admin-icon">⚙️</span>
+                        Administración de Productos
+                    </h2>
+                    <p class="admin-description">Gestiona el menú de la cafetería: añade, edita o elimina productos</p>
+                </div>
+                
+                <div class="admin-actions">
+                    <button id="btn-agregar-producto" class="btn-admin btn-primary">
+                        ➕ Agregar Nuevo Producto
+                    </button>
+                    <button id="btn-gestionar-categorias" class="btn-admin btn-secondary">
+                        🏷️ Gestionar Categorías
+                    </button>
+                    <button id="btn-exportar-menu" class="btn-admin btn-export">
+                        📄 Exportar Menú
+                    </button>
+                </div>
+            </div>
+        </section>
+
         <!-- Panel de filtros y búsqueda -->
         <section class="filters-panel">
             <div class="container">
@@ -233,6 +258,115 @@
         </section>
     </main>
 
+    <!-- Modal para Agregar/Editar Productos -->
+    <div id="modal-producto" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-titulo">Agregar Nuevo Producto</h3>
+                <button class="modal-close" id="btn-cerrar-modal">×</button>
+            </div>
+            
+            <form id="form-producto" class="producto-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="producto-nombre">Nombre del Producto *</label>
+                        <input type="text" id="producto-nombre" name="nombre" required 
+                               placeholder="Ej: Cappuccino">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="producto-categoria">Categoría *</label>
+                        <select id="producto-categoria" name="categoria" required>
+                            <option value="">Seleccionar categoría</option>
+                            <option value="cafe">☕ Café</option>
+                            <option value="pasteleria">🥐 Pastelería</option>
+                            <option value="desayunos">🍳 Desayunos</option>
+                            <option value="almuerzos">🍽️ Almuerzos</option>
+                            <option value="bebidas">🥤 Bebidas</option>
+                            <option value="postres">🍰 Postres</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="producto-precio">Precio (COP) *</label>
+                        <input type="number" id="producto-precio" name="precio" required 
+                               min="100" step="50" placeholder="Ej: 3500">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="producto-tiempo">Tiempo de Preparación</label>
+                        <input type="text" id="producto-tiempo" name="tiempo_preparacion" 
+                               placeholder="Ej: 5 min">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="producto-descripcion">Descripción</label>
+                    <textarea id="producto-descripcion" name="descripcion" rows="3"
+                              placeholder="Describe el producto, sus ingredientes principales, etc."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="producto-imagen">URL de la Imagen</label>
+                    <input type="url" id="producto-imagen" name="imagen" 
+                           placeholder="https://ejemplo.com/imagen.jpg">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="producto-calorias">Calorías (aproximadas)</label>
+                        <input type="number" id="producto-calorias" name="calorias" 
+                               min="0" placeholder="Ej: 250">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="producto-disponible">Estado</label>
+                        <select id="producto-disponible" name="disponible">
+                            <option value="true">Disponible</option>
+                            <option value="false">No disponible</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="producto-ingredientes">Ingredientes (separados por comas)</label>
+                    <input type="text" id="producto-ingredientes" name="ingredientes" 
+                           placeholder="Ej: Café molido, Leche, Azúcar">
+                </div>
+                
+                <div class="form-group">
+                    <label for="producto-alergenos">Alérgenos (separados por comas)</label>
+                    <input type="text" id="producto-alergenos" name="alergenos" 
+                           placeholder="Ej: Gluten, Lactosa">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" id="btn-cancelar">Cancelar</button>
+                    <button type="submit" class="btn-save" id="btn-guardar">Guardar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación -->
+    <div id="modal-confirmacion" class="modal-overlay">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h3>Confirmar Acción</h3>
+                <button class="modal-close" id="btn-cerrar-confirmacion">×</button>
+            </div>
+            <div class="modal-body">
+                <p id="mensaje-confirmacion">¿Estás seguro de realizar esta acción?</p>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-cancel" id="btn-cancelar-confirmacion">Cancelar</button>
+                <button type="button" class="btn-danger" id="btn-confirmar-accion">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
@@ -256,8 +390,9 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Scripts consolidados -->
+    <script src="js/global.js"></script>
+    <script src="js/utils.js"></script>
     <script src="js/productos.js"></script>
-    <script src="js/navigation.js"></script>
 </body>
 </html>

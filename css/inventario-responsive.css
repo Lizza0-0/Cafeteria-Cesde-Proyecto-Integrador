@@ -1,28 +1,32 @@
 /* ===== INVENTARIO RESPONSIVE STYLES ===== */
 
-/* Variables para el sistema de inventario - Paleta crema y cafés claros */
+/* Variables para el sistema de inventario - Paleta café, crema y naranja */
 :root {
     --inventario-primary: #8B4513;
     --inventario-secondary: #D2691E;
-    --inventario-success: #27ae60;
-    --inventario-warning: #f39c12;
-    --inventario-danger: #e74c3c;
-    --inventario-info: #17a2b8;
-    --inventario-light: #f8f9fa;
-    --inventario-dark: #6b4423;
-    --inventario-border: #e8ddd4;
-    --inventario-shadow: 0 2px 10px rgba(139,69,19,0.08);
+    --inventario-success: #B8860B;
+    --inventario-warning: #FF8C00;
+    --inventario-danger: #CD853F;
+    --inventario-info: #DEB887;
+    --inventario-light: #FAF0E6;
+    --inventario-dark: #5D4037;
+    --inventario-border: #E8DCC6;
+    --inventario-shadow: 0 2px 10px rgba(139,69,19,0.15);
     --inventario-radius: 8px;
     
-    /* Paleta suave crema y cafés claros */
-    --crema-base: #faf8f5;
-    --crema-warm: #f5f0ea;
-    --beige-claro: #f0e6d6;
-    --beige-medio: #e8dcc6;
-    --cafe-suave: #d4c4a8;
-    --cafe-claro: #c7b299;
-    --cafe-medio: #9d8471;
-    --cafe-texto: #7a6a5a;
+    /* Paleta café, crema y naranja */
+    --crema-base: #FFF8DC;
+    --crema-warm: #F5E6D3;
+    --beige-claro: #F0E6D2;
+    --beige-medio: #E8D5B7;
+    --cafe-suave: #D2B48C;
+    --cafe-claro: #CD853F;
+    --cafe-medio: #A0522D;
+    --cafe-oscuro: #8B4513;
+    --naranja-claro: #FFEEDD;
+    --naranja-medio: #FFD700;
+    --naranja-cafe: #FF8C00;
+    --cafe-texto: #5D4037;
 }
 
 /* Layout principal del inventario */
@@ -34,14 +38,14 @@
     min-height: calc(100vh - 200px);
 }
 
-/* Encabezado del sistema - con tonos suaves */
+/* Encabezado del sistema - con tonos café y naranja */
 .sistema-header {
-    background: linear-gradient(135deg, #9d8471, #c7b299) !important;
+    background: linear-gradient(135deg, var(--cafe-oscuro), var(--naranja-cafe)) !important;
     color: white !important;
     padding: 2rem 0 !important;
     text-align: center !important;
     margin-bottom: 2rem !important;
-    box-shadow: 0 2px 10px rgba(157, 132, 113, 0.15) !important;
+    box-shadow: 0 4px 20px rgba(139, 69, 19, 0.25) !important;
     width: 100vw !important;
     margin-left: calc(-50vw + 50%) !important;
     position: relative !important;
@@ -72,11 +76,12 @@
 
 /* Panel de control */
 .panel-control {
-    background: white;
+    background: linear-gradient(135deg, var(--crema-base), white);
     padding: 25px;
     border-radius: var(--inventario-radius);
     box-shadow: var(--inventario-shadow);
     margin-bottom: 25px;
+    border: 1px solid var(--naranja-claro);
 }
 
 .controles-principales {
@@ -111,16 +116,20 @@
 }
 
 .btn-primary:hover {
-    background-color: var(--cafe-medio);
+    background-color: var(--cafe-oscuro);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 69, 19, 0.3);
 }
 
 .btn-secondary {
-    background-color: var(--inventario-secondary);
+    background-color: var(--naranja-cafe);
     color: white;
 }
 
 .btn-secondary:hover {
     background-color: var(--cafe-medio);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 140, 0, 0.3);
 }
 
 .btn-export {
@@ -129,7 +138,9 @@
 }
 
 .btn-export:hover {
-    background-color: #229954;
+    background-color: var(--cafe-claro);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(184, 134, 11, 0.3);
 }
 
 /* Panel de filtros */
@@ -192,23 +203,23 @@
 
 .stat-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 25px rgba(157, 132, 113, 0.2);
-    background: linear-gradient(135deg, var(--beige-claro), var(--crema-warm));
+    box-shadow: 0 8px 30px rgba(139, 69, 19, 0.2);
+    background: linear-gradient(135deg, var(--naranja-claro), var(--crema-warm));
 }
 
 .stat-card.critico {
     border-left: 4px solid var(--inventario-danger);
-    background: linear-gradient(135deg, #fdf7f7, var(--crema-base));
+    background: linear-gradient(135deg, var(--naranja-claro), var(--crema-base));
 }
 
 .stat-card.bajo {
-    border-left: 4px solid var(--inventario-warning);
-    background: linear-gradient(135deg, #fffcf5, var(--crema-warm));
+    border-left: 4px solid var(--naranja-cafe);
+    background: linear-gradient(135deg, #FFF8DC, var(--crema-warm));
 }
 
 .stat-card.optimo {
     border-left: 4px solid var(--inventario-success);
-    background: linear-gradient(135deg, #f7fcf7, var(--crema-base));
+    background: linear-gradient(135deg, var(--crema-base), white);
 }
 
 .stat-icon {
@@ -308,7 +319,7 @@
     margin-bottom: 5px;
 }
 
-/* Contenedor del inventario con tonos suaves */
+/* Contenedor del inventario con tonos café y naranja */
 .inventario-container {
     background: linear-gradient(135deg, white, var(--crema-base));
     border-radius: var(--inventario-radius);
@@ -318,21 +329,34 @@
 }
 
 .inventario-container:nth-child(even) {
-    background: linear-gradient(135deg, var(--crema-base), var(--crema-warm));
+    background: linear-gradient(135deg, var(--crema-base), var(--naranja-claro));
 }
 
 .inventario-container:nth-child(odd) {
-    background: linear-gradient(135deg, white, var(--beige-claro));
+    background: linear-gradient(135deg, white, var(--crema-warm));
 }
 
 /* Categorías del inventario */
-/* Categorías del inventario con tonos suaves */
+/* Categorías del inventario con tonos café y naranja */
 .categoria-inventario {
     border: none;
     margin-bottom: 30px;
 }
 
 .categoria-inventario:nth-child(1) legend {
+    background: linear-gradient(135deg, var(--cafe-oscuro), var(--naranja-cafe));
+    color: white;
+    padding: 15px 25px;
+    border-radius: var(--inventario-radius);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+}
+
+.categoria-inventario:nth-child(2) legend {
     background: linear-gradient(135deg, var(--cafe-medio), var(--cafe-claro));
     color: white;
     padding: 15px 25px;
@@ -342,10 +366,11 @@
     margin-bottom: 20px;
     width: 100%;
     box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(160, 82, 45, 0.3);
 }
 
-.categoria-inventario:nth-child(2) legend {
-    background: linear-gradient(135deg, var(--cafe-claro), var(--cafe-suave));
+.categoria-inventario:nth-child(3) legend {
+    background: linear-gradient(135deg, var(--cafe-claro), var(--naranja-cafe));
     color: white;
     padding: 15px 25px;
     border-radius: var(--inventario-radius);
@@ -354,9 +379,10 @@
     margin-bottom: 20px;
     width: 100%;
     box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(205, 133, 63, 0.3);
 }
 
-.categoria-inventario:nth-child(3) legend {
+.categoria-inventario legend {
     background: linear-gradient(135deg, var(--cafe-suave), var(--beige-medio));
     color: white;
     padding: 15px 25px;
@@ -366,41 +392,30 @@
     margin-bottom: 20px;
     width: 100%;
     box-sizing: border-box;
-}
-
-.categoria-inventario legend {
-    background: linear-gradient(135deg, var(--beige-medio), var(--beige-claro));
-    color: white;
-    padding: 15px 25px;
-    border-radius: var(--inventario-radius);
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    width: 100%;
-    box-sizing: border-box;
     border: 1px solid var(--inventario-border);
+    box-shadow: 0 4px 15px rgba(210, 180, 140, 0.3);
 }
 
 .subcategorias-inventario h4 {
-    background: linear-gradient(135deg, var(--crema-warm), var(--beige-claro));
+    background: linear-gradient(135deg, var(--crema-warm), var(--naranja-claro));
     padding: 12px 20px;
     margin: 15px 0 10px 0;
     border-radius: var(--inventario-radius);
     color: var(--cafe-texto);
     font-size: 1.1rem;
-    border-left: 4px solid var(--cafe-suave);
-    box-shadow: 0 2px 8px rgba(157, 132, 113, 0.08);
+    border-left: 4px solid var(--cafe-claro);
+    box-shadow: 0 3px 12px rgba(139, 69, 19, 0.15);
     border: 1px solid var(--inventario-border);
 }
 
 .subcategorias-inventario h4:nth-child(even) {
-    background: linear-gradient(135deg, var(--beige-claro), var(--crema-base));
-    border-left: 4px solid var(--cafe-claro);
+    background: linear-gradient(135deg, var(--naranja-claro), var(--crema-base));
+    border-left: 4px solid var(--naranja-cafe);
 }
 
 .subcategorias-inventario h4:nth-child(odd) {
-    background: linear-gradient(135deg, var(--crema-base), var(--crema-warm));
-    border-left: 4px solid var(--beige-medio);
+    background: linear-gradient(135deg, var(--crema-base), var(--beige-claro));
+    border-left: 4px solid var(--cafe-suave);
 }
 
 /* Tablas del inventario */
@@ -417,7 +432,7 @@
 }
 
 .tabla-inventario th {
-    background: linear-gradient(135deg, var(--cafe-medio), var(--cafe-claro));
+    background: linear-gradient(135deg, var(--cafe-oscuro), var(--cafe-medio));
     color: white;
     padding: 20px 12px;
     text-align: left;
@@ -429,21 +444,22 @@
     height: 80px;
     box-sizing: border-box;
     vertical-align: middle;
+    box-shadow: 0 2px 8px rgba(139, 69, 19, 0.2);
 }
 
-/* Variaciones suaves para diferentes tablas */
+/* Variaciones café y naranja para diferentes tablas */
 .categoria-inventario:nth-child(2) .tabla-inventario th {
-    background: linear-gradient(135deg, var(--cafe-claro), var(--cafe-suave));
+    background: linear-gradient(135deg, var(--cafe-medio), var(--naranja-cafe));
     color: white;
 }
 
 .categoria-inventario:nth-child(3) .tabla-inventario th {
-    background: linear-gradient(135deg, var(--cafe-suave), var(--beige-medio));
+    background: linear-gradient(135deg, var(--naranja-cafe), var(--cafe-claro));
     color: white;
 }
 
 .categoria-inventario:nth-child(4) .tabla-inventario th {
-    background: linear-gradient(135deg, var(--beige-medio), var(--beige-claro));
+    background: linear-gradient(135deg, var(--cafe-claro), var(--cafe-suave));
     color: white;
 }
 
@@ -463,19 +479,21 @@
 }
 
 .tabla-inventario tr:hover {
-    background: rgba(157, 132, 113, 0.1);
+    background: rgba(139, 69, 19, 0.12);
+    transform: scale(1.01);
+    box-shadow: 0 2px 8px rgba(139, 69, 19, 0.1);
 }
 
 .categoria-inventario:nth-child(2) .tabla-inventario tr:hover {
-    background: rgba(199, 178, 153, 0.1);
+    background: rgba(255, 140, 0, 0.12);
 }
 
 .categoria-inventario:nth-child(3) .tabla-inventario tr:hover {
-    background: rgba(212, 196, 168, 0.1);
+    background: rgba(205, 133, 63, 0.12);
 }
 
 .categoria-inventario:nth-child(4) .tabla-inventario tr:hover {
-    background: rgba(232, 220, 198, 0.15);
+    background: rgba(210, 180, 140, 0.15);
 }
 
 .nombre-producto {
@@ -521,7 +539,7 @@
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
-/* Estados de stock */
+/* Estados de stock con colores café y naranja */
 .estado-stock {
     padding: 10px 14px;
     border-radius: 20px;
@@ -534,30 +552,31 @@
     justify-content: center;
     min-height: 24px;
     line-height: 1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .estado-stock.agotado {
-    background-color: var(--inventario-danger);
+    background: linear-gradient(135deg, var(--inventario-danger), #D2691E);
     color: white;
 }
 
 .estado-stock.critico {
-    background-color: #ff6b6b;
+    background: linear-gradient(135deg, #CD853F, #A0522D);
     color: white;
 }
 
 .estado-stock.bajo {
-    background-color: var(--inventario-warning);
+    background: linear-gradient(135deg, var(--naranja-cafe), #DAA520);
     color: white;
 }
 
 .estado-stock.optimo {
-    background-color: var(--inventario-success);
+    background: linear-gradient(135deg, var(--inventario-success), #228B22);
     color: white;
 }
 
 .estado-stock.alto {
-    background-color: var(--inventario-info);
+    background: linear-gradient(135deg, var(--inventario-info), #4682B4);
     color: white;
 }
 
