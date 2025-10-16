@@ -443,24 +443,17 @@ class SistemaRegistro {
             return;
         }
 
-        // Llenar el formulario con los datos del cliente
+        // Establecer modo edición
         this.clienteEditando = clienteId;
+        
+        // Llenar el formulario con los datos del cliente
         this.llenarFormularioEdicion(cliente);
         
-        // Cambiar el título y botón del formulario
-        const titulo = document.querySelector('.form-title');
-        const btnSubmit = document.querySelector('button[type="submit"]');
-        const btnCancelar = document.getElementById('btn-cancelar-edicion');
-        
-        if (titulo) titulo.textContent = '✏️ Editando Cliente';
-        if (btnSubmit) btnSubmit.innerHTML = '<span class="btn-icon">💾</span> Actualizar Cliente';
-        if (btnCancelar) {
-            btnCancelar.style.display = 'inline-flex';
-            btnCancelar.addEventListener('click', () => this.cancelarEdicion());
-        }
+        // Cambiar la interfaz para modo edición
+        this.activarModoEdicion(cliente);
         
         // Scroll al formulario para que el usuario vea que está en modo edición
-        const formulario = document.querySelector('.registration-form');
+        const formulario = document.querySelector('.registro-form');
         if (formulario) {
             formulario.scrollIntoView({ 
                 behavior: 'smooth', 
@@ -468,12 +461,57 @@ class SistemaRegistro {
             });
         }
         
+        // Cerrar panel de búsqueda para mejor enfoque
+        const busquedaContainer = document.getElementById('busqueda-container');
+        if (busquedaContainer) {
+            busquedaContainer.style.display = 'none';
+        }
+        
         this.mostrarMensaje(`✏️ Editando cliente: ${cliente.nombres} ${cliente.apellidos}`, 'info');
+    }
+
+    activarModoEdicion(cliente) {
+        // Cambiar el título del formulario
+        const titulo = document.querySelector('.form-title');
+        if (titulo) {
+            titulo.innerHTML = `
+                <span class="form-icon">✏️</span>
+                Editando Cliente: ${cliente.nombres} ${cliente.apellidos}
+            `;
+        }
+
+        // Cambiar el texto del botón de submit
+        const btnSubmit = document.querySelector('button[type="submit"]');
+        if (btnSubmit) {
+            btnSubmit.innerHTML = '<span class="btn-icon">💾</span> Actualizar Cliente';
+            btnSubmit.classList.add('btn-edit-mode');
+        }
+
+        // Mostrar el botón de cancelar edición
+        const btnCancelar = document.getElementById('btn-cancelar-edicion');
+        if (btnCancelar) {
+            btnCancelar.style.display = 'inline-flex';
+            // Asegurar que el evento esté configurado
+            btnCancelar.onclick = () => this.cancelarEdicion();
+        }
+
+        // Cambiar la descripción del formulario
+        const descripcion = document.querySelector('.form-description');
+        if (descripcion) {
+            descripcion.textContent = 'Modifique los datos que desee actualizar y presione "Actualizar Cliente"';
+        }
+
+        // Agregar clase CSS para modo edición al formulario
+        const formulario = document.getElementById('registro-clientes');
+        if (formulario) {
+            formulario.classList.add('modo-edicion');
+        }
     }
 
     llenarFormularioEdicion(cliente) {
         console.log('Llenando formulario con datos:', cliente);
         
+        // Mapeo más preciso de campos
         const campos = {
             'id_cliente': cliente.id_cliente,
             'numero_documento': cliente.numero_documento,
@@ -488,15 +526,10 @@ class SistemaRegistro {
             'ciudad': cliente.ciudad,
             'barrio': cliente.barrio,
             'direccion_completa': cliente.direccion_completa,
-            'rol_institucion': cliente.rol_institucion,
-            'programa_academico': cliente.programa_academico,
-            'semestre_actual': cliente.semestre_actual,
-            'jornada': cliente.jornada,
-            'numero_estudiante': cliente.numero_estudiante,
-            'departamento': cliente.departamento,
-            'tipo_vinculacion': cliente.tipo_vinculacion
+            'rol_institucion': cliente.rol_institucion
         };
 
+        // Llenar campos básicos
         for (const [campo, valor] of Object.entries(campos)) {
             const elemento = document.getElementById(campo);
             if (elemento) {
@@ -507,7 +540,47 @@ class SistemaRegistro {
             }
         }
 
+        // Manejar campos específicos de estudiante
+        if (cliente.rol_institucion === 'estudiante') {
+            const camposEstudiante = {
+                'programa_academico': cliente.programa_academico,
+                'semestre_actual': cliente.semestre_actual,
+                'jornada': cliente.jornada,
+                'numero_estudiante': cliente.numero_estudiante
+            };
+
+            for (const [campo, valor] of Object.entries(camposEstudiante)) {
+                const elemento = document.getElementById(campo);
+                if (elemento) {
+                    elemento.value = valor || '';
+                }
+            }
+        }
+
+        // Manejar campos específicos de profesor
+        if (cliente.rol_institucion === 'profesor') {
+            const camposProfesor = {
+                'departamento': cliente.departamento,
+                'tipo_vinculacion': cliente.tipo_vinculacion
+            };
+
+            for (const [campo, valor] of Object.entries(camposProfesor)) {
+                const elemento = document.getElementById(campo);
+                if (elemento) {
+                    elemento.value = valor || '';
+                }
+            }
+        }
+
+        // Mostrar campos condicionales según el rol
+        this.manejarCambioRol(cliente.rol_institucion);
+
         // Manejar checkboxes para descuentos
+        // Primero limpiar todos los checkboxes de descuentos
+        document.querySelectorAll('input[name="descuentos[]"]').forEach(checkbox => {
+            checkbox.checked = false;
+        });
+        
         if (cliente.descuentos && Array.isArray(cliente.descuentos)) {
             cliente.descuentos.forEach(descuento => {
                 const checkbox = document.querySelector(`input[name="descuentos[]"][value="${descuento}"]`);
@@ -516,6 +589,11 @@ class SistemaRegistro {
         }
 
         // Manejar checkboxes para notificaciones
+        // Primero limpiar todos los checkboxes de notificaciones
+        document.querySelectorAll('input[name="notificaciones[]"]').forEach(checkbox => {
+            checkbox.checked = false;
+        });
+        
         if (cliente.notificaciones && Array.isArray(cliente.notificaciones)) {
             cliente.notificaciones.forEach(notificacion => {
                 const checkbox = document.querySelector(`input[name="notificaciones[]"][value="${notificacion}"]`);
@@ -524,11 +602,13 @@ class SistemaRegistro {
         }
 
         // Manejar checkboxes de términos
-        const terminosCheckbox = document.getElementById('acepta_terminos');
-        if (terminosCheckbox) terminosCheckbox.checked = cliente.acepta_terminos || false;
+        const terminosCheckbox = document.querySelector('input[name="acepta_terminos"]');
+        if (terminosCheckbox) terminosCheckbox.checked = cliente.acepta_terminos || true;
 
-        const comunicacionesCheckbox = document.getElementById('acepta_comunicaciones');
+        const comunicacionesCheckbox = document.querySelector('input[name="acepta_comunicaciones"]');
         if (comunicacionesCheckbox) comunicacionesCheckbox.checked = cliente.acepta_comunicaciones || false;
+
+        console.log('Formulario llenado completamente');
     }
 
     eliminarCliente(clienteId) {
@@ -857,7 +937,8 @@ class SistemaRegistro {
             }
 
             // Recopilar datos del formulario
-            const datosCliente = this.recopilarDatosFormulario();
+            const tipoFormulario = this.clienteEditando ? 'edicion' : 'registro';
+            const datosCliente = this.recopilarDatosFormulario(tipoFormulario);
 
             if (this.clienteEditando) {
                 // Modo edición
@@ -895,39 +976,77 @@ class SistemaRegistro {
             throw new Error('Cliente no encontrado');
         }
 
+        console.log('Actualizando cliente:', clienteId);
+        console.log('Datos nuevos:', datosCliente);
+        console.log('Datos existentes:', clienteExistente);
+
         // Validar unicidad solo si cambió el documento o email
         if (datosCliente.numero_documento !== clienteExistente.numero_documento) {
-            if (!await this.validarDocumentoUnico(datosCliente.numero_documento)) {
+            const documentoExiste = Object.values(this.clientes).some(cliente => 
+                cliente.numero_documento === datosCliente.numero_documento && cliente.id_cliente !== clienteId
+            );
+            
+            if (documentoExiste) {
+                this.mostrarMensaje('Este número de documento ya está registrado por otro cliente', 'error');
                 return false;
             }
         }
 
         if (datosCliente.correo_electronico !== clienteExistente.correo_electronico) {
-            if (!await this.validarCorreoUnico(datosCliente.correo_electronico)) {
+            const correoExiste = Object.values(this.clientes).some(cliente => 
+                cliente.correo_electronico === datosCliente.correo_electronico && cliente.id_cliente !== clienteId
+            );
+            
+            if (correoExiste) {
+                this.mostrarMensaje('Este correo electrónico ya está registrado por otro cliente', 'error');
                 return false;
             }
         }
 
-        // Actualizar datos manteniendo información existente
+        // Actualizar datos manteniendo información importante existente
         const clienteActualizado = {
             ...clienteExistente,
+            // Datos básicos
             numero_documento: datosCliente.numero_documento,
             tipo_documento: datosCliente.tipo_documento,
             nombres: datosCliente.nombres,
             apellidos: datosCliente.apellidos,
             fecha_nacimiento: datosCliente.fecha_nacimiento,
+            genero: datosCliente.genero,
+            // Contacto
             correo_electronico: datosCliente.correo_electronico,
             telefono_principal: datosCliente.telefono_principal,
+            telefono_secundario: datosCliente.telefono_secundario,
+            ciudad: datosCliente.ciudad,
+            barrio: datosCliente.barrio,
+            direccion_completa: datosCliente.direccion_completa,
+            // Información académica
             rol_institucion: datosCliente.rol_institucion,
-            programa_academico: datosCliente.programa_academico || '',
-            semestre_actual: datosCliente.semestre_actual || '',
-            fecha_actualizacion: new Date().toISOString()
+            programa_academico: datosCliente.programa_academico || null,
+            semestre_actual: datosCliente.semestre_actual || null,
+            jornada: datosCliente.jornada || null,
+            numero_estudiante: datosCliente.numero_estudiante || null,
+            departamento: datosCliente.departamento || null,
+            tipo_vinculacion: datosCliente.tipo_vinculacion || null,
+            // Beneficios y preferencias
+            descuentos: datosCliente.descuentos || [],
+            notificaciones: datosCliente.notificaciones || [],
+            acepta_terminos: datosCliente.acepta_terminos,
+            acepta_comunicaciones: datosCliente.acepta_comunicaciones,
+            // Mantener datos históricos
+            fecha_registro: clienteExistente.fecha_registro,
+            fecha_actualizacion: new Date().toISOString(),
+            activo: clienteExistente.activo !== undefined ? clienteExistente.activo : true,
+            esVip: clienteExistente.esVip || false,
+            puntos: clienteExistente.puntos || 0
         };
+
+        console.log('Cliente actualizado:', clienteActualizado);
 
         this.clientes[clienteId] = clienteActualizado;
         this.guardarClientes();
 
-        this.mostrarMensaje(`Cliente "${clienteActualizado.nombres} ${clienteActualizado.apellidos}" actualizado correctamente`, 'exito');
+        this.mostrarMensaje(`✅ Cliente "${clienteActualizado.nombres} ${clienteActualizado.apellidos}" actualizado correctamente`, 'exito');
         
         // Actualizar resultados de búsqueda si están visibles
         const inputBuscar = document.getElementById('buscar-cliente');
@@ -941,20 +1060,50 @@ class SistemaRegistro {
     cancelarEdicion() {
         this.clienteEditando = null;
         
-        // Restaurar título y botón del formulario
-        const titulo = document.querySelector('.form-title');
-        const btnSubmit = document.querySelector('button[type="submit"]');
-        const btnCancelar = document.getElementById('btn-cancelar-edicion');
-        
-        if (titulo) titulo.textContent = '📝 Registro de Cliente';
-        if (btnSubmit) btnSubmit.innerHTML = '<span class="btn-icon">✅</span> Registrar Cliente';
-        if (btnCancelar) btnCancelar.style.display = 'none';
+        // Restaurar el modo normal del formulario
+        this.restaurarModoNormal();
         
         // Limpiar formulario
         this.limpiarFormulario();
         this.generarIdCliente();
         
         this.mostrarMensaje('Edición cancelada', 'info');
+    }
+
+    restaurarModoNormal() {
+        // Restaurar título del formulario
+        const titulo = document.querySelector('.form-title');
+        if (titulo) {
+            titulo.innerHTML = `
+                <span class="form-icon">👤</span>
+                Registro de Nuevos Clientes
+            `;
+        }
+
+        // Restaurar texto del botón de submit
+        const btnSubmit = document.querySelector('button[type="submit"]');
+        if (btnSubmit) {
+            btnSubmit.innerHTML = '<span class="btn-icon">✅</span> Registrar Cliente';
+            btnSubmit.classList.remove('btn-edit-mode');
+        }
+
+        // Ocultar el botón de cancelar edición
+        const btnCancelar = document.getElementById('btn-cancelar-edicion');
+        if (btnCancelar) {
+            btnCancelar.style.display = 'none';
+        }
+
+        // Restaurar la descripción del formulario
+        const descripcion = document.querySelector('.form-description');
+        if (descripcion) {
+            descripcion.textContent = 'Complete el formulario para obtener su cuenta de cliente';
+        }
+
+        // Remover clase CSS de modo edición
+        const formulario = document.getElementById('registro-clientes');
+        if (formulario) {
+            formulario.classList.remove('modo-edicion');
+        }
     }
 
     async validarFormularioCompleto() {
@@ -995,40 +1144,68 @@ class SistemaRegistro {
         return esValido;
     }
 
-    recopilarDatosFormulario() {
+    recopilarDatosFormulario(tipoFormulario = 'registro') {
+        console.log('Recopilando datos del formulario, tipo:', tipoFormulario);
+        
         const formulario = document.getElementById('registro-clientes');
+        if (!formulario) {
+            console.error('Formulario no encontrado');
+            return null;
+        }
+
         const formData = new FormData(formulario);
         
+        // Obtener datos básicos
         const datos = {
-            id_cliente: document.getElementById('id_cliente').value,
-            nombres: formData.get('nombres'),
-            apellidos: formData.get('apellidos'),
-            tipo_documento: formData.get('tipo_documento'),
-            numero_documento: formData.get('numero_documento'),
-            fecha_nacimiento: formData.get('fecha_nacimiento'),
-            genero: formData.get('genero'),
-            telefono_principal: formData.get('telefono_principal'),
-            telefono_secundario: formData.get('telefono_secundario') || null,
-            correo_electronico: formData.get('correo_electronico').toLowerCase(),
-            ciudad: formData.get('ciudad'),
-            barrio: formData.get('barrio') || null,
-            direccion_completa: formData.get('direccion_completa') || null,
-            rol_institucion: formData.get('rol_institucion'),
-            programa_academico: formData.get('programa_academico') || null,
+            nombres: formData.get('nombres')?.trim() || '',
+            apellidos: formData.get('apellidos')?.trim() || '',
+            tipo_documento: formData.get('tipo_documento') || 'CC',
+            numero_documento: formData.get('numero_documento')?.trim() || '',
+            fecha_nacimiento: formData.get('fecha_nacimiento') || '',
+            genero: formData.get('genero') || '',
+            telefono_principal: formData.get('telefono_principal')?.trim() || '',
+            telefono_secundario: formData.get('telefono_secundario')?.trim() || null,
+            correo_electronico: formData.get('correo_electronico')?.toLowerCase()?.trim() || '',
+            ciudad: formData.get('ciudad')?.trim() || '',
+            barrio: formData.get('barrio')?.trim() || null,
+            direccion_completa: formData.get('direccion_completa')?.trim() || null,
+            rol_institucion: formData.get('rol_institucion') || 'estudiante',
+            programa_academico: formData.get('programa_academico')?.trim() || null,
             semestre_actual: formData.get('semestre_actual') || null,
             jornada: formData.get('jornada') || null,
-            numero_estudiante: formData.get('numero_estudiante') || null,
-            departamento: formData.get('departamento') || null,
+            numero_estudiante: formData.get('numero_estudiante')?.trim() || null,
+            departamento: formData.get('departamento')?.trim() || null,
             tipo_vinculacion: formData.get('tipo_vinculacion') || null,
-            descuentos: formData.getAll('descuentos[]'),
-            notificaciones: formData.getAll('notificaciones[]'),
+            descuentos: formData.getAll('descuentos[]') || [],
+            notificaciones: formData.getAll('notificaciones[]') || [],
             acepta_terminos: formData.get('acepta_terminos') === 'on',
-            acepta_comunicaciones: formData.get('acepta_comunicaciones') === 'on',
-            fecha_registro: new Date().toISOString(),
-            estado: 'activo',
-            activo: true,
-            esVip: false
+            acepta_comunicaciones: formData.get('acepta_comunicaciones') === 'on'
         };
+
+        // Campos específicos para registro nuevo
+        if (tipoFormulario === 'registro') {
+            datos.id_cliente = document.getElementById('id_cliente')?.value || '';
+            datos.fecha_registro = new Date().toISOString();
+            datos.estado = 'activo';
+            datos.activo = true;
+            datos.esVip = false;
+            datos.puntos = 0;
+        }
+
+        console.log('Datos recopilados:', datos);
+        
+        // Validación básica
+        if (!datos.numero_documento || !datos.nombres || !datos.apellidos || !datos.correo_electronico) {
+            console.warn('Faltan campos obligatorios');
+            this.mostrarMensaje('Por favor complete todos los campos obligatorios marcados con *', 'error');
+            return null;
+        }
+
+        // Para registro nuevo, los términos son obligatorios
+        if (tipoFormulario === 'registro' && !datos.acepta_terminos) {
+            this.mostrarMensaje('Debe aceptar los términos y condiciones para continuar', 'error');
+            return null;
+        }
 
         return datos;
     }
